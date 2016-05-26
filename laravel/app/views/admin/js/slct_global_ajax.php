@@ -35,11 +35,7 @@ var slctGlobal={
             },
             error: function(){
                 //$(".overlay,.loading-img").remove();
-                $("#msj").html('<div class="alert alert-dismissable alert-danger">'+
-                                        '<i class="fa fa-ban"></i>'+
-                                        '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>'+
-                                        '<b><?php echo trans("greetings.mensaje_error"); ?></b>'+
-                                    '</div>');
+                msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
             }
         });
     },
@@ -65,11 +61,7 @@ var slctGlobal={
             },
             error: function(){
                 //$(".overlay,.loading-img").remove();
-                $("#msj").html('<div class="alert alert-dismissable alert-danger">'+
-                                        '<i class="fa fa-ban"></i>'+
-                                        '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>'+
-                                        '<b><?php echo trans("greetings.mensaje_error"); ?></b>'+
-                                    '</div>');
+                msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
             }
         });
     }

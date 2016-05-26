@@ -1,13 +1,11 @@
 <script type="text/javascript">
-var cargo_id, menus_selec=[], CargoObj;
-var Cargos={
-    AgregarEditarCargo:function(AE){
-        $("#form_cargos input[name='menus_selec']").remove();
-        $("#form_cargos").append("<input type='hidden' value='"+menus_selec+"' name='menus_selec'>");
-        var datos=$("#form_cargos").serialize().split("txt_").join("").split("slct_").join("");
-        var accion="cargo/crear";
+var persona_id, cargos_selec=[], PersonaObj;
+var Persona={
+    AgregarEditarPersona:function(AE){
+        var datos=$("#form_personas").serialize().split("txt_").join("").split("slct_").join("");
+        var accion="persona/crear";
         if(AE==1){
-            accion="cargo/editar";
+            accion="persona/editar";
         }
 
         $.ajax({
@@ -22,11 +20,12 @@ var Cargos={
             success : function(obj) {
                 $(".overlay,.loading-img").remove();
                 if(obj.rst==1){
-                    $('#t_cargos').dataTable().fnDestroy();
+                    $('#t_personas').dataTable().fnDestroy();
 
-                    Cargos.CargarCargos(activarTabla);
+                    Persona.CargarPersonas(activarTabla);
                     msjG.mensaje("success",obj.msj,5000);
-                    $('#cargoModal .modal-footer [data-dismiss="modal"]').click();
+                    $('#personaModal .modal-footer [data-dismiss="modal"]').click();
+                    cargos_selec=[];
                 }
                 else{ 
                     $.each(obj.msj,function(index,datos){
@@ -41,20 +40,20 @@ var Cargos={
             }
         });
     },
-    CargarCargos:function(evento){
+    CargarPersonas:function(evento){
         $.ajax({
-            url         : 'cargo/cargar',
+            url         : 'persona/cargar',
             type        : 'POST',
             cache       : false,
             dataType    : 'json',
             beforeSend : function() {
                 $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
-                slctGlobal.listarSlct('menu','slct_menus','simple');//para que cargue antes el menu
+                slctGlobal.listarSlct('cargo','slct_cargos','simple');//para que cargue antes el cargo
             },
             success : function(obj) {
                 if(obj.rst==1){
-                    HTMLCargarCargo(obj.datos);
-                    CargoObj=obj.datos;
+                    HTMLCargarPersona(obj.datos);
+                    PersonaObj=obj.datos;
                 }
                 $(".overlay,.loading-img").remove();
             },
@@ -64,54 +63,44 @@ var Cargos={
             }
         });
     },
-    CargarOpciones:function(cargo_id){
+    CargarCargos:function(persona_id){
         //getOpciones
         $.ajax({
-            url         : 'cargo/cargaropciones',
+            url         : 'persona/cargarcargos',
             type        : 'POST',
             cache       : false,
             dataType    : 'json',
-            data        : {cargo_id:cargo_id},
+            data        : {persona_id:persona_id},
             async       : false,
             beforeSend : function() {
                 
             },
             success : function(obj) {
-                //CARGAR opciones
-                if(obj.datos[0].DATA !== null){
-                    var menus = obj.datos[0].DATA.split("|"); 
+                //CARGAR areas
+                var html="";
+                $.each(obj.datos,function(index,data){
+                    html+="<li class='list-group-item'><div class='row'>";
+                    html+="<div class='col-sm-4' id='cargo_"+data.id+"'><input type='hidden' value='"+data.id+"' name='cargos_selec[]' ><h5>"+$("#slct_cargos option[value=" +data.id +"]").text()+"</h5></div>";
+                    
+                    html+='<div class="col-sm-2">';
+                    html+='<button type="button" id="'+data.id+'" Onclick="EliminarArea(this)" class="btn btn-danger btn-sm" >';
+                    html+='<i class="fa fa-minus fa-sm"></i> </button></div>';
+                    html+="</div></li>";
+                    cargos_selec.push(data.id);
+                });
 
-                    var html="";
-
-                    $.each(menus, function(i,opcion){
-                        var data = opcion.split("-");
-
-                        html+="<li class='list-group-item'><div class='row'>";
-                        html+="<div class='col-sm-4' id='menu_"+data[0]+"'><h5>"+$("#slct_menus option[value=" +data[0] +"]").text()+"</h5></div>";
-                        var opciones = data[1].split(",");
-                        html+="<div class='col-sm-6'><select class='form-control' multiple='multiple' name='slct_opciones"+data[0]+"[]' id='slct_opciones"+data[0]+"'></select></div>";
-                        var envio = {menu_id: data[0]};
-                        slctGlobal.listarSlct('opcion','slct_opciones'+data[0],'multiple',opciones,envio);
-
-                        html+='<div class="col-sm-2">';
-                        html+='<button type="button" id="'+data[0]+'" Onclick="EliminarOpcion(this)" class="btn btn-danger btn-sm" >';
-                        html+='<i class="fa fa-minus fa-sm"></i> </button></div>';
-                        html+="</div></li>";
-                        menus_selec.push(data[0]);
-                    });
-                    $("#t_opcionCargo").html(html); 
-                }
+                $("#t_cargoPersona").html(html);
             },
             error: function(){
             }
         });
     },
-    CambiarEstadoCargos:function(id,AD){
-        $("#form_cargos").append("<input type='hidden' value='"+id+"' name='id'>");
-        $("#form_cargos").append("<input type='hidden' value='"+AD+"' name='estado'>");
-        var datos=$("#form_cargos").serialize().split("txt_").join("").split("slct_").join("");
+    CambiarEstadoPersonas:function(id,AD){
+        $("#form_personas").append("<input type='hidden' value='"+id+"' name='id'>");
+        $("#form_personas").append("<input type='hidden' value='"+AD+"' name='estado'>");
+        var datos=$("#form_personas").serialize().split("txt_").join("").split("slct_").join("");
         $.ajax({
-            url         : 'cargo/cambiarestado',
+            url         : 'persona/cambiarestado',
             type        : 'POST',
             cache       : false,
             dataType    : 'json',
@@ -122,10 +111,10 @@ var Cargos={
             success : function(obj) {
                 $(".overlay,.loading-img").remove();
                 if(obj.rst==1){
-                    $('#t_cargos').dataTable().fnDestroy();
-                    Cargos.CargarCargos(activarTabla);
+                    $('#t_personas').dataTable().fnDestroy();
+                    Persona.CargarPersonas(activarTabla);
                     msjG.mensaje("success",obj.msj,5000);
-                    $('#cargoModal .modal-footer [data-dismiss="modal"]').click();
+                    $('#personaModal .modal-footer [data-dismiss="modal"]').click();
                 }
                 else{ 
                     $.each(obj.msj,function(index,datos){
@@ -139,6 +128,7 @@ var Cargos={
                 msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
             }
         });
-    }
+
+    },
 };
 </script>

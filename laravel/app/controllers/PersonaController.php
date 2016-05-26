@@ -56,11 +56,11 @@ class PersonaController extends BaseController
      *
      * @return Response
      */
-    public function postCargarareas()
+    public function postCargarcargos()
     {
         $personaId = Input::get('persona_id');
-        $areas = Persona::getAreas($personaId);
-        return Response::json(array('rst'=>1,'datos'=>$areas));
+        $r = Persona::getCargos($personaId);
+        return Response::json(array('rst'=>1,'datos'=>$r));
     }
     /**
      * Store a newly created resource in storage.
@@ -127,73 +127,21 @@ class PersonaController extends BaseController
                 );
             }
 
-            if (Input::has('cargos_selec')) {
-                $cargos=Input::get('cargos_selec');
-                $cargos = explode(',', $cargos);
-                if (is_array($cargos)) {
-                    for ($i=0; $i<count($cargos); $i++) {
-                        $cargoId = $cargos[$i];
-                        $cargo = Cargo::find($cargoId);
-                        $persona->cargos()->save($cargo, 
-                            array(
-                                'estado' => 1,
-                                'usuario_created_at' => Auth::user()->id
-                                )
-                            );
-                        $areas = Input::get('areas'.$cargoId);
-
-                        //busco el id
-                        $cargoPersona = DB::table('cargo_persona')
-                                        ->where('persona_id', '=', $personaId)
-                                        ->where('cargo_id', '=', $cargoId)
-                                        ->first();
-
-                        for ($j=0; $j<count($areas); $j++) {
-                            //recorrer las areas y buscar si exten
-                            $areaId = $areas[$j];
-                            DB::table('area_cargo_persona')->insert(
-                                array(
-                                    'area_id' => $areaId,
-                                    'cargo_persona_id' => $cargoPersona->id,
-                                    'estado' => 1,
-                                    'usuario_created_at' => Auth::user()->id
-                                )
-                            );
-                        }
-                    }
-                } else {
-                    $cargoId = $cargos;
-                    $cargo = Cargo::find($cargoId);
-                    $persona->cargos()->save($cargo, 
+            if ( Input::has('cargos_selec') ){
+                $cs=Input::get('cargos_selec');
+                for( $i=0; $i<count($cs); $i++ ){
+                    DB::table('cargo_persona')->insert(
                         array(
                             'estado' => 1,
-                            'usuario_created_at' => Auth::user()->id
-                            )
-                        );
-                    $areas = Input::get('areas'.$cargoId);
-
-                    //busco el id
-                    $cargoPersona = DB::table('cargo_persona')
-                                    ->where('persona_id', '=', $personaId)
-                                    ->where('cargo_id', '=', $cargoId)
-                                    ->first();
-
-                    for ($j=0; $j<count($areas); $j++) {
-                        //recorrer las areas y buscar si exten
-                        $areaId = $areas[$j];
-
-                        DB::table('area_cargo_persona')->insert(
-                            array(
-                                'area_id' => $areaId,
-                                'cargo_persona_id' => $cargoPersona->id,
-                                'estado' => 1,
-                                'usuario_created_at' => Auth::user()->id
-                            )
-                        );
-                        
-                    }
+                            'persona_id'=> $personaId,
+                            'cargo_id' => $cs[$i],
+                            'usuario_created_at' =>Auth::user()->id, 
+                            'created_at' => date("Y-m-d H:i:s")
+                        )
+                    );
                 }
             }
+
             return Response::json(
                 array(
                 'rst'=>1,
@@ -246,8 +194,6 @@ class PersonaController extends BaseController
             $persona['email'] = Input::get('email');
             $persona['dni'] = Input::get('dni');
             $persona['sexo'] = Input::get('sexo');
-            $persona['area_id'] = Input::get('area');
-            $persona['rol_id'] = Input::get('rol');
             if (Input::get('password')<>'') 
                 $persona['password'] = Hash::make(Input::get('password'));
             if (Input::get('fecha_nac')<>'') 
@@ -256,7 +202,6 @@ class PersonaController extends BaseController
             $persona['usuario_updated_at'] = Auth::user()->id;
             $persona->save();
             
-            $cargos = Input::get('cargos_selec');
             $estado = Input::get('estado');
 
             DB::table('cargo_persona')
@@ -271,89 +216,39 @@ class PersonaController extends BaseController
                     )
                 );
             }
-            
-            if ($cargos) {//si selecciono algun cargo
-                $cargos = explode(',', $cargos);
-                $areas=array();
 
-                //recorrer os cargos y verificar si existen
-                for ($i=0; $i<count($cargos); $i++) {
-                    $cargoId = $cargos[$i];
-                    $cargo = Cargo::find($cargoId);
-                    $cargoPersona = DB::table('cargo_persona')
-                                    ->where('persona_id', '=', $personaId)
-                                    ->where('cargo_id', '=', $cargoId)
-                                    ->first();
-                    $fechIng = '';
-                    $fechaRet = '';
-                    if (is_null($cargoPersona)) {
-                        $persona->cargos()->save(
-                            $cargo,
-                            array(
-                                'estado'=>1,
-                                'usuario_created_at' => Auth::user()->id/*,
-                                'fecha_ingreso'=>$fechIng,
-                                'fecha_retiro'=>$fechaRet*/
-                            )
-                        );
-                    } else {
+            if ( Input::has('cargos_selec') ){
+                $cs=Input::get('cargos_selec');
+                for( $i=0; $i<count($cs); $i++ ){
+                    $if= DB::table('cargo_persona')
+                        ->where('persona_id', $personaId )
+                        ->where('cargo_id', $cs[$i] )
+                        ->get();
+                    if( count($if)>0 ){
                         DB::table('cargo_persona')
-                            ->where('persona_id', '=', $personaId)
-                            ->where('cargo_id', '=', $cargoId)
-                            ->update(
-                                array(
+                        ->where('persona_id', $personaId )
+                        ->where('cargo_id', $cs[$i] )
+                        ->update( array(
                                     'estado'=>1,
-                                    'usuario_updated_at' => Auth::user()->id/*,
-                                    'fecha_ingreso'=>$fechIng,
-                                    'fecha_retiro'=>$fechaRet*/
-                                )
-                            );
+                                    'usuario_updated_at'=>Auth::user()->id, 
+                                    'updated_at'=>date("Y-m-d H:i:s") 
+                                    ) 
+                        );
                     }
-                    //busco el id
-                    $cargoPersona = DB::table('cargo_persona')
-                                    ->where('persona_id', '=', $personaId)
-                                    ->where('cargo_id', '=', $cargoId)
-                                    ->first();
-                    DB::table('area_cargo_persona')
-                            //->where('area_id', '=', $areaId)
-                            ->where('cargo_persona_id', '=', $cargoPersona->id)
-                            ->update(
+                    else{
+                        DB::table('cargo_persona')->insert(
                                 array(
-                                    'estado' => 0,
-                                    'usuario_updated_at' => Auth::user()->id
-                                    )
-                                );
-                    //almacenar las areas seleccionadas
-                    $areas = Input::get('areas'.$cargoId);
-                    for ($j=0; $j<count($areas); $j++) {
-                        //recorrer las areas y buscar si exten
-                        $areaId = $areas[$j];
-                        $areaCargoPersona=DB::table('area_cargo_persona')
-                                ->where('area_id', '=', $areaId)
-                                ->where('cargo_persona_id', $cargoPersona->id)
-                                ->first();
-                        if (is_null($areaCargoPersona)) {
-                            DB::table('area_cargo_persona')->insert(
-                                array(
-                                    'area_id' => $areaId,
-                                    'cargo_persona_id' => $cargoPersona->id,
                                     'estado' => 1,
-                                    'usuario_created_at' => Auth::user()->id
+                                    'persona_id'=> $personaId,
+                                    'cargo_id' => $cs[$i],
+                                    'usuario_created_at' =>Auth::user()->id, 
+                                    'created_at' => date("Y-m-d H:i:s")
                                 )
                             );
-                        } else {
-                            DB::table('area_cargo_persona')
-                            ->where('area_id', '=', $areaId)
-                            ->where('cargo_persona_id', '=', $cargoPersona->id)
-                            ->update(
-                                array(
-                                    'estado' => 1,
-                                    'usuario_updated_at' => Auth::user()->id
-                                ));
-                        }
                     }
                 }
             }
+            
             return Response::json(
                 array(
                 'rst'=>1,

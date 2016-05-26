@@ -50,7 +50,6 @@ Route::get(
 );
 */
 Route::controller('check', 'LoginController');
-Route::controller('cargar', 'CargarController');
 
 Route::get(
     '/{ruta}', array('before' => 'auth', function ($ruta) {
