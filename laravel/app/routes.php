@@ -86,3 +86,4 @@ Route::controller('menu', 'MenuController');
 Route::controller('opcion', 'OpcionController');
 Route::controller('persona', 'PersonaController');
 Route::controller('usuario', 'UsuarioController');
+Route::controller('carrera', 'CarreraController');
