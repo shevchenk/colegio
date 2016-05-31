@@ -110,8 +110,6 @@ class PersonaController extends BaseController
             $persona['password'] = Hash::make(Input::get('password'));
             if (Input::get('fecha_nac')<>'') 
             $persona['fecha_nacimiento'] = Input::get('fecha_nac');
-            $persona['area_id'] = Input::get('area');
-            $persona['rol_id'] = Input::get('rol');
             $persona['estado'] = Input::get('estado');
             $persona['usuario_created_at'] = Auth::user()->id;
             $persona->save();
