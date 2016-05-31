@@ -1,5 +1,5 @@
 <?php
-class OpcionController extends BaseController
+class CarreraController extends BaseController
 {
 	public function postCargar()
 	{
