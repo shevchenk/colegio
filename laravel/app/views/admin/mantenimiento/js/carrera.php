@@ -55,4 +55,12 @@ Editar=function(){
 	Carreras.AgregarEditarOpciones(1);
 };
 
+activar=function(id){
+	Carreras.CambiarEstadoOpciones(id,1);
+};
+
+desactivar=function(id){
+	Carreras.CambiarEstadoOpciones(id,0);
+};
+
 </script>

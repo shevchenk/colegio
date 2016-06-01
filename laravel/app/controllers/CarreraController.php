@@ -101,5 +101,21 @@ class CarreraController extends BaseController
 		}
 	}
 
+	public function postCambiarestado()
+	{
+		if ( Request::ajax() ) {
+			$opcion = Carrera::find(Input::get('id'));
+			$opcion->estado = Input::get('estado');
+			$opcion->save();
+			return Response::json(
+				array(
+				'rst'=>1,
+				'msj'=>'Registro actualizado correctamente',
+				)
+			);
+
+		}
+	}
+
 }
 ?>
