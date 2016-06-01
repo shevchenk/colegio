@@ -63,5 +63,5 @@
 @stop
 
 @section('formulario')
-	@include( 'admin.mantenimiento.form.carrera' )
+	
 @stop
