@@ -1,2 +1,7 @@
+/vendor/
+/app/config/
+/composer.json
+/composer.lock
+/nbproject/
 /.idea
 Thumbs.db
