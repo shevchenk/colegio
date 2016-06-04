@@ -25,6 +25,15 @@ EOT;
 		return $oData;
 	}
 
+	public static function getListarcolegio()
+	{
+		$sSql = <<<EOT
+			SELECT id, nombre FROM colegios WHERE estado=1
+EOT;
+		$oData = DB::select($sSql);
+		return $oData;
+	}
+
 	public static function getListarode()
 	{
 		$sSql = <<<EOT

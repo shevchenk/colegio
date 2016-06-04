@@ -85,4 +85,5 @@
 
 @section('formulario')
 	@include( 'admin.mantenimiento.form.colegio' )
+	@include( 'admin.mantenimiento.form.colegio_detalle' )
 @stop

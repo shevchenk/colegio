@@ -68,6 +68,27 @@ $(document).ready(function() {
 		Colegios.cargarSelectAnidado('Distrito', 'colegio/listardistrito', '#slct_distrito_id', 'nuevo',null, id_provincia);
 	});
 
+	$('#detalleModal').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget);
+		var id = button.data('id');
+		var titulo = button.data('titulo');
+		var modal = $(this);
+
+		modal.find('.modal-title').text("Colegio: "+titulo);
+		$('#form_detalle [data-toggle="tooltip"]').css("display","none");
+		$("#form_detalle input[type='hidden']").remove();
+		$("#txt_colegio_id").val(id);
+	});
+
+	$(".btnAgregar").on("click", function() {
+		$('.tblDetalle tbody').append(agregarDetalle);
+	});
+
+	$("#detalleModal").on("click", ".btnQuitar", function() {
+		var id_row = $(this).attr("id_row");
+		$("table.tblDetalle tbody .row_"+id_row).remove();
+	});
+
 });
 
 activarTabla=function(){
@@ -90,4 +111,34 @@ desactivar=function(id){
 	Colegios.CambiarEstadoOpciones(id,0);
 };
 
+agregarDetalle = function(){
+	var oDate = new Date();
+	var nTime = oDate.getSeconds() + "" + oDate.getTime();
+	var sGrado = "<select name='sltGrado[]' class='form-control input-sm'>"+
+					"<option value='1'>1</option>"+
+					"<option value='2'>2</option>"+
+					"<option value='3'>3</option>"+
+					"<option value='4'>4</option>"+
+					"<option value='5'>5</option>"+
+					"<option value='6'>6</option>"+
+				"</select>";
+	var sNivel = "<select name='sltNivel[]' class='form-control input-sm'>"+
+					"<option value='1'>Inicial</option>"+
+					"<option value='2'>Primaria</option>"+
+					"<option value='3'>Secundaria</option>"+
+				"</select>";
+	var sTurno = "<select name='sltTurno[]' class='form-control input-sm'>"+
+					"<option value='1'>Ma&ntilde;ana</option>"+
+					"<option value='2'>Tarde</option>"+
+					"<option value='3'>Noche</option>"+
+				"</select>";
+	var sHtml = "<tr class='row_"+nTime+" filaquitar'>"+
+					"<td>"+sGrado+"</td>"+
+					"<td><input type='text' name='txtSeccion[]' class='form-control input-sm' /></td>"+
+					"<td>"+sNivel+"</td>"+
+					"<td>"+sTurno+"</td>"+
+					"<td><a class='btn btn-danger btn-xs btnQuitar' id_row='"+nTime+"'><i class='fa fa-times fa-1x'></i></a></td>"+
+				"</tr>";
+	return sHtml;
+}
 </script>

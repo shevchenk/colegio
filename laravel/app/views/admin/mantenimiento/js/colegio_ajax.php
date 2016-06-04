@@ -34,7 +34,10 @@ var Colegios = {
 							"<td id='telefono_"+data.id+"'>"+data.telefono+"</td>"+
 							"<td id='celular_"+data.id+"'>"+data.celular+"</td>"+
 							"<td id='estado_"+data.id+"' data-estado='"+data.estado+"'>"+sEstado+"</td>"+
-							'<td><a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#colegioModal" data-id="'+data.id+'" data-titulo="Editar"><i class="fa fa-edit fa-lg"></i> </a></td>';
+							'<td>'+
+								'<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#colegioModal" data-id="'+data.id+'" data-titulo="Editar"><i class="fa fa-edit fa-lg"></i></a>'+
+								'<a class="btn btn-info btn-xs" data-toggle="modal" data-target="#detalleModal" data-id="'+data.id+'" data-titulo="'+data.nombre+'">Detalle <i class="fa fa-share fa-1x"></i></a>'+
+							'</td>';
 						html+="</tr>";
 
 					});

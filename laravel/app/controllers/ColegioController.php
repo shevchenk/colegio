@@ -11,6 +11,16 @@ class ColegioController extends BaseController
 		}
 	}
 
+	public function postListarcolegio()
+	{
+		if ( Request::ajax() ) {
+			$aData = Colegio::getListarcolegio();
+			$aParametro['rst'] = 1;
+			$aParametro['aData'] = $aData;
+			return Response::json($aParametro);
+		}
+	}
+
 	public function postListarode()
 	{
 		if ( Request::ajax() ) {
