@@ -51,8 +51,9 @@
 									</tr>
 								</tfoot>
 							</table>
-							<a class='btn btn-primary btn-sm' class="btn btn-primary" 
-							data-toggle="modal" data-target="#carreraModal" data-titulo="Nuevo"><i class="fa fa-plus fa-lg"></i>&nbsp;Nuevo</a>
+							<a class='btn btn-primary btn-sm' data-toggle="modal" data-target="#carreraModal" data-titulo="Nuevo">
+								<i class="fa fa-plus fa-lg"></i>&nbsp;Nuevo
+							</a>
 						</div><!-- /.box-body -->
 					</div><!-- /.box -->
 					<!-- Finaliza contenido -->
