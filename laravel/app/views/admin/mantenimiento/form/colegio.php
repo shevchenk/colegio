@@ -12,22 +12,38 @@
 				<form id="form_colegios" name="form_colegios" action="" method="post">
 
 					<div class="form-group">
-						<label class="control-label">Ode:</label>
+						<label class="control-label">Ode
+							<a id="error_ode_id" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ingrese Nombre">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
 						<select class="form-control" name="slct_ode_id" id="slct_ode_id"></select>
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Nombre</label>
+						<label class="control-label">Nombre
+							<a id="error_nombre" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ingrese Nombre">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
 						<input type="text" class="form-control" placeholder="Ingrese Nombre" name="txt_nombre" id="txt_nombre">
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Tipo:</label>
+						<label class="control-label">Tipo
+							<a id="error_colegio_tipo_id" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ingrese Nombre">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
 						<select class="form-control" name="slct_colegio_tipo_id" id="slct_colegio_tipo_id"></select>
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Nivel:</label>
+						<label class="control-label">Nivel
+							<a id="error_colegio_nivel_id" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ingrese Nombre">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
 						<select class="form-control" name="slct_colegio_nivel_id" id="slct_colegio_nivel_id"></select>
 					</div>
 
@@ -42,17 +58,29 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Distrito:</label>
+						<label class="control-label">Distrito
+						<a id="error_distrito_id" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ingrese Nombre">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
 						<select class="form-control" name="slct_distrito_id" id="slct_distrito_id"></select>
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Direcci&oacute;n</label>
+						<label class="control-label">Direcci&oacute;n
+							<a id="error_direccion" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ingrese Nombre">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
 						<input type="text" class="form-control" placeholder="Ingrese Direcci&oacute;n" name="txt_direccion" id="txt_direccion">
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Referencia</label>
+						<label class="control-label">Referencia
+							<a id="error_referencia" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ingrese Nombre">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
 						<input type="text" class="form-control" placeholder="Ingrese Referencia" name="txt_referencia" id="txt_referencia">
 					</div>
 

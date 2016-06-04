@@ -90,10 +90,12 @@ class ColegioController extends BaseController
 			$required='required';
 			$reglas = array(
 				'nombre' => $required.'|'.$regex,
+				'ode_id' => $required,
+				'colegio_tipo_id' => $required,
+				'colegio_nivel_id' => $required,
+				'distrito_id' => $required,
 				'direccion' => $required,
-				'referencia' => $required,
-				'telefono' => $required,
-				'celular' => $required
+				'referencia' => $required
 			);
 
 			$mensaje= array(
@@ -120,7 +122,10 @@ class ColegioController extends BaseController
 			$opciones['distrito_id'] = Input::get('distrito_id');
 			$opciones['direccion'] = Input::get('direccion');
 			$opciones['referencia'] = Input::get('referencia');
-			$opciones['persona_id'] = Input::get('persona_id');
+			if(Input::has('persona_id'))
+			{
+				$opciones['persona_id'] = Input::get('persona_id');
+			}
 			$opciones['telefono'] = Input::get('telefono');
 			$opciones['celular'] = Input::get('celular');
 			$opciones['estado'] = Input::get('estado');
@@ -142,10 +147,12 @@ class ColegioController extends BaseController
 			$required='required';
 			$reglas = array(
 				'nombre' => $required.'|'.$regex,
+				'ode_id' => $required,
+				'colegio_tipo_id' => $required,
+				'colegio_nivel_id' => $required,
+				'distrito_id' => $required,
 				'direccion' => $required,
-				'referencia' => $required,
-				'telefono' => $required,
-				'celular' => $required
+				'referencia' => $required
 			);
 
 			$mensaje= array(
@@ -173,7 +180,10 @@ class ColegioController extends BaseController
 			$opciones['distrito_id'] = Input::get('distrito_id');
 			$opciones['direccion'] = Input::get('direccion');
 			$opciones['referencia'] = Input::get('referencia');
-			$opciones['persona_id'] = Input::get('persona_id');
+			if(Input::has('persona_id'))
+			{
+				$opciones['persona_id'] = Input::get('persona_id');
+			}
 			$opciones['telefono'] = Input::get('telefono');
 			$opciones['celular'] = Input::get('celular');
 			$opciones['estado'] = Input::get('estado');

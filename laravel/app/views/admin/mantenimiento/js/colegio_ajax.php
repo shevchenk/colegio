@@ -55,7 +55,7 @@ var Colegios = {
 					$(sSelector).append('<option value='+row.id+'>'+row.nombre+'</option>');
 				});
 				if (sAccion==='nuevo')
-					$(sSelector).append("<option selected style='display:none;'>--- Seleccionar "+sLista+" ---</option>");
+					$(sSelector).append("<option value='' selected style='display:none;'>--- Seleccionar "+sLista+" ---</option>");
 				else
 					$(sSelector).val(nId);
 			}

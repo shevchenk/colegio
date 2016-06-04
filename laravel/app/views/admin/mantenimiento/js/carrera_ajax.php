@@ -100,7 +100,7 @@ var Carreras = {
 		var datos=$("#form_carreras").serialize().split("txt_").join("").split("slct_").join("");
 		//~ console.log(id);
 		//~ console.log(AD);
-		//~ console.log(datos);
+		console.log(datos);
 		$.ajax({
 			url : 'carrera/cambiarestado',
 			type : 'POST',
