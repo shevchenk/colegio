@@ -88,5 +88,5 @@ Route::controller('persona', 'PersonaController');
 Route::controller('usuario', 'UsuarioController');
 Route::controller('ode', 'OdeController');
 Route::controller('carrera', 'CarreraController');
-Route::controller('distrito', 'DistritoController');
+//Route::controller('distrito', 'DistritoController');
 
