@@ -37,13 +37,13 @@
                 <div class="col-sm-12">
                     <div class="col-sm-4">
                         <label class="control-label">Ode:</label>
-                        <select class="form-control" name="slct_ode" id="slct_ode" onChange="Cargar('cam',this.value);"></select>
+                        <select class="form-control" name="slct_ode" id="slct_ode" onChange="Cargar('dis',this.value);"></select>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="col-sm-4">
-                        <label class="control-label">Campaña:</label>
-                        <select class="form-control" name="slct_campaña" id="slct_campaña" onChange="Cargar('col',this.value);">
+                        <label class="control-label">Distrito:</label>
+                        <select class="form-control" name="slct_distrito" id="slct_distrito" onChange="Cargar('col',this.value);">
                             <option>.::Seleccione::.</option>
                         </select>
                     </div>

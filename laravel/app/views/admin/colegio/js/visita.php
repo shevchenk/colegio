@@ -9,10 +9,10 @@ Cargar=function(evento,id){
         id=0;
     }
 
-    if( evento=='cam' ){
+    if( evento=='dis' ){
         var data={ode:id};
-        $('#slct_campaña').multiselect('destroy');
-        slctGlobal.listarSlct('cam','slct_campaña','simple',null,data);
+        $('#slct_distrito').multiselect('destroy');
+        slctGlobal.listarSlct('distrito','slct_distrito','simple',null,data);
     }
     else if( evento=='col' ){
 

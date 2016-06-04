@@ -89,4 +89,3 @@ Route::controller('usuario', 'UsuarioController');
 Route::controller('ode', 'OdeController');
 Route::controller('carrera', 'CarreraController');
 Route::controller('colegio', 'ColegioController');
-
