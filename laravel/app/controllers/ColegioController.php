@@ -253,9 +253,31 @@ class ColegioController extends BaseController
 	{
 		if ( Request::ajax() ) {
 
-			echo "<pre>";
-			print_r(Input::all());
-			echo "</pre>";
+			if(Input::has('colegio_id'))
+			{
+				$colegio_id = Input::get('colegio_id');
+				$bEstado = Colegio::getEstadodetalle($colegio_id);
+				$aAccion = Input::get('accion');
+				foreach ($aAccion as $nKey => $mVal) 
+				{
+					if($aAccion[$nKey] == "I")
+					{
+						$oColegioDetalle = new ColegioDetalle;
+						$oColegioDetalle['colegio_id'] = $colegio_id;
+						$oColegioDetalle['grado'] = Input::get('grado.'.$nKey);
+						$oColegioDetalle['seccion'] = Input::get('seccion.'.$nKey);
+						$oColegioDetalle['nivel'] = Input::get('nivel.'.$nKey);
+						$oColegioDetalle['turno'] = Input::get('turno.'.$nKey);
+						$oColegioDetalle['estado'] = 1;
+						$oColegioDetalle->save();
+					}
+				}
+
+				//~ echo "<pre>";
+				//~ print_r(Input::All());
+				//~ echo "</pre>";
+
+			}
 
 		}
 	}

@@ -123,5 +123,12 @@ EOT;
 		return $oData;
 	}
 
+	public static function getEstadodetalle($nIdColegio)
+	{
+		$aParametro = array($nIdColegio);
+		$bData = DB::update('UPDATE colegios_detalle SET estado = 0 WHERE colegio_id = ?', $aParametro);
+		return $bData;
+	}
+
 }
 ?>

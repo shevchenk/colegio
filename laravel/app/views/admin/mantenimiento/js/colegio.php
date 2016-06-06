@@ -138,6 +138,7 @@ agregarDetalle = function(){
 					"<td><input type='text' name='txt_seccion[]' class='form-control input-sm' /></td>"+
 					"<td>"+sNivel+"</td>"+
 					"<td>"+sTurno+"</td>"+
+					"<td><input type='hidden' name='txt_accion[]' class='form-control input-sm' value='I' /></td>"+
 					"<td><a class='btn btn-danger btn-xs btnQuitar' id_row='"+nTime+"'><i class='fa fa-times fa-1x'></i></a></td>"+
 				"</tr>";
 	return sHtml;
