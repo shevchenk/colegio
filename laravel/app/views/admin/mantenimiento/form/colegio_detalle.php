@@ -12,7 +12,7 @@
 				<form id="form_detalle" name="form_detalle" action="" method="post">
 
 					<div class="form-group">
-						<input type="hidden" class="form-control" name="txt_colegio_id" id="txt_colegio_id">
+						<input type="text" class="form-control" name="txt_colegio_id" id="txt_colegio_id">
 						<button type="button" class="btn btn-success btn-xs btnAgregar">Agregar</button>
 					</div>
 
@@ -34,7 +34,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary btn-sm">Guardar</button>
+				<button type="button" class="btn btn-primary btn-sm" onclick="editarDetalle()">Guardar</button>
 			</div>
 		</div>
 	</div>

@@ -150,6 +150,43 @@ var Colegios = {
 				msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
 			}
 		});
+	},
+	AgregarEditarDetalle:function(){
+
+		var aData=$("#form_detalle").serialize().split("txt_").join("").split("slct_").join("");
+		//~ console.log(aData);
+
+		$.ajax({
+			url : 'colegio/modificardetalle',
+			type : 'POST',
+			cache : false,
+			dataType : 'json',
+			data : aData,
+			beforeSend : function() {
+				$("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+			},
+			success : function(obj) {
+				$(".overlay,.loading-img").remove();
+				console.log(obj);
+				//~ if(obj.rst==1){
+					//~ $('#t_colegios').dataTable().fnDestroy();
+					//~ Colegios.CargarOpciones(activarTabla);
+					//~ msjG.mensaje("success",obj.msj,5000);
+					//~ $('#colegioModal .modal-footer [data-dismiss="modal"]').click();
+				//~ }
+				//~ else{
+					//~ $.each(obj.msj,function(index,datos){
+						//~ $("#error_"+index).attr("data-original-title",datos);
+						//~ $('#error_'+index).css('display','');
+					//~ });
+				//~ }
+			},
+			error: function(){
+				$(".overlay,.loading-img").remove();
+				msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
+			}
+		});
+
 	}
 };
 </script>
