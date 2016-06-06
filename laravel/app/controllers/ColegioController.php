@@ -1,10 +1,35 @@
 <?php
 class ColegioController extends BaseController
 {
+	public function postCargardetalle()
+	{
+		if ( Request::ajax() ) {
+			$array=array();
+			$array['colegio_id']='';
+			if( Input::has("colegio_id") ){
+				$array['colegio_id']=' WHERE c.id='.Input::get("colegio_id");
+			}
+			$aData = Colegio::getCargarDetalle($array);
+			$aParametro['rst'] = 1;
+			$aParametro['aData'] = $aData;
+			return Response::json($aParametro);
+		}
+	}
+
 	public function postCargar()
 	{
 		if ( Request::ajax() ) {
-			$aData = Colegio::getCargar();
+			$array=array();
+			$array['where']=' WHERE c.estado=1 ';
+			$array['distrito']='';
+			$array['ode']='';
+			if( Input::has("distrito") ){
+				$array['distrito']=' AND c.distrito_id='.Input::get("distrito");
+			}
+			elseif( Input::has("ode") ){
+				$array['ode']=' AND c.ode_id='.Input::get("ode");
+			}
+			$aData = Colegio::getCargar($array);
 			$aParametro['rst'] = 1;
 			$aParametro['aData'] = $aData;
 			return Response::json($aParametro);

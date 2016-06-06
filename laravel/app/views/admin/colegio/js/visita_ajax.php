@@ -1,15 +1,10 @@
 <script type="text/javascript">
 var CargoObj;
 var Visita={
-    Colegio:function(AE){
+    Colegio:function(evento){
         var datos=$("#form_vista").serialize().split("txt_").join("").split("slct_").join("");
-        var accion="cargo/crear";
-        if(AE==1){
-            accion="cargo/editar";
-        }
-
         $.ajax({
-            url         : accion,
+            url         : 'colegio/cargar',
             type        : 'POST',
             cache       : false,
             dataType    : 'json',
@@ -19,18 +14,56 @@ var Visita={
             },
             success : function(obj) {
                 $(".overlay,.loading-img").remove();
-                if(obj.rst==1){
-                    $('#t_cargos').dataTable().fnDestroy();
-
-                    msjG.mensaje("success",obj.msj,5000);
-                    $('#cargoModal .modal-footer [data-dismiss="modal"]').click();
+                evento(obj.aData);
+                if( obj.aData.length==0 ){
+                    msjG.mensaje("danger","No hay colegios para el distrito seleccionado",5000);
                 }
-                else{ 
-                    $.each(obj.msj,function(index,datos){
-                        $("#error_"+index).attr("data-original-title",datos);
-                        $('#error_'+index).css('display','');
-                    });
+            },
+            error: function(){
+                $(".overlay,.loading-img").remove();
+                msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
+            }
+        });
+    },
+    ColegioDetalle:function(evento){
+        var datos=$("#form_vista").serialize().split("txt_").join("").split("slct_").join("");
+        $.ajax({
+            url         : 'colegio/cargardetalle',
+            type        : 'POST',
+            cache       : false,
+            dataType    : 'json',
+            data        : datos,
+            beforeSend : function() {
+                $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+            },
+            success : function(obj) {
+                $(".overlay,.loading-img").remove();
+                evento(obj.aData);
+                if( obj.aData.length==0 ){
+                    msjG.mensaje("danger","No hay colegios para el distrito seleccionado",5000);
                 }
+            },
+            error: function(){
+                $(".overlay,.loading-img").remove();
+                msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
+            }
+        });
+    },
+    Crear:function(evento){
+        var datos=$("#form_vista").serialize().split("txt_").join("").split("slct_").join("");
+        $.ajax({
+            url         : 'visita/crear',
+            type        : 'POST',
+            cache       : false,
+            dataType    : 'json',
+            data        : datos,
+            beforeSend : function() {
+                $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+            },
+            success : function(obj) {
+                $(".overlay,.loading-img").remove();
+                evento();
+                msjG.mensaje("success",obj.msj,3000);
             },
             error: function(){
                 $(".overlay,.loading-img").remove();

@@ -3,7 +3,30 @@ class Colegio extends Base
 {
 	public $table = "colegios";
 
-	public static function getCargar()
+	public static function getCargarDetalle($array)
+	{
+		$sSql = <<<EOT
+			SELECT 
+				cd.id, cd.grado, cd.seccion,
+				CASE cd.nivel 
+			      WHEN 2 THEN 'Primaria'
+			      WHEN 3 THEN 'Secundaria'
+			    END nivel,
+				CASE cd.turno 
+			      WHEN 'M' THEN 'Mañana'
+			      WHEN 'T' THEN 'Tarde'
+			      WHEN 'N' THEN 'Noche'
+			    END turno
+			FROM colegios c
+				INNER JOIN colegios_detalle cd ON cd.colegio_id=c.id AND cd.estado=1
+				
+EOT;
+		$sSql.=	$array['colegio_id'];
+		$oData = DB::select($sSql);
+		return $oData;
+	}
+
+	public static function getCargar($array)
 	{
 		$sSql = <<<EOT
 			SELECT 
@@ -13,14 +36,17 @@ class Colegio extends Base
 				, c.direccion, c.referencia, IFNULL(c.persona_id,0) AS persona_id, IFNULL(pe.nombre,'') AS persona
 				, c.telefono, c.celular, c.estado
 			FROM colegios c
-				LEFT JOIN odes o ON c.ode_id=o.id
-				LEFT JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
-				LEFT JOIN colegios_niveles cn ON c.colegio_nivel_id=cn.id
-				LEFT JOIN distritos d ON c.distrito_id=d.id
-				LEFT JOIN provincias p ON d.provincia_id=p.id
-				LEFT JOIN departamentos de ON p.departamento_id=de.id
+				INNER JOIN odes o ON c.ode_id=o.id
+				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
+				INNER JOIN colegios_niveles cn ON c.colegio_nivel_id=cn.id
+				INNER JOIN distritos d ON c.distrito_id=d.id
+				INNER JOIN provincias p ON d.provincia_id=p.id
+				INNER JOIN departamentos de ON p.departamento_id=de.id
 				LEFT JOIN personas pe ON c.persona_id=pe.id
 EOT;
+		$sSql.=	$array['where'].
+				$array['distrito'].
+				$array['ode'];
 		$oData = DB::select($sSql);
 		return $oData;
 	}
