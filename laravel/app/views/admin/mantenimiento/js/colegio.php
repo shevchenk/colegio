@@ -78,9 +78,10 @@ $(document).ready(function() {
 		$('#form_detalle [data-toggle="tooltip"]').css("display","none");
 		$("#form_detalle input[type='hidden']").remove();
 		$("#txt_colegio_id").val(id);
+		$("table.tblDetalle tbody .filaAgregada").remove();
 	});
 
-	$(".btnAgregar").on("click", function() {
+	$("#detalleModal .btnAgregar").on("click", function() {
 		$('.tblDetalle tbody').append(agregarDetalle);
 	});
 
@@ -114,7 +115,7 @@ desactivar=function(id){
 agregarDetalle = function(){
 	var oDate = new Date();
 	var nTime = oDate.getSeconds() + "" + oDate.getTime();
-	var sGrado = "<select name='sltGrado[]' class='form-control input-sm'>"+
+	var sGrado = "<select name='slct_grado[]' class='form-control input-sm'>"+
 					"<option value='1'>1</option>"+
 					"<option value='2'>2</option>"+
 					"<option value='3'>3</option>"+
@@ -122,23 +123,27 @@ agregarDetalle = function(){
 					"<option value='5'>5</option>"+
 					"<option value='6'>6</option>"+
 				"</select>";
-	var sNivel = "<select name='sltNivel[]' class='form-control input-sm'>"+
+	var sNivel = "<select name='slct_nivel[]' class='form-control input-sm'>"+
 					"<option value='1'>Inicial</option>"+
 					"<option value='2'>Primaria</option>"+
 					"<option value='3'>Secundaria</option>"+
 				"</select>";
-	var sTurno = "<select name='sltTurno[]' class='form-control input-sm'>"+
+	var sTurno = "<select name='slct_turno[]' class='form-control input-sm'>"+
 					"<option value='1'>Ma&ntilde;ana</option>"+
 					"<option value='2'>Tarde</option>"+
 					"<option value='3'>Noche</option>"+
 				"</select>";
-	var sHtml = "<tr class='row_"+nTime+" filaquitar'>"+
+	var sHtml = "<tr class='row_"+nTime+" filaAgregada'>"+
 					"<td>"+sGrado+"</td>"+
-					"<td><input type='text' name='txtSeccion[]' class='form-control input-sm' /></td>"+
+					"<td><input type='text' name='txt_seccion[]' class='form-control input-sm' /></td>"+
 					"<td>"+sNivel+"</td>"+
 					"<td>"+sTurno+"</td>"+
 					"<td><a class='btn btn-danger btn-xs btnQuitar' id_row='"+nTime+"'><i class='fa fa-times fa-1x'></i></a></td>"+
 				"</tr>";
 	return sHtml;
+}
+
+editarDetalle = function(){
+	Colegios.AgregarEditarDetalle();
 }
 </script>

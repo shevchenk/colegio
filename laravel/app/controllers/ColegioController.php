@@ -249,5 +249,16 @@ class ColegioController extends BaseController
 		}
 	}
 
+	public function postModificardetalle()
+	{
+		if ( Request::ajax() ) {
+
+			echo "<pre>";
+			print_r(Input::all());
+			echo "</pre>";
+
+		}
+	}
+
 }
 ?>
