@@ -152,10 +152,7 @@ var Colegios = {
 		});
 	},
 	AgregarEditarDetalle:function(){
-
 		var aData=$("#form_detalle").serialize().split("txt_").join("").split("slct_").join("");
-		//~ console.log(aData);
-
 		$.ajax({
 			url : 'colegio/modificardetalle',
 			type : 'POST',
@@ -186,7 +183,22 @@ var Colegios = {
 				msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
 			}
 		});
-
+	},
+	cargarDetalle:function(nIdColegio)
+	{
+		$('.tblDetalle tbody').html('<div class="loading-img"></div>');
+		$.post('colegio/cargardetalle', { colegio_id: nIdColegio }, function(oData) {
+			if(oData.rst==1){
+				//~ $(sSelector).html('');
+				//~ $.each(oData.aData,function(idx,row){
+					//~ $(sSelector).append('<option value='+row.id+'>'+row.nombre+'</option>');
+				//~ });
+				//~ if (sAccion==='nuevo')
+					//~ $(sSelector).append("<option value='' selected style='display:none;'>--- Seleccionar "+sLista+" ---</option>");
+				//~ else
+					//~ $(sSelector).val(nId);
+			}
+		}, "json");
 	}
 };
 </script>

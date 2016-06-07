@@ -9,19 +9,18 @@ class Colegio extends Base
 			SELECT 
 				cd.id, cd.grado, cd.seccion,
 				CASE cd.nivel 
-			      WHEN 2 THEN 'Primaria'
-			      WHEN 3 THEN 'Secundaria'
-			    END nivel,
+					WHEN 2 THEN 'Primaria'
+					WHEN 3 THEN 'Secundaria'
+				END nivel,
 				CASE cd.turno 
-			      WHEN 'M' THEN 'Mañana'
-			      WHEN 'T' THEN 'Tarde'
-			      WHEN 'N' THEN 'Noche'
-			    END turno
+					WHEN 'M' THEN 'Mañana'
+					WHEN 'T' THEN 'Tarde'
+					WHEN 'N' THEN 'Noche'
+				END turno
 			FROM colegios c
 				INNER JOIN colegios_detalle cd ON cd.colegio_id=c.id AND cd.estado=1
-				
 EOT;
-		$sSql.=	$array['colegio_id'];
+		$sSql.= $array['colegio_id'];
 		$oData = DB::select($sSql);
 		return $oData;
 	}

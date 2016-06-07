@@ -79,6 +79,7 @@ $(document).ready(function() {
 		$("#form_detalle input[type='hidden']").remove();
 		$("#txt_colegio_id").val(id);
 		$("table.tblDetalle tbody .filaAgregada").remove();
+		Colegios.cargarDetalle(id);
 	});
 
 	$("#detalleModal .btnAgregar").on("click", function() {
@@ -129,9 +130,9 @@ agregarDetalle = function(){
 					"<option value='3'>Secundaria</option>"+
 				"</select>";
 	var sTurno = "<select name='slct_turno[]' class='form-control input-sm'>"+
-					"<option value='1'>Ma&ntilde;ana</option>"+
-					"<option value='2'>Tarde</option>"+
-					"<option value='3'>Noche</option>"+
+					"<option value='M'>Ma&ntilde;ana</option>"+
+					"<option value='T'>Tarde</option>"+
+					"<option value='N'>Noche</option>"+
 				"</select>";
 	var sHtml = "<tr class='row_"+nTime+" filaAgregada'>"+
 					"<td>"+sGrado+"</td>"+
