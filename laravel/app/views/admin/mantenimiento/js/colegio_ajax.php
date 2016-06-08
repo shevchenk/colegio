@@ -164,40 +164,76 @@ var Colegios = {
 			},
 			success : function(obj) {
 				$(".overlay,.loading-img").remove();
-				console.log(obj);
-				//~ if(obj.rst==1){
-					//~ $('#t_colegios').dataTable().fnDestroy();
-					//~ Colegios.CargarOpciones(activarTabla);
-					//~ msjG.mensaje("success",obj.msj,5000);
-					//~ $('#colegioModal .modal-footer [data-dismiss="modal"]').click();
-				//~ }
-				//~ else{
-					//~ $.each(obj.msj,function(index,datos){
-						//~ $("#error_"+index).attr("data-original-title",datos);
-						//~ $('#error_'+index).css('display','');
-					//~ });
-				//~ }
+				msjG.mensaje("success",obj.msj,5000);
+				$('#detalleModal .modal-footer [data-dismiss="modal"]').click();
 			},
 			error: function(){
 				$(".overlay,.loading-img").remove();
-				msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
+				msjG.mensaje("danger","Ocurrio una interrupción en el proceso,, Favor de intentar nuevamente.",3000);
 			}
 		});
 	},
 	cargarDetalle:function(nIdColegio)
 	{
+		var oGrado = { "1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "5" };
+		var oNivel = { "1": "Inicial", "2": "Primaria", "3": "Secundaria" };
+		var oTurno = { "M": "Ma&ntilde;ana", "T": "Tarde", "N": "Noche" };
+
 		$('.tblDetalle tbody').html('<div class="loading-img"></div>');
 		$.post('colegio/cargardetalle', { colegio_id: nIdColegio }, function(oData) {
-			if(oData.rst==1){
-				//~ $(sSelector).html('');
-				//~ $.each(oData.aData,function(idx,row){
-					//~ $(sSelector).append('<option value='+row.id+'>'+row.nombre+'</option>');
-				//~ });
-				//~ if (sAccion==='nuevo')
-					//~ $(sSelector).append("<option value='' selected style='display:none;'>--- Seleccionar "+sLista+" ---</option>");
-				//~ else
-					//~ $(sSelector).val(nId);
+			if(oData.rst==1) {
+
+				var sHtml = "", sGrado = "", sNivel = "", sTurno = "";
+				$.each(oData.aData,function(idx,row){
+
+					sHtml = "", sGrado = "", sNivel = "", sTurno = "";
+
+					sGrado +="<select name='slct_grado[]' class='form-control input-sm'>";
+					$.each(oGrado,function(idxGrado,rowGrado){
+						if(idxGrado == row.grado) {
+							sGrado += '<option value='+idxGrado+' selected>'+rowGrado+'</option>';
+						} else {
+							sGrado += '<option value='+idxGrado+'>'+rowGrado+'</option>';
+						}
+					});
+					sGrado += "</select>";
+
+					sNivel +="<select name='slct_nivel[]' class='form-control input-sm'>";
+					$.each(oNivel,function(idxNivel,rowNivel){
+						if(idxNivel == row.nivel_id) {
+							sNivel += '<option value='+idxNivel+' selected>'+rowNivel+'</option>';
+						} else {
+							sNivel += '<option value='+idxNivel+'>'+rowNivel+'</option>';
+						}
+					});
+					sGrado += "</select>";
+
+					sTurno +="<select name='slct_turno[]' class='form-control input-sm'>";
+					$.each(oTurno,function(idxTurno,rowTurno){
+						if(idxTurno == row.turno_id) {
+							sTurno += '<option value='+idxTurno+' selected>'+rowTurno+'</option>';
+						} else {
+							sTurno += '<option value='+idxTurno+'>'+rowTurno+'</option>';
+						}
+					});
+					sTurno += "</select>";
+
+					sHtml += "<tr class='row_"+row.id+"'>"+
+								"<td>"+sGrado+"</td>"+
+								"<td><input type='text' name='txt_seccion[]' class='form-control input-sm' value='"+row.seccion+"'/></td>"+
+								"<td>"+sNivel+"</td>"+
+								"<td>"+sTurno+"</td>"+
+								"<td><input type='hidden' name='txt_accion[]' class='form-control input-sm' value='U' />"+
+								"<input type='hidden' name='txt_id[]' class='form-control input-sm' value='"+row.id+"' />"+
+								"<a class='btn btn-danger btn-xs btnQuitar' id_row='"+row.id+"'>"+
+									"<i class='fa fa-times fa-1x'></i></a></td>"+
+							"</tr>";
+
+					$('.tblDetalle tbody').append(sHtml);
+				});
+
 			}
+			$(".overlay,.loading-img").remove();
 		}, "json");
 	}
 };

@@ -34,7 +34,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary btn-sm" onclick="editarDetalle()">Guardar</button>
+				<button type="button" class="btn btn-primary btn-sm" onclick="procesoDetalle()">Guardar</button>
 			</div>
 		</div>
 	</div>

@@ -7,7 +7,7 @@ class Colegio extends Base
 	{
 		$sSql = <<<EOT
 			SELECT 
-				cd.id, cd.grado, cd.seccion,
+				cd.id, cd.grado, cd.seccion, cd.nivel AS nivel_id, cd.turno AS turno_id,
 				CASE cd.nivel 
 					WHEN 2 THEN 'Primaria'
 					WHEN 3 THEN 'Secundaria'
