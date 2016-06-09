@@ -147,6 +147,30 @@ agregarDetalle = function(){
 }
 
 procesoDetalle = function(){
+	var oGrado = $("select[name='slct_grado[]']");
+	var oNivel = $("select[name='slct_nivel[]']");
+	var oSeccion = $("input[name='txt_seccion[]']");
+	$.each(oGrado,function(idxGrado,rowGrado){
+		var nRegistro = 1 + parseInt(idxGrado);
+		// Secundaria
+		if(rowGrado.value=="6" && oNivel[idxGrado].value=="3")
+		{
+			msjG.mensaje("danger","Secundaria no existe [Registro "+nRegistro+"]",5000);
+			return false;
+		}
+		// Inicial
+		if(rowGrado.value!="1" && oNivel[idxGrado].value=="1")
+		{
+			msjG.mensaje("danger","Inicial no existe [Registro "+nRegistro+"]",5000);
+			return false;
+		}
+		// Seccion
+		if(oSeccion[idxGrado].value=="")
+		{
+			msjG.mensaje("danger","Ingresar secci&oacute;n [Registro "+nRegistro+"]",5000);
+			return false;
+		}
+	});
 	Colegios.AgregarEditarDetalle();
 }
 

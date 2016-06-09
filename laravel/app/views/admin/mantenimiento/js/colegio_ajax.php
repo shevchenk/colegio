@@ -175,7 +175,7 @@ var Colegios = {
 	},
 	cargarDetalle:function(nIdColegio)
 	{
-		var oGrado = { "1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "5" };
+		var oGrado = { "1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6" };
 		var oNivel = { "1": "Inicial", "2": "Primaria", "3": "Secundaria" };
 		var oTurno = { "M": "Ma&ntilde;ana", "T": "Tarde", "N": "Noche" };
 
