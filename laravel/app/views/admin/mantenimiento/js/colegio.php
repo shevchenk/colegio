@@ -150,27 +150,33 @@ procesoDetalle = function(){
 	var oGrado = $("select[name='slct_grado[]']");
 	var oNivel = $("select[name='slct_nivel[]']");
 	var oSeccion = $("input[name='txt_seccion[]']");
+	var nError = 0;
+	var oError = [];
 	$.each(oGrado,function(idxGrado,rowGrado){
 		var nRegistro = 1 + parseInt(idxGrado);
-		// Secundaria
 		if(rowGrado.value=="6" && oNivel[idxGrado].value=="3")
 		{
-			msjG.mensaje("danger","Secundaria no existe [Registro "+nRegistro+"]",5000);
-			return false;
-		}
-		// Inicial
-		if(rowGrado.value!="1" && oNivel[idxGrado].value=="1")
+			nError = nError + 1;
+			oError.push({ "sMensaje": "Secundaria no existe [Fila "+nRegistro+"]" });
+		} else if(rowGrado.value!="1" && oNivel[idxGrado].value=="1")
 		{
-			msjG.mensaje("danger","Inicial no existe [Registro "+nRegistro+"]",5000);
-			return false;
-		}
-		// Seccion
-		if(oSeccion[idxGrado].value=="")
+			nError = nError + 1;
+			oError.push({ "sMensaje": "Inicial no existe [Fila "+nRegistro+"]" });
+		} else if(oSeccion[idxGrado].value=="")
 		{
-			msjG.mensaje("danger","Ingresar secci&oacute;n [Registro "+nRegistro+"]",5000);
-			return false;
+			nError = nError + 1;
+			oError.push({ "sMensaje": "Ingresar secci&oacute;n [Fila "+nRegistro+"]" });
 		}
 	});
+	if(nError >= 1)
+	{
+		var sMensaje = "";
+		$.each(oError,function(idx,row){
+			sMensaje += row.sMensaje + "<br/>";
+		});
+		msjG.mensaje("danger",sMensaje,8000);
+		return false;
+	}
 	Colegios.AgregarEditarDetalle();
 }
 

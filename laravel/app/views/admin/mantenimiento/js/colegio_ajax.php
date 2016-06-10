@@ -153,6 +153,12 @@ var Colegios = {
 	},
 	AgregarEditarDetalle:function(){
 		var aData=$("#form_detalle").serialize().split("txt_").join("").split("slct_").join("");
+		var oGrado = $("select[name='slct_grado[]']");
+		if(oGrado.length <=0)
+		{
+			msjG.mensaje("danger","No existe datos para guardar",5000);
+			return false;
+		}
 		$.ajax({
 			url : 'colegio/modificardetalle',
 			type : 'POST',
