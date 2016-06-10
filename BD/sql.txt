@@ -1,0 +1,9 @@
+-- table colegios_detalle 2016-06-09
+ALTER TABLE `colegios_detalle`
+ADD COLUMN `total_alumnos`  int UNSIGNED NULL AFTER `turno`;
+
+-- table colegios 2016-06-09
+ALTER TABLE `colegios`
+ADD COLUMN `ugel`  int UNSIGNED NULL AFTER `persona_id`,
+ADD COLUMN `genero`  varchar(1) NULL COMMENT 'M: Masculino | F: Femenino | X: Mixto' AFTER `ugel`,
+ADD COLUMN `turno`  varchar(2) NULL COMMENT 'M: Mañana | T: Tarde | MT: Mañana y Tarde' AFTER `genero`;
