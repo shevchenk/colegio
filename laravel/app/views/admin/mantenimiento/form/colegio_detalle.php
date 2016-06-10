@@ -12,7 +12,7 @@
 				<form id="form_detalle" name="form_detalle" action="" method="post">
 
 					<div class="form-group">
-						<input type="text" class="form-control" name="txt_colegio_id" id="txt_colegio_id">
+						<input type="hidden" name="txt_colegio_id" id="txt_colegio_id" />
 						<button type="button" class="btn btn-success btn-xs btnAgregar">Agregar</button>
 					</div>
 

@@ -76,7 +76,6 @@ $(document).ready(function() {
 
 		modal.find('.modal-title').text("Colegio: "+titulo);
 		$('#form_detalle [data-toggle="tooltip"]').css("display","none");
-		$("#form_detalle input[type='hidden']").remove();
 		$("#txt_colegio_id").val(id);
 		$("table.tblDetalle tbody .filaAgregada").remove();
 		Colegios.cargarDetalle(id);
