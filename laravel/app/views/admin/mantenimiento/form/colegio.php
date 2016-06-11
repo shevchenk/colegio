@@ -48,6 +48,25 @@
 					</div>
 
 					<div class="form-group">
+						<label class="control-label">Ugel
+							<a id="error_ugel" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ingrese Nombre">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
+						<input type="text" class="form-control" placeholder="Ingrese Ugel" name="txt_ugel" id="txt_ugel">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label">Genero:</label>
+						<select class="form-control" name="slct_genero" id="slct_genero"></select>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label">Turno:</label>
+						<select class="form-control" name="slct_turno" id="slct_turno"></select>
+					</div>
+
+					<div class="form-group">
 						<label class="control-label">Departamento:</label>
 						<select class="form-control" name="slct_departamento_id" id="slct_departamento_id"></select>
 					</div>

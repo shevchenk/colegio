@@ -164,6 +164,9 @@ class ColegioController extends BaseController
 			$opciones['telefono'] = Input::get('telefono');
 			$opciones['celular'] = Input::get('celular');
 			$opciones['estado'] = Input::get('estado');
+			$opciones['ugel'] = Input::get('ugel');
+			$opciones['genero'] = Input::get('genero');
+			$opciones['turno'] = Input::get('turno');
 			$opciones->save();
 
 			return Response::json(
@@ -222,6 +225,9 @@ class ColegioController extends BaseController
 			$opciones['telefono'] = Input::get('telefono');
 			$opciones['celular'] = Input::get('celular');
 			$opciones['estado'] = Input::get('estado');
+			$opciones['ugel'] = Input::get('ugel');
+			$opciones['genero'] = Input::get('genero');
+			$opciones['turno'] = Input::get('turno');
 			$opciones->save();
 
 			return Response::json(

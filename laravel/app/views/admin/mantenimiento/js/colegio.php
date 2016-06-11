@@ -18,6 +18,8 @@ $(document).ready(function() {
 			Colegios.cargarSelect('Nivel', 'colegio/listarnivel', '#slct_colegio_nivel_id', 'nuevo', null);
 			Colegios.cargarSelect('Departamento', 'colegio/listardepartamento', '#slct_departamento_id', 'nuevo', null);
 			Colegios.cargarSelect('Persona', 'colegio/listarpersona', '#slct_persona_id', 'nuevo', null);
+			Colegios.cargarSelectLocal('Genero', '#slct_genero', 'nuevo', null);
+			Colegios.cargarSelectLocal('Turno', '#slct_turno', 'nuevo', null);
 			modal.find('.modal-footer .btn-primary').text('Guardar');
 			modal.find('.modal-footer .btn-primary').attr('onClick','Agregar();');
 			$('#form_colegios #txt_nombre').focus();
@@ -33,6 +35,13 @@ $(document).ready(function() {
 			Colegios.cargarSelect('Tipo', 'colegio/listartipo', '#slct_colegio_tipo_id', 'editar', tipo_id);
 			nivel_id=$('#tb_colegios #nivel_'+button.data('id')).attr('nivel_id');
 			Colegios.cargarSelect('Nivel', 'colegio/listarnivel', '#slct_colegio_nivel_id', 'editar', nivel_id);
+			$('#form_colegios #txt_ugel').val( $('#tb_colegios #ugel_'+button.data('id')).text());
+
+			genero_id=$('#tb_colegios #genero_'+button.data('id')).attr('genero_id');
+			Colegios.cargarSelectLocal('Genero', '#slct_genero', 'editar', genero_id);
+			turno_id=$('#tb_colegios #turno_'+button.data('id')).attr('turno_id');
+			Colegios.cargarSelectLocal('Turno', '#slct_turno', 'editar', turno_id);
+
 			departamento_id=$('#tb_colegios #departamento_'+button.data('id')).attr('departamento_id');
 			Colegios.cargarSelect('Departamento', 'colegio/listardepartamento', '#slct_departamento_id', 'editar', departamento_id);
 			provincia_id=$('#tb_colegios #provincia_'+button.data('id')).attr('provincia_id');
@@ -72,13 +81,15 @@ $(document).ready(function() {
 		var button = $(event.relatedTarget);
 		var id = button.data('id');
 		var titulo = button.data('titulo');
+		var turno_id = $('#tb_colegios #turno_'+id).attr('turno_id');
 		var modal = $(this);
 
 		modal.find('.modal-title').text("Colegio: "+titulo);
 		$('#form_detalle [data-toggle="tooltip"]').css("display","none");
 		$("#txt_colegio_id").val(id);
+		$("#txt_turno_colegio").val(turno_id);
 		$("table.tblDetalle tbody .filaAgregada").remove();
-		Colegios.cargarDetalle(id);
+		Colegios.cargarDetalle(id, turno_id);
 	});
 
 	$("#detalleModal .btnAgregar").on("click", function() {
@@ -115,6 +126,19 @@ desactivar=function(id){
 agregarDetalle = function(){
 	var oDate = new Date();
 	var nTime = oDate.getSeconds() + "" + oDate.getTime();
+	var sTurno = $("#txt_turno_colegio").val();
+	switch (sTurno)
+	{
+		case "M":
+			var sOption = "<option value='M'>Ma&ntilde;ana</option>";
+		break;
+		case "T":
+			var sOption = "<option value='T'>Tarde</option>";
+		break;
+		case 'MT':
+			var sOption = "<option value='M'>Ma&ntilde;ana</option><option value='T'>Tarde</option>";
+		break;
+	}
 	var sGrado = "<select name='slct_grado[]' class='form-control input-sm'>"+
 					"<option value='1'>1</option>"+
 					"<option value='2'>2</option>"+
@@ -128,11 +152,7 @@ agregarDetalle = function(){
 					"<option value='2'>Primaria</option>"+
 					"<option value='3'>Secundaria</option>"+
 				"</select>";
-	var sTurno = "<select name='slct_turno[]' class='form-control input-sm'>"+
-					"<option value='M'>Ma&ntilde;ana</option>"+
-					"<option value='T'>Tarde</option>"+
-					"<option value='N'>Noche</option>"+
-				"</select>";
+	var sTurno = "<select name='slct_turno[]' class='form-control input-sm'>"+sOption+"</select>";
 	var sHtml = "<tr class='row_"+nTime+" filaAgregada'>"+
 					"<td>"+sGrado+"</td>"+
 					"<td><input type='text' name='txt_seccion[]' class='form-control input-sm' /></td>"+

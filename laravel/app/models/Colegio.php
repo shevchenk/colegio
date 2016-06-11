@@ -33,7 +33,9 @@ EOT;
 				, c.colegio_nivel_id, cn.nombre AS nivel, c.distrito_id, d.nombre AS distrito
 				, d.provincia_id, p.nombre AS provincia, p.departamento_id, de.nombre AS departamento
 				, c.direccion, c.referencia, IFNULL(c.persona_id,0) AS persona_id, IFNULL(pe.nombre,'') AS persona
-				, c.telefono, c.celular, c.estado
+				, c.telefono, c.celular, c.estado, IFNULL(c.ugel,'') AS ugel, c.genero AS genero_id, c.turno AS turno_id
+				, CASE c.genero WHEN 'M' THEN 'Masculino' WHEN 'F' THEN 'Femenino' WHEN 'X' THEN 'Mixto' ELSE '' END genero
+				, CASE c.turno WHEN 'M' THEN 'Mañana' WHEN 'T' THEN 'Tarde' WHEN 'MT' THEN 'Mañana y Tarde' ELSE '' END turno
 			FROM colegios c
 				INNER JOIN odes o ON c.ode_id=o.id
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id

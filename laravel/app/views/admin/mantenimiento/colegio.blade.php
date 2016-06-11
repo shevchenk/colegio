@@ -38,6 +38,9 @@
 										<th>Colegio</th>
 										<th>Tipo</th>
 										<th>Nivel</th>
+										<th>Ugel</th>
+										<th>Genero</th>
+										<th>Turno</th>
 										<th>Departamento</th>
 										<th>Provincia</th>
 										<th>Distritos</th>
@@ -58,6 +61,9 @@
 										<th>Colegio</th>
 										<th>Tipo</th>
 										<th>Nivel</th>
+										<th>Ugel</th>
+										<th>Genero</th>
+										<th>Turno</th>
 										<th>Departamento</th>
 										<th>Provincia</th>
 										<th>Distritos</th>

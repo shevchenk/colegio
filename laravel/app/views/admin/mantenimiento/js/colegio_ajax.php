@@ -25,6 +25,9 @@ var Colegios = {
 							"<td id='nombre_"+data.id+"'>"+data.nombre+"</td>"+
 							"<td id='tipo_"+data.id+"' tipo_id='"+data.colegio_tipo_id+"'>"+data.tipo+"</td>"+
 							"<td id='nivel_"+data.id+"' nivel_id='"+data.colegio_nivel_id+"'>"+data.nivel+"</td>"+
+							"<td id='ugel_"+data.id+"'>"+data.ugel+"</td>"+
+							"<td id='genero_"+data.id+"' genero_id='"+data.genero_id+"'>"+data.genero+"</td>"+
+							"<td id='turno_"+data.id+"' turno_id='"+data.turno_id+"'>"+data.turno+"</td>"+
 							"<td id='departamento_"+data.id+"' departamento_id='"+data.departamento_id+"'>"+data.departamento+"</td>"+
 							"<td id='provincia_"+data.id+"' provincia_id='"+data.provincia_id+"'>"+data.provincia+"</td>"+
 							"<td id='distrito_"+data.id+"' distrito_id='"+data.distrito_id+"'>"+data.distrito+"</td>"+
@@ -78,6 +81,33 @@ var Colegios = {
 					$(sSelector).val(nId);
 			}
 		}, "json");
+	},
+	cargarSelectLocal:function(sLista, sSelector, sAccion, nId)
+	{
+		$(sSelector).html('');
+		switch (sLista)
+		{
+			case "Genero":
+				var oGenero = { "M": "Masculino", "F": "Femenino", "X": "Mixto" };
+				$.each(oGenero,function(idxGenero,rowGenero){
+					$(sSelector).append('<option value='+idxGenero+'>'+rowGenero+'</option>');
+				});
+				if (sAccion==='nuevo')
+					$(sSelector).append("<option selected style='display:none;'>--- Seleccionar "+sLista+" ---</option>");
+				else
+					$(sSelector).val(nId);
+			break;
+			case "Turno":
+				var oTurno = { "M": "Ma&ntilde;ana", "T": "Tarde", "MT": "Ma&ntilde;ana y Tarde" };
+				$.each(oTurno,function(idxTurno,rowTurno){
+					$(sSelector).append('<option value='+idxTurno+'>'+rowTurno+'</option>');
+				});
+				if (sAccion==='nuevo')
+					$(sSelector).append("<option selected style='display:none;'>--- Seleccionar "+sLista+" ---</option>");
+				else
+					$(sSelector).val(nId);
+			break;
+		}
 	},
 	AgregarEditarOpciones:function(AE){
 		var datos=$("#form_colegios").serialize().split("txt_").join("").split("slct_").join("");
@@ -179,11 +209,22 @@ var Colegios = {
 			}
 		});
 	},
-	cargarDetalle:function(nIdColegio)
+	cargarDetalle:function(nIdColegio, sTurno)
 	{
 		var oGrado = { "1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6" };
 		var oNivel = { "1": "Inicial", "2": "Primaria", "3": "Secundaria" };
-		var oTurno = { "M": "Ma&ntilde;ana", "T": "Tarde", "N": "Noche" };
+		switch (sTurno)
+		{
+			case "M":
+				var oTurno = { "M": "Ma&ntilde;ana" };
+			break;
+			case "T":
+				var oTurno = { "T": "Tarde" };
+			break;
+			case 'MT':
+				var oTurno = { "M": "Ma&ntilde;ana", "T": "Tarde" };
+			break;
+		}
 
 		$('.tblDetalle tbody').html('<div class="loading-img"></div>');
 		$.post('colegio/cargardetalle', { colegio_id: nIdColegio }, function(oData) {

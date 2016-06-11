@@ -13,6 +13,7 @@
 
 					<div class="form-group">
 						<input type="hidden" name="txt_colegio_id" id="txt_colegio_id" />
+						<input type="hidden" name="txt_turno_colegio" id="txt_turno_colegio" />
 						<button type="button" class="btn btn-success btn-xs btnAgregar">Agregar</button>
 					</div>
 
