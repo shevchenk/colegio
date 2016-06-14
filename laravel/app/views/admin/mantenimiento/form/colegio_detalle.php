@@ -24,6 +24,7 @@
 								<th>Secci&oacute;n</th>
 								<th>Nivel</th>
 								<th>Turno</th>
+								<th>Total Alumnos</th>
 								<th>[]</th>
 							</tr>
 						</thead>

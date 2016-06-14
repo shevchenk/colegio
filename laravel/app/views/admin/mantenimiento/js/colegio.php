@@ -84,6 +84,12 @@ $(document).ready(function() {
 		var turno_id = $('#tb_colegios #turno_'+id).attr('turno_id');
 		var modal = $(this);
 
+		if(turno_id == 'null')
+		{
+			msjG.mensaje("danger","Seleccionar el turno del colegio",8000);
+			return false;
+		}
+
 		modal.find('.modal-title').text("Colegio: "+titulo);
 		$('#form_detalle [data-toggle="tooltip"]').css("display","none");
 		$("#txt_colegio_id").val(id);
@@ -155,9 +161,10 @@ agregarDetalle = function(){
 	var sTurno = "<select name='slct_turno[]' class='form-control input-sm'>"+sOption+"</select>";
 	var sHtml = "<tr class='row_"+nTime+" filaAgregada'>"+
 					"<td>"+sGrado+"</td>"+
-					"<td><input type='text' name='txt_seccion[]' class='form-control input-sm' /></td>"+
+					"<td><input type='text' name='txt_seccion[]' class='form-control input-sm' style='width: 100px;' /></td>"+
 					"<td>"+sNivel+"</td>"+
 					"<td>"+sTurno+"</td>"+
+					"<td><input type='text' name='txt_total_alumnos[]' class='form-control input-sm' style='width: 100px;' /></td>"+
 					"<td><input type='hidden' name='txt_accion[]' class='form-control input-sm' value='I' />"+
 					"<input type='hidden' name='txt_id[]' class='form-control input-sm' />"+
 					"<a class='btn btn-danger btn-xs btnQuitar' id_row='"+nTime+"'><i class='fa fa-times fa-1x'></i></a></td>"+
@@ -169,6 +176,7 @@ procesoDetalle = function(){
 	var oGrado = $("select[name='slct_grado[]']");
 	var oNivel = $("select[name='slct_nivel[]']");
 	var oSeccion = $("input[name='txt_seccion[]']");
+	var oAlumnos = $("input[name='txt_total_alumnos[]']");
 	var nError = 0;
 	var oError = [];
 	$.each(oGrado,function(idxGrado,rowGrado){
@@ -185,6 +193,10 @@ procesoDetalle = function(){
 		{
 			nError = nError + 1;
 			oError.push({ "sMensaje": "Ingresar secci&oacute;n [Fila "+nRegistro+"]" });
+		} else if(oAlumnos[idxGrado].value=="")
+		{
+			nError = nError + 1;
+			oError.push({ "sMensaje": "Ingresar total de alumnos [Fila "+nRegistro+"]" });
 		}
 	});
 	if(nError >= 1)

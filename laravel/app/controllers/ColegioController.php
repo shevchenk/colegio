@@ -274,6 +274,7 @@ class ColegioController extends BaseController
 						$oColegioDetalle['seccion'] = Input::get('seccion.'.$nKey);
 						$oColegioDetalle['nivel'] = Input::get('nivel.'.$nKey);
 						$oColegioDetalle['turno'] = Input::get('turno.'.$nKey);
+						$oColegioDetalle['total_alumnos'] = Input::get('total_alumnos.'.$nKey);
 						$oColegioDetalle['estado'] = 1;
 						$oColegioDetalle->save();
 					} else if($aAccion[$nKey] == "U")
@@ -284,14 +285,12 @@ class ColegioController extends BaseController
 						$oColegioDetalle['seccion'] = Input::get('seccion.'.$nKey);
 						$oColegioDetalle['nivel'] = Input::get('nivel.'.$nKey);
 						$oColegioDetalle['turno'] = Input::get('turno.'.$nKey);
+						$oColegioDetalle['total_alumnos'] = Input::get('total_alumnos.'.$nKey);
 						$oColegioDetalle['estado'] = 1;
 						$oColegioDetalle->save();
 					}
 				}
 			}
-			//~ echo "<pre>";
-			//~ print_r(Input::All());
-			//~ echo "</pre>";
 			return Response::json(
 				array(
 				'rst'=>1,

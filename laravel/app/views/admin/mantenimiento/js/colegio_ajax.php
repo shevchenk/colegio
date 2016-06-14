@@ -267,9 +267,10 @@ var Colegios = {
 
 					sHtml += "<tr class='row_"+row.id+"'>"+
 								"<td>"+sGrado+"</td>"+
-								"<td><input type='text' name='txt_seccion[]' class='form-control input-sm' value='"+row.seccion+"'/></td>"+
+								"<td><input type='text' name='txt_seccion[]' class='form-control input-sm' style='width: 100px;' value='"+row.seccion+"'/></td>"+
 								"<td>"+sNivel+"</td>"+
 								"<td>"+sTurno+"</td>"+
+								"<td><input type='text' name='txt_total_alumnos[]' class='form-control input-sm' style='width: 100px;' value='"+row.total_alumnos+"'/></td>"+
 								"<td><input type='hidden' name='txt_accion[]' class='form-control input-sm' value='U' />"+
 								"<input type='hidden' name='txt_id[]' class='form-control input-sm' value='"+row.id+"' />"+
 								"<a class='btn btn-danger btn-xs btnQuitar' id_row='"+row.id+"'>"+
