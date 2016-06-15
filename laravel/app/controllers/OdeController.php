@@ -29,6 +29,16 @@ class OdeController extends \BaseController
         }
     }
 
+	public function postGrilla()
+	{
+		if ( Request::ajax() ) {
+			$aData = Ode::getGrilla();
+			$aParametro['rst'] = 1;
+			$aParametro['aData'] = $aData;
+			return Response::json($aParametro);
+		}
+	}
+
     public function postCrear()
     {
         if ( Request::ajax() ) {

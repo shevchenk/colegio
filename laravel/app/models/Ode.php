@@ -16,4 +16,20 @@ class Ode extends Base
         return $r;
     }
 
+	public static function getGrilla()
+	{
+		$sSql = <<<EOT
+			SELECT
+				o.id, o.nombre, o.departamento_id, d.nombre AS departamento
+				, o.provincia_id, p.nombre AS provincia, o.distrito_id, di.nombre AS distrito
+				, o.direccion, o.telefono, o.estado
+			FROM odes o
+				INNER JOIN departamentos d ON o.departamento_id=d.id
+				INNER JOIN provincias p ON o.provincia_id=p.id
+				INNER JOIN distritos di ON o.distrito_id=di.id
+EOT;
+		$oData = DB::select($sSql);
+		return $oData;
+	}
+
 }
