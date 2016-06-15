@@ -59,7 +59,7 @@
 									</tr>
 								</tfoot>
 							</table>
-							<a class='btn btn-primary btn-sm' data-toggle="modal" data-target="#carreraModal" data-titulo="Nuevo">
+							<a class='btn btn-primary btn-sm' data-toggle="modal" data-target="#odeModal" data-titulo="Nuevo">
 								<i class="fa fa-plus fa-lg"></i>&nbsp;Nuevo
 							</a>
 						</div><!-- /.box-body -->

@@ -1,12 +1,12 @@
 <!-- /.modal -->
-<div class="modal fade" id="carreraModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="odeModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header logo">
 				<button class="btn btn-sm btn-default pull-right" data-dismiss="modal">
 					<i class="fa fa-close"></i>
 				</button>
-				<h4 class="modal-title">Nueva Carrera</h4>
+				<h4 class="modal-title">Nueva Ode</h4>
 			</div>
 			<div class="modal-body">
 				<form id="form_odes" name="form_odes" action="" method="post">
@@ -20,8 +20,40 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Tipo:</label>
-						<select class="form-control" name="slct_tipo_id" id="slct_tipo_id"></select>
+						<label class="control-label">Departamento:</label>
+						<select class="form-control" name="slct_departamento_id" id="slct_departamento_id"></select>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label">Provincia:</label>
+						<select class="form-control" name="slct_provincia_id" id="slct_provincia_id"></select>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label">Distrito
+						<a id="error_distrito_id" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Seleccione Distrito">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
+						<select class="form-control" name="slct_distrito_id" id="slct_distrito_id"></select>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label">Direcci&oacute;n
+							<a id="error_direccion" style="display:none" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ingrese Direcci&oacute;n">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
+						<input type="text" class="form-control" placeholder="Ingrese Direcci&oacute;n" name="txt_direccion" id="txt_direccion">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label">Tel&eacute;fono
+							<a id="error_telefono" style="display:none" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ingrese Tel&eacute;fono">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
+						<input type="text" class="form-control" placeholder="Ingrese Tel&eacute;fono" name="txt_telefono" id="txt_telefono">
 					</div>
 
 					<div class="form-group">

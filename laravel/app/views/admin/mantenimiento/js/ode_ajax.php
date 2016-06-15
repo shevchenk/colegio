@@ -10,52 +10,49 @@ var Odes = {
 
 			},
 			success : function(obj) {
-				console.log(obj);
-				//~ var html="";
-				//~ var estadohtml="";
-				//~ if(obj.rst==1){
-					//~ $.each(obj.aData,function(index,data){
-						//~ estadohtml = '<span id="'+data.id+'" onClick="activar('+data.id+')" class="btn btn-danger btn-xs">Inactivo</span>';
-						//~ if(data.estado == 1){
-							//~ estadohtml = '<span id="'+data.id+'" onClick="desactivar('+data.id+')" class="btn btn-success btn-xs">Activo</span>';
-						//~ }
-//~ 
-						//~ html+="<tr>"+
-							//~ "<td id='nombre_"+data.id+"'>"+data.carrera+"</td>"+
-							//~ "<td id='tipo_id_"+data.id+"' tipo_id='"+data.tipo_id+"'>"+data.tipo_carrera+"</td>"+
-							//~ "<td id='estado_"+data.id+"' data-estado='"+data.estado+"'>"+estadohtml+"</td>"+
-							//~ '<td><a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#carreraModal" data-id="'+data.id+'" data-titulo="Editar"><i class="fa fa-edit fa-lg"></i> </a></td>';
-						//~ html+="</tr>";
-//~ 
-					//~ });
-				//~ }
-				//~ $("#tb_carreras").html(html);
-				//~ evento();
+				var html="";
+				var estadohtml="";
+				if(obj.rst==1){
+					$.each(obj.aData,function(index,data){
+						estadohtml = '<span id="'+data.id+'" onClick="activar('+data.id+')" class="btn btn-danger btn-xs">Inactivo</span>';
+						if(data.estado == 1){
+							estadohtml = '<span id="'+data.id+'" onClick="desactivar('+data.id+')" class="btn btn-success btn-xs">Activo</span>';
+						}
+
+						html+="<tr>"+
+							"<td id='nombre_"+data.id+"'>"+data.nombre+"</td>"+
+							"<td id='departamento_id_"+data.id+"' departamento_id='"+data.departamento_id+"'>"+data.departamento+"</td>"+
+							"<td id='provincia_id_"+data.id+"' provincia_id='"+data.provincia_id+"'>"+data.provincia+"</td>"+
+							"<td id='distrito_id_"+data.id+"' distrito_id='"+data.distrito_id+"'>"+data.distrito+"</td>"+
+							"<td id='direccion_"+data.id+"'>"+data.direccion+"</td>"+
+							"<td id='telefono_"+data.id+"'>"+data.telefono+"</td>"+
+							"<td id='estado_"+data.id+"' data-estado='"+data.estado+"'>"+estadohtml+"</td>"+
+							'<td><a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#carreraModal" data-id="'+data.id+'" data-titulo="Editar"><i class="fa fa-edit fa-lg"></i> </a></td>';
+						html+="</tr>";
+
+					});
+				}
+				$("#tb_odes").html(html);
+				evento();
 			},
 			error: function(){
 			}
 		});
 	},
-	cargarTipos:function(accion,menu_id){
-		$.ajax({
-			url : 'carrera/listartipo',
-			type : 'POST',
-			cache : false,
-			dataType : 'json',
-			success : function(obj) {
-				//~ console.log(obj);
-				if(obj.rst==1){
-					$('#slct_tipo_id').html('');
-					$.each(obj.aData,function(index,data){
-						$('#slct_tipo_id').append('<option value='+data.id+'>'+data.nombre+'</option>');
-					});
-					if (accion==='nuevo')
-						$('#slct_tipo_id').append("<option selected style='display:none;'>--- Elige Menu ---</option>");
-					else
-					   $('#slct_tipo_id').val( menu_id );
-				}
+	cargarSelectAnidado:function(sLista, sUrl, sSelector, sAccion, nId, nIdPadre)
+	{
+		$.post(sUrl, { id_padre: nIdPadre }, function(oData) {
+			if(oData.rst==1){
+				$(sSelector).html('');
+				$.each(oData.aData,function(idx,row){
+					$(sSelector).append('<option value='+row.id+'>'+row.nombre+'</option>');
+				});
+				if (sAccion==='nuevo')
+					$(sSelector).append("<option selected style='display:none;'>--- Seleccionar "+sLista+" ---</option>");
+				else
+					$(sSelector).val(nId);
 			}
-		});
+		}, "json");
 	},
 	AgregarEditarOpciones:function(AE){
 		var datos=$("#form_carreras").serialize().split("txt_").join("").split("slct_").join("");

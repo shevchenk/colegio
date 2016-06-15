@@ -3,21 +3,20 @@ $(document).ready(function() {
 
 	Odes.CargarOpciones(activarTabla);
 
-	//~ $('#carreraModal').on('show.bs.modal', function (event) {
-		//~ var button = $(event.relatedTarget);
-		//~ var titulo = button.data('titulo');
-		//~ var modal = $(this);
-		//~ modal.find('.modal-title').text(titulo+' Carrera');
-		//~ $('#form_carreras [data-toggle="tooltip"]').css("display","none");
-		//~ $("#form_carreras input[type='hidden']").remove();
-		//~ 
-		//~ if(titulo=='Nuevo') {
-			//~ Carreras.cargarTipos('nuevo',null);
-			//~ modal.find('.modal-footer .btn-primary').text('Guardar');
-			//~ modal.find('.modal-footer .btn-primary').attr('onClick','Agregar();');
-			//~ $('#form_carreras #txt_carrera').focus();
-		//~ }
-		//~ else {
+	$('#odeModal').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget);
+		var titulo = button.data('titulo');
+		var modal = $(this);
+		modal.find('.modal-title').text(titulo+' Ode');
+		$('#form_odes [data-toggle="tooltip"]').css("display","none");
+		$("#form_odes input[type='hidden']").remove();
+		if(titulo=='Nuevo') {
+			Odes.cargarSelectAnidado('Departamento', 'colegio/listardepartamento', '#slct_departamento_id', 'nuevo', null, null);
+			modal.find('.modal-footer .btn-primary').text('Guardar');
+			modal.find('.modal-footer .btn-primary').attr('onClick','Agregar();');
+			$('#form_odes #txt_nombre').focus();
+		}
+		else {
 			//~ tipo_id=$('#tb_carreras #tipo_id_'+button.data('id') ).attr('tipo_id');
 			//~ Carreras.cargarTipos('editar',tipo_id);
 			//~ modal.find('.modal-footer .btn-primary').text('Actualizar');
@@ -26,13 +25,24 @@ $(document).ready(function() {
 			//~ $('#form_carreras #slct_tipo_id').val( $('#tb_carreras #tipo_id_'+button.data('id') ).text() );
 			//~ $('#form_carreras #slct_estado').val( $('#tb_carreras #estado_'+button.data('id') ).attr("data-estado") );
 			//~ $("#form_carreras").append("<input type='hidden' value='"+button.data('id')+"' name='id'>");
-		//~ }
-	//~ });
+		}
+	});
 
-	//~ $('#carreraModal').on('hide.bs.modal', function (event) {
-		//~ var modal = $(this);
-		//~ modal.find('.modal-body input').val('');
-	//~ });
+	$('#odeModal').on('hide.bs.modal', function (event) {
+		var modal = $(this);
+		modal.find('.modal-body input').val('');
+	});
+
+	$("#slct_departamento_id").change(function(){
+		var id_departamento = $(this).val();
+		Odes.cargarSelectAnidado('Provincia', 'colegio/listarprovincia', '#slct_provincia_id', 'nuevo',null, id_departamento);
+		$("#slct_distrito_id").empty();
+	});
+
+	$("#slct_provincia_id").change(function(){
+		var id_provincia = $(this).val();
+		Odes.cargarSelectAnidado('Distrito', 'colegio/listardistrito', '#slct_distrito_id', 'nuevo',null, id_provincia);
+	});
 
 });
 
