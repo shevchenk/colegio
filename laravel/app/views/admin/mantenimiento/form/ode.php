@@ -64,6 +64,24 @@
 						</select>
 					</div>
 
+					<div class="form-group">
+						<button type="button" class="btn btn-success btn-xs btnAgregarDistrito">Agregar Distrito</button>
+					</div>
+
+					<table class="table tblDistrito">
+						<thead>
+							<tr>
+								<th>Departamento</th>
+								<th>Provincia</th>
+								<th>Distrito</th>
+								<th>[]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+
 				</form>
 			</div>
 			<div class="modal-footer">
