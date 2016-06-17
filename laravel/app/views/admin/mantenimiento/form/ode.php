@@ -68,7 +68,7 @@
 						<button type="button" class="btn btn-success btn-xs btnAgregarDistrito">Agregar Distrito</button>
 					</div>
 
-					<table class="table tblDistrito">
+					<table class="table tblDetalle">
 						<thead>
 							<tr>
 								<th>Departamento</th>

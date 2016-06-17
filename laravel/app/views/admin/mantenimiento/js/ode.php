@@ -44,6 +44,10 @@ $(document).ready(function() {
 		Odes.cargarSelectAnidado('Distrito', 'colegio/listardistrito', '#slct_distrito_id', 'nuevo',null, id_provincia);
 	});
 
+	$("#odeModal .btnAgregarDistrito").on("click", function() {
+		$('.tblDetalle tbody').append(agregarDetalle);
+	});
+
 });
 
 activarTabla=function(){
@@ -65,5 +69,17 @@ activar=function(id){
 desactivar=function(id){
 	Carreras.CambiarEstadoOpciones(id,0);
 };
+
+agregarDetalle = function(){
+	var oDate = new Date();
+	var nTime = oDate.getSeconds() + "" + oDate.getTime();
+	var sHtml = "<tr class='row_"+nTime+" filaAgregada'>"+
+					"<td>A</td>"+
+					"<td>B</td>"+
+					"<td>C</td>"+
+					"<td>X</td>"+
+				"</tr>";
+	return sHtml;
+}
 
 </script>
