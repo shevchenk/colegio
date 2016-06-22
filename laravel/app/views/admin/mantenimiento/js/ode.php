@@ -4,6 +4,7 @@ $(document).ready(function() {
 	Odes.CargarOpciones(activarTabla);
 
 	$('#odeModal').on('show.bs.modal', function (event) {
+		departamentoLocalStore();
 		var button = $(event.relatedTarget);
 		var titulo = button.data('titulo');
 		var modal = $(this);
@@ -82,4 +83,18 @@ agregarDetalle = function(){
 	return sHtml;
 }
 
+departamentoLocalStore = function()
+{
+	$.post('colegio/listardepartamento', { 'parametro': null }, function(oData) {
+		var sDepartamento = "{";
+		$.each(oData.aData, function( nIdx, mVal ) {
+			sDepartamento += '"' + mVal.id + '":"' + mVal.nombre + '",';
+		});
+		sDepartamento += '"0":"Seleccionar"}';
+		var oDepartamento = JSON.parse(sDepartamento);
+		$.each(oDepartamento, function( nIndx, sVal ) {
+			console.log(nIndx + ':' + sVal);
+		});
+	}, "json");
+}
 </script>
