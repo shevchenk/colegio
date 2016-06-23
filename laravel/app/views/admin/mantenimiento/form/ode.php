@@ -73,7 +73,7 @@
 							<tr>
 								<th>Departamento</th>
 								<th>Provincia</th>
-								<th>Distrito</th>
+								<th>Distrito - Ode</th>
 								<th>[]</th>
 							</tr>
 						</thead>

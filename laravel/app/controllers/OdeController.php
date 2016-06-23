@@ -139,4 +139,15 @@ class OdeController extends \BaseController
         }
     }
 
+	public function postListardistrito()
+	{
+		if ( Request::ajax() ) {
+			$nIdPadre = Input::get('id_padre');
+			$aData = Ode::getListardistrito($nIdPadre);
+			$aParametro['rst'] = 1;
+			$aParametro['aData'] = $aData;
+			return Response::json($aParametro);
+		}
+	}
+
 }
