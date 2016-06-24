@@ -13,6 +13,7 @@ $(document).ready(function() {
 		$("#form_odes input[type='hidden']").remove();
 		if(titulo=='Nuevo') {
 			Odes.cargarSelectAnidado('Departamento', 'colegio/listardepartamento', '#slct_departamento_id', 'nuevo', null, null);
+			$("#slct_provincia_id, #slct_distrito_id").empty();
 			modal.find('.modal-footer .btn-primary').text('Guardar');
 			modal.find('.modal-footer .btn-primary').attr('onClick','Agregar();');
 			$('#form_odes #txt_nombre').focus();
@@ -97,19 +98,19 @@ activarTabla=function(){
 };
 
 Agregar=function(){
-	Carreras.AgregarEditarOpciones(0);
+	Odes.AgregarEditarOpciones(0);
 };
 
 Editar=function(){
-	Carreras.AgregarEditarOpciones(1);
+	Odes.AgregarEditarOpciones(1);
 };
 
 activar=function(id){
-	Carreras.CambiarEstadoOpciones(id,1);
+	Odes.CambiarEstadoOpciones(id,1);
 };
 
 desactivar=function(id){
-	Carreras.CambiarEstadoOpciones(id,0);
+	Odes.CambiarEstadoOpciones(id,0);
 };
 
 agregarDetalle = function()

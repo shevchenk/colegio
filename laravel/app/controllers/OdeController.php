@@ -150,4 +150,57 @@ class OdeController extends \BaseController
 		}
 	}
 
+	public function postAgregar()
+	{
+		if ( Request::ajax() )
+		{
+			$regex='regex:/^([a-zA-Z .,ñÑÁÉÍÓÚáéíóú]{2,60})$/i';
+			$required='required';
+			$reglas = array(
+				'nombre' => $required.'|'.$regex,
+				'departamento_id' => $required,
+				'provincia_id' => $required,
+				'distrito_id' => $required,
+				'direccion' => $required,
+				'telefono' => $required
+			);
+
+			$mensaje= array(
+				'required' => ':attribute Es requerido',
+				'regex' => ':attribute Solo debe ser Texto',
+			);
+
+			$validator = Validator::make(Input::all(), $reglas, $mensaje);
+
+			if ( $validator->fails() ) {
+				return Response::json(
+					array(
+					'rst'=>2,
+					'msj'=>$validator->messages(),
+					)
+				);
+			}
+
+			$opciones = new Ode;
+			$opciones['nombre'] = Input::get('nombre');
+			$opciones['departamento_id'] = Input::get('departamento_id');
+			$opciones['provincia_id'] = Input::get('provincia_id');
+			$opciones['distrito_id'] = Input::get('distrito_id');
+			$opciones['direccion'] = Input::get('direccion');
+			$opciones['telefono'] = Input::get('telefono');
+			$opciones['estado'] = Input::get('estado');
+			$opciones['usuario_created_at'] = Auth::user()->id;
+			$opciones->save();
+
+			return Response::json(
+				array(
+				'rst'=>1,
+				'msj'=>'Registro actualizado correctamente',
+				)
+			);
+
+		}
+	}
+
+
 }

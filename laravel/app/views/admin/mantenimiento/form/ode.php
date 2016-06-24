@@ -20,17 +20,25 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Departamento:</label>
+						<label class="control-label">Departamento:
+							<a id="error_departamento_id" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Seleccionar departamento">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
 						<select class="form-control" name="slct_departamento_id" id="slct_departamento_id"></select>
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Provincia:</label>
+						<label class="control-label">Provincia:
+						<a id="error_provincia_id" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Seleccionar provincia">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
 						<select class="form-control" name="slct_provincia_id" id="slct_provincia_id"></select>
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Distrito
+						<label class="control-label">Distrito:
 						<a id="error_distrito_id" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Seleccione Distrito">
 								<i class="fa fa-exclamation"></i>
 							</a>
