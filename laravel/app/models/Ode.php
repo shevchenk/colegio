@@ -32,4 +32,17 @@ EOT;
 		return $oData;
 	}
 
+	public static function getListardistrito($nIdPadre)
+	{
+		$sSql = <<<EOT
+			SELECT d.id, CONCAT(d.nombre, IF(o.nombre IS NULL, '', CONCAT(' - ',o.nombre))) AS nombre
+			FROM distritos d
+				LEFT JOIN odes_distritos od ON d.id=od.distrito_id AND od.estado=1
+				LEFT JOIN odes o ON od.ode_id=o.id
+			WHERE d.provincia_id={$nIdPadre}
+EOT;
+		$oData = DB::select($sSql);
+		return $oData;
+	}
+
 }

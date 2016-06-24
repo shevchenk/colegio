@@ -13,6 +13,7 @@ $(document).ready(function() {
 		$("#form_odes input[type='hidden']").remove();
 		if(titulo=='Nuevo') {
 			Odes.cargarSelectAnidado('Departamento', 'colegio/listardepartamento', '#slct_departamento_id', 'nuevo', null, null);
+			$("#slct_provincia_id, #slct_distrito_id").empty();
 			modal.find('.modal-footer .btn-primary').text('Guardar');
 			modal.find('.modal-footer .btn-primary').attr('onClick','Agregar();');
 			$('#form_odes #txt_nombre').focus();
@@ -27,6 +28,7 @@ $(document).ready(function() {
 			//~ $('#form_carreras #slct_estado').val( $('#tb_carreras #estado_'+button.data('id') ).attr("data-estado") );
 			//~ $("#form_carreras").append("<input type='hidden' value='"+button.data('id')+"' name='id'>");
 		}
+		$("table.tblDetalle tbody .filaAgregada").remove();
 	});
 
 	$('#odeModal').on('hide.bs.modal', function (event) {
@@ -49,6 +51,46 @@ $(document).ready(function() {
 		$('.tblDetalle tbody').append(agregarDetalle);
 	});
 
+	$("#odeModal .tblDetalle").on("change", ".sltDepartamento", function(){
+		var id_departamento = $(this).val();
+		var id = $(this).attr('id');
+		$("#pro_"+id).empty();
+		Odes.cargarSelectAnidado('Provincia', 'colegio/listarprovincia', '#pro_'+id, 'nuevo',null, id_departamento);
+		$("#dis_"+id).empty();
+	});
+
+	$("#odeModal .tblDetalle").on("change", ".sltProvincia", function(){
+		var id_provincia = $(this).val();
+		var id = $(this).attr('id_padre');
+		$("#dis_"+id).empty();
+		Odes.cargarSelectAnidado('Distrito', 'ode/listardistrito', '#dis_'+id, 'nuevo',null, id_provincia);
+	});
+
+	$("#odeModal .tblDetalle").on("change", ".sltDistrito", function(){
+		var id_distrito = $(this).val();
+		var id = $(this).attr('id_padre');
+		var sId = "dis_"+id;
+		var oDistrito = $("select[name='slct_distrito_id[]']");
+		var nError = 0;
+		$.each(oDistrito, function( nIdx, mVal ) {
+			if(sId!=mVal.id && mVal.value==id_distrito)
+			{
+				nError = nError + 1;
+			}
+		});
+		if(nError>=1)
+		{
+			$("#"+sId).val(0);
+			msjG.mensaje("danger","Distrito ya fue seleccionado",5000);
+			return false;
+		}
+	});
+
+	$("#odeModal .tblDetalle").on("click", ".btnQuitar", function() {
+		var id_row = $(this).attr("id_row");
+		$("table.tblDetalle tbody .row_"+id_row).remove();
+	});
+
 });
 
 activarTabla=function(){
@@ -56,29 +98,39 @@ activarTabla=function(){
 };
 
 Agregar=function(){
-	Carreras.AgregarEditarOpciones(0);
+	Odes.AgregarEditarOpciones(0);
 };
 
 Editar=function(){
-	Carreras.AgregarEditarOpciones(1);
+	Odes.AgregarEditarOpciones(1);
 };
 
 activar=function(id){
-	Carreras.CambiarEstadoOpciones(id,1);
+	Odes.CambiarEstadoOpciones(id,1);
 };
 
 desactivar=function(id){
-	Carreras.CambiarEstadoOpciones(id,0);
+	Odes.CambiarEstadoOpciones(id,0);
 };
 
-agregarDetalle = function(){
+agregarDetalle = function()
+{
 	var oDate = new Date();
 	var nTime = oDate.getSeconds() + "" + oDate.getTime();
+	var mDepartamento = JSON.parse(localStorage.getItem("oDepartamento"));
+	var oDepartamento = JSON.parse(mDepartamento);
+	var sDepartamento = "<select name='slct_departamento_id[]' class='form-control input-sm sltDepartamento' id='"+nTime+"'>";
+	$.each(oDepartamento, function( nIndx, sVal ) {
+		sDepartamento += "<option value='"+nIndx+"'>"+sVal+"</option>";
+	});
+	sDepartamento += "</select>";
 	var sHtml = "<tr class='row_"+nTime+" filaAgregada'>"+
-					"<td>A</td>"+
-					"<td>B</td>"+
-					"<td>C</td>"+
-					"<td>X</td>"+
+					"<td>"+sDepartamento+"</td>"+
+					"<td><select class='form-control input-sm sltProvincia' name='slct_provincia_id[]' id='pro_"+nTime+"' id_padre='"+nTime+"'></select></td>"+
+					"<td><select class='form-control input-sm sltDistrito' name='slct_distrito_id[]' id='dis_"+nTime+"' id_padre='"+nTime+"'></select></td>"+
+					"<td><input type='hidden' name='txt_accion[]' class='form-control input-sm' value='I' />"+
+					"<input type='hidden' name='txt_id[]' class='form-control input-sm' />"+
+					"<a class='btn btn-danger btn-xs btnQuitar' id_row='"+nTime+"'><i class='fa fa-times fa-1x'></i></a></td>"+
 				"</tr>";
 	return sHtml;
 }
@@ -91,10 +143,7 @@ departamentoLocalStore = function()
 			sDepartamento += '"' + mVal.id + '":"' + mVal.nombre + '",';
 		});
 		sDepartamento += '"0":"Seleccionar"}';
-		var oDepartamento = JSON.parse(sDepartamento);
-		$.each(oDepartamento, function( nIndx, sVal ) {
-			console.log(nIndx + ':' + sVal);
-		});
+		localStorage.setItem("oDepartamento", JSON.stringify(sDepartamento));
 	}, "json");
 }
 </script>

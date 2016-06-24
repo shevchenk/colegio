@@ -50,6 +50,7 @@ class CarreraController extends BaseController
 			$opciones['nombre'] = Input::get('carrera');
 			$opciones['carrera_tipo_id'] = Input::get('tipo_id');
 			$opciones['estado'] = Input::get('estado');
+			$opciones['usuario_created_at'] = Auth::user()->id;
 			$opciones->save();
 
 			return Response::json(
@@ -90,6 +91,7 @@ class CarreraController extends BaseController
 			$opciones['nombre'] = Input::get('carrera');
 			$opciones['carrera_tipo_id'] = Input::get('tipo_id');
 			$opciones['estado'] = Input::get('estado');
+			$opciones['usuario_updated_at'] = Auth::user()->id;
 			$opciones->save();
 
 			return Response::json(

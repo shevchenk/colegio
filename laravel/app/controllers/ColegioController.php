@@ -167,6 +167,7 @@ class ColegioController extends BaseController
 			$opciones['ugel'] = Input::get('ugel');
 			$opciones['genero'] = Input::get('genero');
 			$opciones['turno'] = Input::get('turno');
+			$opciones['usuario_created_at'] = Auth::user()->id;
 			$opciones->save();
 
 			return Response::json(
@@ -228,6 +229,7 @@ class ColegioController extends BaseController
 			$opciones['ugel'] = Input::get('ugel');
 			$opciones['genero'] = Input::get('genero');
 			$opciones['turno'] = Input::get('turno');
+			$opciones['usuario_updated_at'] = Auth::user()->id;
 			$opciones->save();
 
 			return Response::json(
@@ -276,6 +278,7 @@ class ColegioController extends BaseController
 						$oColegioDetalle['turno'] = Input::get('turno.'.$nKey);
 						$oColegioDetalle['total_alumnos'] = Input::get('total_alumnos.'.$nKey);
 						$oColegioDetalle['estado'] = 1;
+						$oColegioDetalle['usuario_created_at'] = Auth::user()->id;
 						$oColegioDetalle->save();
 					} else if($aAccion[$nKey] == "U")
 					{
@@ -287,6 +290,7 @@ class ColegioController extends BaseController
 						$oColegioDetalle['turno'] = Input::get('turno.'.$nKey);
 						$oColegioDetalle['total_alumnos'] = Input::get('total_alumnos.'.$nKey);
 						$oColegioDetalle['estado'] = 1;
+						$oColegioDetalle['usuario_updated_at'] = Auth::user()->id;
 						$oColegioDetalle->save();
 					}
 				}
