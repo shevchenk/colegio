@@ -32,17 +32,15 @@ class Persona extends Base implements UserInterface, RemindableInterface
         return $this->belongsToMany('Cargo');
     }
 
-    public static function getCargarp()
+    public static function getCargarp($where)
     {
-        $sql="  SELECT p.id ,a.id area_id,r.id rol_id,p.dni,
-                    p.paterno,p.materno,p.nombre,a.nombre area,r.nombre rol
+        $sql="  SELECT p.id ,p.dni,
+                    p.paterno,p.materno,p.nombre
                 FROM personas p
-                INNER JOIN areas a ON a.id=p.area_id 
-                INNER JOIN roles r ON r.id=p.rol_id 
+                INNER JOIN cargo_persona cp ON cp.persona_id=p.id 
                 WHERE p.estado=1
-                AND p.area_id='".Input::get('area_id')."'";
+                ".$where['where'];
         $personas = DB::select($sql);
-
         return $personas;
     }
 

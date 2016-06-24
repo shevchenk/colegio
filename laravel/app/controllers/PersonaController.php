@@ -22,8 +22,12 @@ class PersonaController extends BaseController
     {
         //si la peticion es ajax
         if ( Request::ajax() ) {
-            $personas = Persona::getCargarp();
-            return Response::json(array('rst'=>1,'datos'=>$personas));
+            $array['where']="";
+            if( Input::has('cargo_id') ){
+                $array['where']=" AND cp.cargo_id='".Input::get('cargo_id')."' ";
+            }
+            $personas = Persona::getCargarp($array);
+            return Response::json(array('rst'=>1,'aData'=>$personas));
         }
     }
     /**

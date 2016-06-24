@@ -1,4 +1,5 @@
 <script type="text/javascript">
+var IdeGlobal={persona:''};// para crear objeto en arreglo e inicializarlo.
 $(document).ready(function() {
     slctGlobal.listarSlct('ode','slct_ode','simple');
     slctGlobalHtml('slct_distrito','simple');
@@ -21,10 +22,6 @@ Cargar=function(evento,id){
         $('#slct_distrito').multiselect('destroy');
         slctGlobal.listarSlct('ode_distrito','slct_distrito','simple',null,data);
     }
-    else if( evento=='col' ){
-        var data={distrito:id};
-
-    }
 }
 
 Mostrar=function(evento){
@@ -40,14 +37,40 @@ Mostrar=function(evento){
             Visita.Colegio(ColegioHTML);
         }
     }
-    else if( evento=='cold' ){
-        if( $("#txt_colegio_id").val()=='' ){
-            alert('Busar y Seleccionar Colegio');
-        }
-        else{
-            $("#div_colegio_detalle").show();
-        }
+    else if( evento=='pvi' ){
+        $("#div_persona").show();
+        data={cargo_id:4};
+        Visita.ColegioPersona(ColegioPersonaHTML,data);
     }
+    else if( evento=='pco' ){
+        IdeGlobal['persona']="c";
+        $("#div_persona").show();
+        data={cargo_id:5};
+        Visita.ColegioPersona(ColegioPersonaHTML,data);
+    }
+}
+
+ColegioPersonaHTML=function(datos){
+    var html='';
+    $('#t_persona').dataTable().fnDestroy();
+    $.each(datos,function(index,data){
+        html+="<tr>"+
+            "<td>"+data.paterno+"</td>"+
+            "<td>"+data.materno+"</td>"+
+            "<td>"+data.nombre+"</td>"+
+            "<td>"+data.dni+"</td>"+
+            '<td><a class="btn btn-primary btn-sm" id="persona" data-id="'+data.id+'" data-nombre="'+data.paterno+' '+data.materno+', '+data.nombre+' | DNI:'+data.dni+'" data-titulo="" onClick="SeleccionarTable(this,'+"'"+IdeGlobal['persona']+"'"+')">'+
+                '<i class="fa fa-check fa-lg"></i> </a></td>';
+        html+="</tr>";
+    });
+
+    if(html==''){
+        $("#div_persona").hide();
+        $("#txt_persona,#txt_persona_id").val('');
+    }
+
+    $("#t_persona>tbody").html(html); 
+    $("#t_persona").dataTable();
 }
 
 ColegioHTML=function(datos){
@@ -82,8 +105,9 @@ ColegioDetalleHTML=function(datos){
             "<td>"+data.seccion+"</td>"+
             "<td>"+data.nivel+"</td>"+
             "<td>"+data.turno+"</td>"+
+            "<td><input type='text' name='colegio_detalle_ta[]' value='"+data.total_alumnos+"' disabled></td>"+
             '<td><label>'+
-                '<input name="colegio_detalle[]" type="checkbox" value="'+data.id+'" data-nombre="'+data.grado+'° '+data.seccion+' | '+data.nivel+' '+data.turno+'" class="minimal" />'+
+                '<input name="colegio_detalle[]" onChange="ActualizaTa(this);" type="checkbox" value="'+data.id+'" data-nombre="'+data.grado+'° '+data.seccion+' | '+data.nivel+' '+data.turno+'" class="minimal" />'+
                 '</label>';
         html+="</tr>";
     });
@@ -92,15 +116,24 @@ ColegioDetalleHTML=function(datos){
     $("#t_colegio_detalle").dataTable();
 }
 
-SeleccionarTable=function(ts){
+ActualizaTa=function(t){
+    if( $(t).is(":checked") ){
+        $(t).closest("tr").find("td>input[type='text']").removeAttr("disabled");
+    }
+    else{
+        $(t).closest("tr").find("td>input[type='text']").attr("disabled","true");
+    }
+}
+
+SeleccionarTable=function(ts,ide){
     var id=$(ts).attr("data-id");
     var nombre=$(ts).attr("data-nombre");
     var idT=$(ts).attr("id");
 
     $("#div_"+idT).hide();
 
-    $("#txt_"+idT).val(nombre);
-    $("#txt_"+idT+"_id").val(id);
+    $("#txt_"+idT+$.trim(ide)).val(nombre);
+    $("#txt_"+idT+$.trim(ide)+"_id").val(id);
     if( idT=='colegio' ){
         Visita.ColegioDetalle(ColegioDetalleHTML);
     }
@@ -120,19 +153,31 @@ ValidarForm=function(){
         r=false;
         alert('Seleccione Distrito');
     }
+    else if( $.trim($("#txt_persona_id").val())=="" ){
+        r=false;
+        alert('Ingrese persona que visitará');
+    }
+    else if( $.trim($("#txt_personac_id").val())=="" ){
+        r=false;
+        alert('Ingrese persona que se contactó');
+    }
+    else if( $.trim($("#txt_nro_tel").val())=="" ){
+        r=false;
+        alert('Ingrese Nro telefónico que se contactó');
+    }
     else if( $.trim($("#txt_colegio_id").val())=="" ){
         r=false;
         alert('Busque y Seleccione Colegio');
     }
-    else if( $("input[name='colegio_detalle']:checked").length==0 ){
+    else if( $("input[name='colegio_detalle[]']:checked").length==0 ){
         r=false;
-        alert('Busque y Seleccione Colegio');
+        alert('Busque y Seleccione Grado y Sección del Colegio');
     }
     return r;
 }
 
 Guardar=function(){
-    if( ValidarForm ){
+    if( ValidarForm() ){
         Visita.Crear(Limpiar);
     }
 }

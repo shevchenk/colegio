@@ -59,6 +59,55 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="col-sm-6">
+                        <label class="control-label">Persona que Visitará:</label>
+                        <input class="form-control" type="hidden" name="txt_persona_id" id="txt_persona_id">
+                        <input class="form-control" type="text" name="txt_persona" id="txt_persona" readonly>
+                    </div>
+                    <div class="col-sm-1">
+                        <label class="control-label"></label>
+                        <a class="form-control btn btn-primary" onClick="Mostrar('pvi');" id="buscar" name="buscar">
+                            <i class="fa fa-lg fa-search"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <label class="control-label">Persona que se Contactó:</label>
+                        <input class="form-control" type="hidden" name="txt_personac_id" id="txt_personac_id">
+                        <input class="form-control" type="text" name="txt_personac" id="txt_personac" readonly>
+                    </div>
+                    <div class="col-sm-1">
+                        <label class="control-label"></label>
+                        <a class="form-control btn btn-primary" onClick="Mostrar('pco');" id="buscar" name="buscar">
+                            <i class="fa fa-lg fa-search"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-3">
+                        <label class="control-label">Nro telefónico que se contactó:</label>
+                        <input type="text" class="form-control" name="txt_nro_tel" id="txt_nro_tel">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div id="div_persona" class="box row table-responsive" style="display:none">
+                        <table id="t_persona" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Paterno</th>
+                                    <th>Materno</th>
+                                    <th>Nombre</th>
+                                    <th>DNI</th>
+                                    <th> [ ] </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <label class="control-label">Colegio:</label>
                         <input class="form-control" type="hidden" name="txt_colegio_id" id="txt_colegio_id">
                         <input class="form-control" type="text" name="txt_colegio" id="txt_colegio" readonly>
@@ -96,6 +145,7 @@
                                     <th>Sección</th>
                                     <th>Nivel</th>
                                     <th>Turno</th>
+                                    <th>Total Alumnos</th>
                                     <th> [ ] </th>
                                 </tr>
                             </thead>
