@@ -11,6 +11,7 @@ $(document).ready(function() {
 		modal.find('.modal-title').text(titulo+' Ode');
 		$('#form_odes [data-toggle="tooltip"]').css("display","none");
 		$("#form_odes input[type='hidden']").remove();
+		$("table.tblDetalle tbody .filaAgregada").remove();
 		if(titulo=='Nuevo') {
 			Odes.cargarSelectAnidado('Departamento', 'colegio/listardepartamento', '#slct_departamento_id', 'nuevo', null, null);
 			$("#slct_provincia_id, #slct_distrito_id").empty();
@@ -19,16 +20,22 @@ $(document).ready(function() {
 			$('#form_odes #txt_nombre').focus();
 		}
 		else {
-			//~ tipo_id=$('#tb_carreras #tipo_id_'+button.data('id') ).attr('tipo_id');
-			//~ Carreras.cargarTipos('editar',tipo_id);
-			//~ modal.find('.modal-footer .btn-primary').text('Actualizar');
-			//~ modal.find('.modal-footer .btn-primary').attr('onClick','Editar();');
-			//~ $('#form_carreras #txt_carrera').val( $('#tb_carreras #nombre_'+button.data('id') ).text() );
-			//~ $('#form_carreras #slct_tipo_id').val( $('#tb_carreras #tipo_id_'+button.data('id') ).text() );
-			//~ $('#form_carreras #slct_estado').val( $('#tb_carreras #estado_'+button.data('id') ).attr("data-estado") );
-			//~ $("#form_carreras").append("<input type='hidden' value='"+button.data('id')+"' name='id'>");
+			modal.find('.modal-footer .btn-primary').text('Actualizar');
+			modal.find('.modal-footer .btn-primary').attr('onClick','Editar();');
+			var idOde = button.data('id');
+			$('#form_odes #txt_nombre').val( $('#tb_odes #nombre_'+idOde).text());
+			departamento_id=$('#tb_odes #departamento_id_'+idOde).attr('departamento_id');
+			Odes.cargarSelectAnidado('Departamento', 'colegio/listardepartamento', '#slct_departamento_id', 'editar', departamento_id, null);
+			provincia_id=$('#tb_odes #provincia_id_'+idOde).attr('provincia_id');
+			Odes.cargarSelectAnidado('Provincia', 'colegio/listarprovincia', '#slct_provincia_id', 'editar',provincia_id, departamento_id);
+			distrito_id=$('#tb_odes #distrito_id_'+idOde).attr('distrito_id');
+			Odes.cargarSelectAnidado('Distrito', 'colegio/listardistrito', '#slct_distrito_id', 'editar',distrito_id, provincia_id);
+			$('#form_odes #txt_direccion').val( $('#tb_odes #direccion_'+idOde).text());
+			$('#form_odes #txt_telefono').val( $('#tb_odes #telefono_'+idOde).text());
+			$('#form_odes #slct_estado').val( $('#tb_odes #estado_'+idOde).attr("data-estado") );
+			$("#form_odes").append("<input type='hidden' value='"+idOde+"' name='id'>");
+			Odes.cargarDetalle(idOde);
 		}
-		$("table.tblDetalle tbody .filaAgregada").remove();
 	});
 
 	$('#odeModal').on('hide.bs.modal', function (event) {
@@ -70,7 +77,7 @@ $(document).ready(function() {
 		var id_distrito = $(this).val();
 		var id = $(this).attr('id_padre');
 		var sId = "dis_"+id;
-		var oDistrito = $("select[name='slct_distrito_id[]']");
+		var oDistrito = $("select[name='slct_ode_distrito_id[]']");
 		var nError = 0;
 		$.each(oDistrito, function( nIdx, mVal ) {
 			if(sId!=mVal.id && mVal.value==id_distrito)
@@ -97,11 +104,48 @@ activarTabla=function(){
 	$("#t_odes").dataTable();
 };
 
-Agregar=function(){
+Agregar=function()
+{
+	if(validarDistrito()==false)
+	{
+		return false;
+	}
 	Odes.AgregarEditarOpciones(0);
 };
 
+validarDistrito = function(){
+	var bRespuesta = true;
+	if( $("select[name='slct_ode_distrito_id[]']").length > 0)
+	{
+		var oDistrito = $("select[name='slct_ode_distrito_id[]']");
+		var nError = 0;
+		var oError = [];
+		$.each(oDistrito,function(idxDis,rowDis){
+			var nRegistro = 1 + parseInt(idxDis);
+			if(rowDis.value=="" || rowDis.value=="0" || rowDis.value=="--- Seleccionar Distrito ---")
+			{
+				nError = nError + 1;
+				oError.push({ "sMensaje": "Seleccionar Distrito [Fila "+nRegistro+"]" });
+			}
+		});
+		if(nError >= 1)
+		{
+			var sMensaje = "";
+			$.each(oError,function(idx,row){
+				sMensaje += row.sMensaje + "<br/>";
+			});
+			msjG.mensaje("danger",sMensaje,8000);
+			bRespuesta = false;
+		}
+	}
+	return bRespuesta;
+};
+
 Editar=function(){
+	if(validarDistrito()==false)
+	{
+		return false;
+	}
 	Odes.AgregarEditarOpciones(1);
 };
 
@@ -119,15 +163,15 @@ agregarDetalle = function()
 	var nTime = oDate.getSeconds() + "" + oDate.getTime();
 	var mDepartamento = JSON.parse(localStorage.getItem("oDepartamento"));
 	var oDepartamento = JSON.parse(mDepartamento);
-	var sDepartamento = "<select name='slct_departamento_id[]' class='form-control input-sm sltDepartamento' id='"+nTime+"'>";
+	var sDepartamento = "<select name='slct_ode_departamento_id[]' class='form-control input-sm sltDepartamento' id='"+nTime+"'>";
 	$.each(oDepartamento, function( nIndx, sVal ) {
 		sDepartamento += "<option value='"+nIndx+"'>"+sVal+"</option>";
 	});
 	sDepartamento += "</select>";
 	var sHtml = "<tr class='row_"+nTime+" filaAgregada'>"+
 					"<td>"+sDepartamento+"</td>"+
-					"<td><select class='form-control input-sm sltProvincia' name='slct_provincia_id[]' id='pro_"+nTime+"' id_padre='"+nTime+"'></select></td>"+
-					"<td><select class='form-control input-sm sltDistrito' name='slct_distrito_id[]' id='dis_"+nTime+"' id_padre='"+nTime+"'></select></td>"+
+					"<td><select class='form-control input-sm sltProvincia' name='slct_ode_provincia_id[]' id='pro_"+nTime+"' id_padre='"+nTime+"'></select></td>"+
+					"<td><select class='form-control input-sm sltDistrito' name='slct_ode_distrito_id[]' id='dis_"+nTime+"' id_padre='"+nTime+"'></select></td>"+
 					"<td><input type='hidden' name='txt_accion[]' class='form-control input-sm' value='I' />"+
 					"<input type='hidden' name='txt_id[]' class='form-control input-sm' />"+
 					"<a class='btn btn-danger btn-xs btnQuitar' id_row='"+nTime+"'><i class='fa fa-times fa-1x'></i></a></td>"+

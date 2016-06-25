@@ -181,21 +181,124 @@ class OdeController extends \BaseController
 				);
 			}
 
-			$opciones = new Ode;
-			$opciones['nombre'] = Input::get('nombre');
-			$opciones['departamento_id'] = Input::get('departamento_id');
-			$opciones['provincia_id'] = Input::get('provincia_id');
-			$opciones['distrito_id'] = Input::get('distrito_id');
-			$opciones['direccion'] = Input::get('direccion');
-			$opciones['telefono'] = Input::get('telefono');
-			$opciones['estado'] = Input::get('estado');
-			$opciones['usuario_created_at'] = Auth::user()->id;
-			$opciones->save();
+			$oOde = new Ode;
+			$oOde['nombre'] = Input::get('nombre');
+			$oOde['departamento_id'] = Input::get('departamento_id');
+			$oOde['provincia_id'] = Input::get('provincia_id');
+			$oOde['distrito_id'] = Input::get('distrito_id');
+			$oOde['direccion'] = Input::get('direccion');
+			$oOde['telefono'] = Input::get('telefono');
+			$oOde['estado'] = Input::get('estado');
+			$oOde['usuario_created_at'] = Auth::user()->id;
+			$oOde->save();
+			$nIdOde = $oOde->id;
+
+			if(Input::has('accion'))
+			{
+				$aAccion = Input::get('accion');
+				foreach ($aAccion as $nKey => $mVal) 
+				{
+					if($aAccion[$nKey] == "I")
+					{
+						$oOdeDistrito = new OdeDistrito;
+						$oOdeDistrito['ode_id'] = $nIdOde;
+						$oOdeDistrito['distrito_id'] = Input::get('ode_distrito_id.'.$nKey);
+						$oOdeDistrito['año'] = date("Y");
+						$oOdeDistrito['estado'] = 1;
+						$oOdeDistrito['usuario_created_at'] = Auth::user()->id;
+						$oOdeDistrito->save();
+					}
+				}
+			}
 
 			return Response::json(
 				array(
 				'rst'=>1,
-				'msj'=>'Registro actualizado correctamente',
+				'msj'=>'Registro actualizado correctamente ',
+				)
+			);
+
+		}
+	}
+
+	public function postActualizar()
+	{
+		if ( Request::ajax() )
+		{
+			if(Input::has('id'))
+			{
+				$regex='regex:/^([a-zA-Z .,ñÑÁÉÍÓÚáéíóú]{2,60})$/i';
+				$required='required';
+				$reglas = array(
+					'nombre' => $required.'|'.$regex,
+					'departamento_id' => $required,
+					'provincia_id' => $required,
+					'distrito_id' => $required,
+					'direccion' => $required,
+					'telefono' => $required
+				);
+
+				$mensaje= array(
+					'required' => ':attribute Es requerido',
+					'regex' => ':attribute Solo debe ser Texto',
+				);
+
+				$validator = Validator::make(Input::all(), $reglas, $mensaje);
+
+				if ( $validator->fails() ) {
+					return Response::json(
+						array(
+						'rst'=>2,
+						'msj'=>$validator->messages(),
+						)
+					);
+				}
+
+				$nIdOde = Input::get('id');
+				$oOde = Ode::find($nIdOde);
+				$oOde['nombre'] = Input::get('nombre');
+				$oOde['departamento_id'] = Input::get('departamento_id');
+				$oOde['provincia_id'] = Input::get('provincia_id');
+				$oOde['distrito_id'] = Input::get('distrito_id');
+				$oOde['direccion'] = Input::get('direccion');
+				$oOde['telefono'] = Input::get('telefono');
+				$oOde['estado'] = Input::get('estado');
+				$oOde['usuario_created_at'] = Auth::user()->id;
+				$oOde->save();
+
+				$bEstado = Ode::getEstadodetalle($nIdOde);
+				if(Input::has('accion'))
+				{
+					$aAccion = Input::get('accion');
+					foreach ($aAccion as $nKey => $mVal) 
+					{
+						if($aAccion[$nKey] == "I")
+						{
+							$oOdeDistrito = new OdeDistrito;
+							$oOdeDistrito['ode_id'] = $nIdOde;
+							$oOdeDistrito['distrito_id'] = Input::get('ode_distrito_id.'.$nKey);
+							$oOdeDistrito['año'] = date("Y");
+							$oOdeDistrito['estado'] = 1;
+							$oOdeDistrito['usuario_created_at'] = Auth::user()->id;
+							$oOdeDistrito->save();
+						} else if($aAccion[$nKey] == "U")
+						{
+							
+							$oOdeDistrito = OdeDistrito::find(Input::get('id_detalle.'.$nKey));
+							$oOdeDistrito['ode_id'] = $nIdOde;
+							$oOdeDistrito['distrito_id'] = Input::get('ode_distrito_id.'.$nKey);
+							$oOdeDistrito['año'] = date("Y");
+							$oOdeDistrito['estado'] = 1;
+							$oOdeDistrito['usuario_updated_at'] = Auth::user()->id;
+							$oOdeDistrito->save();
+						}
+					}
+				}
+			}
+			return Response::json(
+				array(
+				'rst'=>1,
+				'msj'=>'Registro actualizado correctamente ',
 				)
 			);
 

@@ -20,4 +20,20 @@ class OdeDistrito extends Base
         return $r;
     }
 
+	public static function getListardetalle($nIdOde)
+	{
+		$sSql = <<<EOT
+			SELECT od.id, od.ode_id, od.distrito_id, d.nombre AS distrito
+				, d.provincia_id, p.nombre AS provincia
+				, p.departamento_id, de.nombre AS departamento
+			FROM odes_distritos od
+				INNER JOIN distritos d ON od.distrito_id=d.id
+				INNER JOIN provincias p ON d.provincia_id=p.id
+				INNER JOIN departamentos de ON p.departamento_id=de.id
+			WHERE od.ode_id={$nIdOde} AND od.estado = 1
+EOT;
+		$oData = DB::select($sSql);
+		return $oData;
+	}
+
 }

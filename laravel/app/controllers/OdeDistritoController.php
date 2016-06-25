@@ -16,4 +16,16 @@ class OdeDistritoController extends \BaseController
         }
     }
 
+	public function postListardetalle()
+	{
+		if ( Request::ajax() )
+		{
+			$nIdOde = Input::get('ode_id');
+			$aData = OdeDistrito::getListardetalle($nIdOde);
+			$aParametro['rst'] = 1;
+			$aParametro['aData'] = $aData;
+			return Response::json($aParametro);
+		}
+	}
+
 }
