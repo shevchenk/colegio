@@ -36,4 +36,11 @@ EOT;
 		return $oData;
 	}
 
+	public static function getEstadodetalle($nIdUser, $nIdDistrito)
+	{
+		$aParametro = array($nIdUser, $nIdDistrito);
+		$bData = DB::update('UPDATE odes_distritos SET estado = 0, usuario_updated_at = ? WHERE distrito_id = ?', $aParametro);
+		return $bData;
+	}
+
 }

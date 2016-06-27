@@ -196,16 +196,19 @@ class OdeController extends \BaseController
 			if(Input::has('accion'))
 			{
 				$aAccion = Input::get('accion');
+				$nIdUser = Auth::user()->id;
 				foreach ($aAccion as $nKey => $mVal) 
 				{
 					if($aAccion[$nKey] == "I")
 					{
+						$nOdeDistritoId = Input::get('ode_distrito_id.'.$nKey);
+						OdeDistrito::getEstadodetalle($nIdUser, $nOdeDistritoId);
 						$oOdeDistrito = new OdeDistrito;
 						$oOdeDistrito['ode_id'] = $nIdOde;
-						$oOdeDistrito['distrito_id'] = Input::get('ode_distrito_id.'.$nKey);
+						$oOdeDistrito['distrito_id'] = $nOdeDistritoId;
 						$oOdeDistrito['año'] = date("Y");
 						$oOdeDistrito['estado'] = 1;
-						$oOdeDistrito['usuario_created_at'] = Auth::user()->id;
+						$oOdeDistrito['usuario_created_at'] = $nIdUser;
 						$oOdeDistrito->save();
 					}
 				}
@@ -270,26 +273,28 @@ class OdeController extends \BaseController
 				if(Input::has('accion'))
 				{
 					$aAccion = Input::get('accion');
+					$nIdUser = Auth::user()->id;
 					foreach ($aAccion as $nKey => $mVal) 
 					{
+						$nOdeDistritoId = Input::get('ode_distrito_id.'.$nKey);
+						OdeDistrito::getEstadodetalle($nIdUser, $nOdeDistritoId);
 						if($aAccion[$nKey] == "I")
 						{
 							$oOdeDistrito = new OdeDistrito;
 							$oOdeDistrito['ode_id'] = $nIdOde;
-							$oOdeDistrito['distrito_id'] = Input::get('ode_distrito_id.'.$nKey);
+							$oOdeDistrito['distrito_id'] = $nOdeDistritoId;
 							$oOdeDistrito['año'] = date("Y");
 							$oOdeDistrito['estado'] = 1;
-							$oOdeDistrito['usuario_created_at'] = Auth::user()->id;
+							$oOdeDistrito['usuario_created_at'] = $nIdUser;
 							$oOdeDistrito->save();
 						} else if($aAccion[$nKey] == "U")
 						{
-							
 							$oOdeDistrito = OdeDistrito::find(Input::get('id_detalle.'.$nKey));
 							$oOdeDistrito['ode_id'] = $nIdOde;
-							$oOdeDistrito['distrito_id'] = Input::get('ode_distrito_id.'.$nKey);
+							$oOdeDistrito['distrito_id'] = $nOdeDistritoId;
 							$oOdeDistrito['año'] = date("Y");
 							$oOdeDistrito['estado'] = 1;
-							$oOdeDistrito['usuario_updated_at'] = Auth::user()->id;
+							$oOdeDistrito['usuario_updated_at'] = $nIdUser;
 							$oOdeDistrito->save();
 						}
 					}
