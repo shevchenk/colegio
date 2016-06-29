@@ -38,24 +38,114 @@
         <div class="box row">
             <div class="col-sm-12">
                 <form name="form_filtros" id="form_filtros" method="POST" action="">
+                    <div class="table-responsive">
                     <table id="t_visita" class="table table-mailbox">
                         <thead><tr></tr></thead>
                         <tbody></tbody>
                         <tfoot><tr></tr></tfoot>
                     </table>
+                    </div>
                 </form>
             </div>
-        </div>
-        <div class="box row">
-            <div class="col-sm-1">
-                <a class="form-control btn btn-primary" id="buscar" name="buscar" onClick="Guardar();">
-                    <i class="fa fa-lg fa-save"></i>
-                </a>
+            <form name="form_filtros" id="form_filtros" method="POST" action="">
+            <div class="col-sm-12">
+                <hr>
+                <br>
+                <table id="t_visita_detalle" class="table table-bordered">
+                    <thead>
+                    <tr>
+                    <th>Nivel</th>
+                    <th>Grado</th>
+                    <th>Seccion</th>
+                    <th>Turno</th>
+                    <th>Total Alumnos</th>
+                    <th>Total Alumnos Registrados</th>
+                    <th>Ver Alumnos</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                    <tr>
+                    <th>Nivel</th>
+                    <th>Grado</th>
+                    <th>Seccion</th>
+                    <th>Turno</th>
+                    <th>Total Alumnos</th>
+                    <th>Total Alumnos Registrados</th>
+                    <th>Ver Alumnos</th>
+                    </tr>
+                    </tfoot>
+                </table>
             </div>
+            <div class="col-sm-12">
+                <hr>
+                <br>
+                <table id="t_alumno" class="table table-bordered">
+                    <thead>
+                    <tr>
+                    <th>Paterno</th>
+                    <th>Materno</th>
+                    <th>Nombre</th>
+                    <th>Dni</th>
+                    <th>Convenio?</th>
+                    <th>Agregar Alumno
+                        <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoModal" data-trid="t_alumno" data-titulo="Buscar" >
+                            <i class='fa fa-lg fa-plus'></i>
+                        </a></th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                    <tr>
+                    <th>Paterno</th>
+                    <th>Materno</th>
+                    <th>Nombre</th>
+                    <th>Dni</th>
+                    <th>Convenio?</th>
+                    <th>Agregar Alumno
+                        <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoModal" data-trid="t_alumno" data-titulo="Buscar" >
+                            <i class='fa fa-lg fa-plus'></i>
+                        </a></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="col-sm-12">
+                <hr>
+                <br>
+                <table id="t_alumno_detalle" class="table table-bordered">
+                    <thead>
+                    <tr>
+                    <th>Ode</th>
+                    <th>Carrera</th>
+                    <th>Monto</th>
+                    <th>Agregar Carrera Alumno
+                        <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoDetalleModal" data-trid="t_alumno_detalle" data-titulo="Buscar" >
+                            <i class='fa fa-lg fa-plus'></i>
+                        </a></th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                    <tr>
+                    <th>Ode</th>
+                    <th>Carrera</th>
+                    <th>Monto</th>
+                    <th>Agregar Carrera Alumno
+                        <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoDetalleModal" data-trid="t_alumno_detalle" data-titulo="Buscar" >
+                            <i class='fa fa-lg fa-plus'></i>
+                        </a></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            </form>
         </div>
     </section><!-- /.content -->
 
 @stop
 @section('formulario')
-     
+     @include( 'admin.colegio.form.alumno' )
+     @include( 'admin.colegio.form.alumnoDetalle' )
+     @include( 'admin.colegio.form.persona' )
 @stop

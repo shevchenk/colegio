@@ -15,6 +15,19 @@ EOT;
 		return $oData;
 	}
 
+    public static function getListar($array)
+    {
+        $sSql = <<<EOT
+            SELECT 
+                c.id, c.nombre
+            FROM carreras c
+            WHERE c.estado=1 
+EOT;
+        $sSql.=$array['where'];
+        $oData = DB::select($sSql);
+        return $oData;
+    }
+
 	public static function getListartipo()
 	{
 		$sSql = <<<EOT

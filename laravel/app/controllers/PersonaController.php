@@ -22,12 +22,52 @@ class PersonaController extends BaseController
     {
         //si la peticion es ajax
         if ( Request::ajax() ) {
-            $array['where']="";
+            $array=array();
+            $array['where']='';$array['usuario']=Auth::user()->id;
+            $array['limit']='';$array['order']='';
+
             if( Input::has('cargo_id') ){
-                $array['where']=" AND cp.cargo_id='".Input::get('cargo_id')."' ";
+                $array['where'].=" AND cp.cargo_id='".Input::get('cargo_id')."' ";
             }
-            $personas = Persona::getCargarp($array);
-            return Response::json(array('rst'=>1,'aData'=>$personas));
+
+            if( Input::has("paterno") ){
+                $array['where'].=" AND p.paterno LIKE '%".Input::get("paterno")."%' ";
+            }
+
+            if( Input::has("materno") ){
+                $array['where'].=" AND p.materno LIKE '%".Input::get("materno")."%' ";
+            }
+
+            if( Input::has("dni") ){
+                $array['where'].=" AND p.dni LIKE '%".Input::get("dni")."%' ";
+            }
+
+            if( Input::has('persona_id_no') ){
+                $array['where'].=" AND p.id NOT IN (".Input::get('persona_id_no').") ";
+            }
+
+            if (Input::has('draw')) {
+                if (Input::has('order')) {
+                    $inorder=Input::get('order');
+                    $incolumns=Input::get('columns');
+                    $array['order']=  ' ORDER BY '.
+                                      $incolumns[ $inorder[0]['column'] ]['name'].' '.
+                                      $inorder[0]['dir'];
+                }
+
+                $array['limit']=' LIMIT '.Input::get('start').','.Input::get('length');
+                $retorno["draw"]=Input::get('draw');
+            }
+
+            $cant  = Persona::getCargarpCount( $array );
+            $aData = Persona::getCargarp( $array );
+
+            $aParametro['rst'] = 1;
+            $aParametro["recordsTotal"]=$cant;
+            $aParametro["recordsFiltered"]=$cant;
+            $aParametro['data'] = $aData;
+            $aParametro['msj'] = "No hay visitas programadas aún";
+            return Response::json($aParametro);
         }
     }
     /**
@@ -104,6 +144,7 @@ class PersonaController extends BaseController
                 );
             }
 
+            DB::beginTransaction();
             $persona = new Persona;
             $persona['paterno'] = Input::get('paterno');
             $persona['materno'] = Input::get('materno');
@@ -116,6 +157,10 @@ class PersonaController extends BaseController
             $persona['fecha_nacimiento'] = Input::get('fecha_nac');
             $persona['estado'] = Input::get('estado');
             $persona['usuario_created_at'] = Auth::user()->id;
+            if (Input::get('direccion')<>'') 
+            $persona['direccion'] = Input::get('direccion');
+            if (Input::get('referencia')<>'') 
+            $persona['referencia'] = Input::get('referencia');
             $persona->save();
             $personaId = $persona->id;
             //si es cero no seguir, si es 1 ->estado se debe copiar de celulas
@@ -144,10 +189,32 @@ class PersonaController extends BaseController
                 }
             }
 
+            if ( Input::has('visita_detalle_id') ){
+                $visita_detalle_id=Input::get('visita_detalle_id');
+                $alumno=new Alumno;
+                $alumno->persona_id=$personaId;
+                $alumno->convenio=0;
+                $alumno->año=date("Y");
+                $alumno->visita_detalle_id=$visita_detalle_id;
+                $alumno->usuario_created_at=Auth::user()->id;
+                $alumno->save();
+            }
+
+            $datos=array(
+                'paterno'=>$persona->paterno,
+                'materno'=>$persona->materno,
+                'nombre'=>$persona->nombre,
+                'dni'=>$persona->dni,
+                'persona_id'=>$alumno->persona_id,
+                'id'=>$alumno->id
+            );
+
+            DB::commit();
             return Response::json(
                 array(
                 'rst'=>1,
-                'msj'=>'Registro realizado correctamente'.$personaId,
+                'msj'=>'Registro realizado correctamente',
+                'datos'=>$datos
                 )
             );
         }
@@ -188,6 +255,8 @@ class PersonaController extends BaseController
                     )
                 );
             }
+
+            DB::beginTransaction();
             $personaId = Input::get('id');
             $persona = Persona::find($personaId);
             $persona['paterno'] = Input::get('paterno');
@@ -251,6 +320,7 @@ class PersonaController extends BaseController
                 }
             }
             
+            DB::commit();
             return Response::json(
                 array(
                 'rst'=>1,

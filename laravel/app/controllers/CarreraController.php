@@ -11,6 +11,20 @@ class CarreraController extends BaseController
 		}
 	}
 
+    public function postListar()
+    {
+        if ( Request::ajax() ) {
+            $array['where']='';
+            if( Input::has('carrera_tipo_id') ){
+                $array['where']=" AND c.carrera_tipo_id=".Input::get('carrera_tipo_id')." ";
+            }
+            $aData = Carrera::getListar($array);
+            $aParametro['rst'] = 1;
+            $aParametro['aData'] = $aData;
+            return Response::json($aParametro);
+        }
+    }
+
 	public function postListartipo()
 	{
 		if ( Request::ajax() ) {

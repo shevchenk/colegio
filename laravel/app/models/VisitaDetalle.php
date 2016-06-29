@@ -3,20 +3,24 @@ class VisitaDetalle extends Base
 {
     public $table = "visitas_detalle";
 
-    public static function get( $array ){
+    public static function Cargar( $array ){
         $sSql = <<<EOT
-            SELECT COUNT(v.id) cant
-            FROM visitas v
-            INNER JOIN colegios c ON c.id=v.colegio_id AND c.estado=1
-            INNER JOIN distritos d ON d.id=c.distrito_id AND d.estado=1
-            INNER JOIN odes_distritos od ON od.distrito_id=d.id AND od.estado=1
-            INNER JOIN odes o ON o.id=od.ode_id AND o.estado=1
-            INNER JOIN personas pv ON pv.id=v.persona_id 
-            INNER JOIN personas pc ON pc.id=v.personac_id
+            SELECT vd.id, cd.grado, cd.seccion, cd.turno, vd.alumnos_total, vd.alumnos_registrados,
+            IF(cd.nivel=1,'Inicio',
+                IF(
+                    cd.nivel=2,'Primaria',
+                    IF(
+                    cd.nivel=3,'Secundaria',''
+                    )
+                )
+            ) nivel
+            FROM visitas_detalle vd
+            INNER JOIN colegios_detalle cd ON cd.id=vd.colegio_detalle_id
+            WHERE vd.estado=1
 EOT;
         $sSql.= $array['where'];
         $oData = DB::select($sSql);
-        return $oData[0]->cant;
+        return $oData;
     }
 }
 ?>

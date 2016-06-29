@@ -92,5 +92,56 @@ class VisitaController extends BaseController
             );
         }
     }
+
+    public function postCargardetalle()
+    {
+        if ( Request::ajax() ) {
+            $array=array();
+            $array['where']='';
+            if( Input::has("visita_id") ){
+                $array['where']=" AND vd.visita_id=".Input::get("visita_id")." ";
+            }
+
+            $aData=VisitaDetalle::Cargar( $array );
+            $aParametro['rst'] = 1;
+            $aParametro['data'] = $aData;
+            $aParametro['msj'] = "No hay visitas programadas aún";
+            return Response::json($aParametro);
+        }
+    }
+
+    public function postCargaralumno()
+    {
+        if ( Request::ajax() ) {
+            $array=array();
+            $array['where']='';
+            if( Input::has("visita_detalle_id") ){
+                $array['where']=" AND a.visita_detalle_id=".Input::get("visita_detalle_id")." ";
+            }
+
+            $aData=Alumno::Cargar( $array );
+            $aParametro['rst'] = 1;
+            $aParametro['data'] = $aData;
+            $aParametro['msj'] = "No hay alumnos aún";
+            return Response::json($aParametro);
+        }
+    }
+
+    public function postCargaralumnodetalle()
+    {
+        if ( Request::ajax() ) {
+            $array=array();
+            $array['where']='';
+            if( Input::has("alumno_id") ){
+                $array['where']=" AND ad.alumno_id=".Input::get("alumno_id")." ";
+            }
+
+            $aData=Alumno::CargarDetalle( $array );
+            $aParametro['rst'] = 1;
+            $aParametro['data'] = $aData;
+            $aParametro['msj'] = "No hay detalle aún";
+            return Response::json($aParametro);
+        }
+    }
 }
 ?>

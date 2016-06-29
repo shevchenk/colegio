@@ -51,8 +51,48 @@ var slctGlobal={
             },
             success : function(obj) {
                 if(obj.rst==1){
+                    var datos;
                     html='<option value="">Seleccione</option>';
-                    $.each(obj.datos,function(index,data){
+                    if( typeof(obj.datos)!='undefined' ){
+                        datos=obj.datos;
+                    }
+                    else if( typeof(obj.aData)!='undefined' ){
+                        datos=obj.aData;
+                    }
+                    $.each(datos,function(index,data){
+                            html += "<option value=\"" + data.id + "\" >" + data.nombre + "</option>";
+                    }); 
+                    $("#"+slct).html(html);
+                }  
+                //$(".overlay,.loading-img").remove();
+            },
+            error: function(){
+                //$(".overlay,.loading-img").remove();
+                msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
+            }
+        });
+    },
+    listarSlct3:function(controlador,accion,slct,data){
+        $.ajax({
+            url         : controlador+'/'+accion,
+            type        : 'POST',
+            cache       : false,
+            dataType    : 'json',
+            data        : data,
+            beforeSend : function() {                
+                //$("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+            },
+            success : function(obj) {
+                if(obj.rst==1){
+                    var datos;
+                    html='<option value="">Seleccione</option>';
+                    if( typeof(obj.datos)!='undefined' ){
+                        datos=obj.datos;
+                    }
+                    else if( typeof(obj.aData)!='undefined' ){
+                        datos=obj.aData;
+                    }
+                    $.each(datos,function(index,data){
                             html += "<option value=\"" + data.id + "\" >" + data.nombre + "</option>";
                     }); 
                     $("#"+slct).html(html);

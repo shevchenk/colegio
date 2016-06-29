@@ -91,3 +91,4 @@ Route::controller('carrera', 'CarreraController');
 Route::controller('colegio', 'ColegioController');
 Route::controller('ode_distrito', 'OdeDistritoController');
 Route::controller('visita', 'VisitaController');
+Route::controller('alumno', 'AlumnoController');
