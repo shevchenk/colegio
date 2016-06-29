@@ -40,7 +40,12 @@
                 <form name="form_filtros" id="form_filtros" method="POST" action="">
                     <div class="table-responsive">
                     <table id="t_visita" class="table table-mailbox">
-                        <thead><tr></tr></thead>
+                        <thead>
+                        <tr>
+                            <th colspan='6' style='text-align:center'><h2>Visitas Proramadas</h2></th>
+                        </tr>
+                        <tr></tr>
+                        </thead>
                         <tbody></tbody>
                         <tfoot><tr></tr></tfoot>
                     </table>
@@ -53,6 +58,9 @@
                 <br>
                 <table id="t_visita_detalle" class="table table-bordered">
                     <thead>
+                    <tr>
+                        <th colspan='7' style='text-align:center'><h2>Grado y Secciones del colegio</h2></th>
+                    </tr>
                     <tr>
                     <th>Nivel</th>
                     <th>Grado</th>
@@ -82,6 +90,9 @@
                 <br>
                 <table id="t_alumno" class="table table-bordered">
                     <thead>
+                    <tr>
+                        <th colspan='6' style='text-align:center'><h2>Alumnos</h2></th>
+                    </tr>
                     <tr>
                     <th>Paterno</th>
                     <th>Materno</th>
@@ -115,6 +126,9 @@
                 <br>
                 <table id="t_alumno_detalle" class="table table-bordered">
                     <thead>
+                    <tr>
+                        <th colspan='6' style='text-align:center'><h2>Carrera del Alumno</h2></th>
+                    </tr>
                     <tr>
                     <th>Ode</th>
                     <th>Carrera</th>

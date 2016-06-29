@@ -38,6 +38,7 @@ Mostrar=function(evento){
         }
     }
     else if( evento=='pvi' ){
+        IdeGlobal['persona']="";
         $("#div_persona").show();
         data={cargo_id:4};
         Visita.ColegioPersona(ColegioPersonaHTML,data);

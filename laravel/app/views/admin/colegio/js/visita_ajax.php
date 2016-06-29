@@ -13,8 +13,8 @@ var Visita={
             },
             success : function(obj) {
                 $(".overlay,.loading-img").remove();
-                evento(obj.aData);
-                if( obj.aData.length==0 ){
+                evento(obj.data);
+                if( obj.data.length==0 ){
                     msjG.mensaje("danger","No hay personas registradas",5000);
                 }
             },

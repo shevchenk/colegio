@@ -79,13 +79,13 @@ $(document).ready(function() {
                                 "name": cabeceraVP[i].id
                             });
 
-            $("#t_visita>thead>tr").append('<th class="unread" id="'+cabeceraVP[i].idide+'">'+cabeceraVP[i].nombre+
+            $("#t_visita>thead>tr:eq(1)").append('<th class="unread" id="'+cabeceraVP[i].idide+'">'+cabeceraVP[i].nombre+
                                             '<input name="txt_'+cabeceraVP[i].id+'" id="txt_'+cabeceraVP[i].id+'" '+cabeceraVP[i].evento+'="MostrarAjax(\'visita\');" onKeyPress="return enterGlobal(event,\''+cabeceraVP[i].idide+'\',1)" type="text" placeholder="'+cabeceraVP[i].nombre+'" />'+
                                             '</th>');
             $("#t_visita>tfoot>tr").append('<th class="unread">'+cabeceraVP[i].nombre+'</th>');
         }
             targetsVP++;
-            $("#t_visita>tfoot>tr,#t_visita>thead>tr").append('<th class="unread">[]</th>');
+            $("#t_visita>tfoot>tr,#t_visita>thead>tr:eq(1)").append('<th class="unread">[]</th>');
             columnDefsVP.push({
                                 "targets": targetsVP,
                                 "data": function ( row, type, val, meta ) {
