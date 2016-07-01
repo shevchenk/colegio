@@ -162,7 +162,8 @@ class OdeController extends \BaseController
 				'provincia_id' => $required,
 				'distrito_id' => $required,
 				'direccion' => $required,
-				'telefono' => $required
+				'telefono' => $required,
+				'email' => 'required|email'
 			);
 
 			$mensaje= array(
@@ -188,6 +189,7 @@ class OdeController extends \BaseController
 			$oOde['distrito_id'] = Input::get('distrito_id');
 			$oOde['direccion'] = Input::get('direccion');
 			$oOde['telefono'] = Input::get('telefono');
+			$oOde['email'] = Input::get('email');
 			$oOde['estado'] = Input::get('estado');
 			$oOde['usuario_created_at'] = Auth::user()->id;
 			$oOde->save();
@@ -238,7 +240,8 @@ class OdeController extends \BaseController
 					'provincia_id' => $required,
 					'distrito_id' => $required,
 					'direccion' => $required,
-					'telefono' => $required
+					'telefono' => $required,
+					'email' => 'required|email'
 				);
 
 				$mensaje= array(
@@ -265,6 +268,7 @@ class OdeController extends \BaseController
 				$oOde['distrito_id'] = Input::get('distrito_id');
 				$oOde['direccion'] = Input::get('direccion');
 				$oOde['telefono'] = Input::get('telefono');
+				$oOde['email'] = Input::get('email');
 				$oOde['estado'] = Input::get('estado');
 				$oOde['usuario_created_at'] = Auth::user()->id;
 				$oOde->save();

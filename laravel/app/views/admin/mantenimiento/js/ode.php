@@ -32,6 +32,7 @@ $(document).ready(function() {
 			Odes.cargarSelectAnidado('Distrito', 'colegio/listardistrito', '#slct_distrito_id', 'editar',distrito_id, provincia_id);
 			$('#form_odes #txt_direccion').val( $('#tb_odes #direccion_'+idOde).text());
 			$('#form_odes #txt_telefono').val( $('#tb_odes #telefono_'+idOde).text());
+			$('#form_odes #txt_email').val( $('#tb_odes #email_'+idOde).text());
 			$('#form_odes #slct_estado').val( $('#tb_odes #estado_'+idOde).attr("data-estado") );
 			$("#form_odes").append("<input type='hidden' value='"+idOde+"' name='id'>");
 			Odes.cargarDetalle(idOde);

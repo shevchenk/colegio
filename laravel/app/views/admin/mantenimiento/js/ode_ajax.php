@@ -26,6 +26,7 @@ var Odes = {
 							"<td id='distrito_id_"+data.id+"' distrito_id='"+data.distrito_id+"'>"+data.distrito+"</td>"+
 							"<td id='direccion_"+data.id+"'>"+data.direccion+"</td>"+
 							"<td id='telefono_"+data.id+"'>"+data.telefono+"</td>"+
+							"<td id='email_"+data.id+"'>"+data.email+"</td>"+
 							"<td id='estado_"+data.id+"' data-estado='"+data.estado+"'>"+estadohtml+"</td>"+
 							'<td><a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#odeModal" data-id="'+data.id+'" data-titulo="Editar"><i class="fa fa-edit fa-lg"></i> </a></td>';
 						html+="</tr>";

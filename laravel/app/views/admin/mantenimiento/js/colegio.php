@@ -54,6 +54,7 @@ $(document).ready(function() {
 			Colegios.cargarSelect('Persona', 'colegio/listarpersona', '#slct_persona_id', 'editar', persona_id);
 			$('#form_colegios #txt_telefono').val( $('#tb_colegios #telefono_'+button.data('id')).text());
 			$('#form_colegios #txt_celular').val( $('#tb_colegios #celular_'+button.data('id')).text());
+			$('#form_colegios #txt_email').val( $('#tb_colegios #email_'+button.data('id')).text());
 
 			$('#form_colegios #slct_estado').val( $('#tb_colegios #estado_'+button.data('id') ).attr("data-estado") );
 			$("#form_colegios").append("<input type='hidden' value='"+button.data('id')+"' name='id'>");

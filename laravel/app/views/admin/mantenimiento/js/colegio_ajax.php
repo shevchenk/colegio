@@ -36,6 +36,7 @@ var Colegios = {
 							"<td id='persona_"+data.id+"' persona_id='"+data.persona_id+"'>"+data.persona+"</td>"+
 							"<td id='telefono_"+data.id+"'>"+data.telefono+"</td>"+
 							"<td id='celular_"+data.id+"'>"+data.celular+"</td>"+
+							"<td id='email_"+data.id+"'>"+data.email+"</td>"+
 							"<td id='estado_"+data.id+"' data-estado='"+data.estado+"'>"+sEstado+"</td>"+
 							'<td>'+
 								'<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#colegioModal" data-id="'+data.id+'" data-titulo="Editar"><i class="fa fa-edit fa-lg"></i></a>'+

@@ -49,6 +49,7 @@
 										<th>Personal</th>
 										<th>Telefono</th>
 										<th>Celular</th>
+										<th>Email</th>
 										<th>Estado</th>
 										<th> [ ] </th>
 									</tr>
@@ -72,6 +73,7 @@
 										<th>Personal</th>
 										<th>Telefono</th>
 										<th>Celular</th>
+										<th>Email</th>
 										<th>Estado</th>
 										<th> [ ] </th>
 									</tr>

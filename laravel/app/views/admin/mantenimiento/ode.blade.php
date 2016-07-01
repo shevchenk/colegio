@@ -40,6 +40,7 @@
 										<th>Distrito</th>
 										<th>Direcci&oacute;n</th>
 										<th>Tel&eacute;fono</th>
+										<th>Email</th>
 										<th>Estado</th>
 										<th> [ ] </th>
 									</tr>
@@ -54,6 +55,7 @@
 										<th>Distrito</th>
 										<th>Direcci&oacute;n</th>
 										<th>Tel&eacute;fono</th>
+										<th>Email</th>
 										<th>Estado</th>
 										<th> [ ] </th>
 									</tr>
