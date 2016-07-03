@@ -65,6 +65,15 @@
 					</div>
 
 					<div class="form-group">
+						<label class="control-label">Correo electr&oacute;nico
+							<a id="error_email" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ingrese Correo electr&oacute;nico">
+								<i class="fa fa-exclamation"></i>
+							</a>
+						</label>
+						<input type="text" class="form-control" placeholder="Ingrese Correo electr&oacute;nico" name="txt_email" id="txt_email">
+					</div>
+
+					<div class="form-group">
 						<label class="control-label">Estado:</label>
 						<select class="form-control" name="slct_estado" id="slct_estado">
 							<option value='0'>Inactivo</option>

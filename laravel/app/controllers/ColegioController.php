@@ -130,7 +130,8 @@ class ColegioController extends BaseController
 				'colegio_nivel_id' => $required,
 				'distrito_id' => $required,
 				'direccion' => $required,
-				'referencia' => $required
+				'referencia' => $required,
+				'email' => 'required|email'
 			);
 
 			$mensaje= array(
@@ -163,6 +164,7 @@ class ColegioController extends BaseController
 			}
 			$opciones['telefono'] = Input::get('telefono');
 			$opciones['celular'] = Input::get('celular');
+			$opciones['email'] = Input::get('email');
 			$opciones['estado'] = Input::get('estado');
 			$opciones['ugel'] = Input::get('ugel');
 			$opciones['genero'] = Input::get('genero');
@@ -191,7 +193,8 @@ class ColegioController extends BaseController
 				'colegio_nivel_id' => $required,
 				'distrito_id' => $required,
 				'direccion' => $required,
-				'referencia' => $required
+				'referencia' => $required,
+				'email' => 'required|email'
 			);
 
 			$mensaje= array(
@@ -225,6 +228,7 @@ class ColegioController extends BaseController
 			}
 			$opciones['telefono'] = Input::get('telefono');
 			$opciones['celular'] = Input::get('celular');
+			$opciones['email'] = Input::get('email');
 			$opciones['estado'] = Input::get('estado');
 			$opciones['ugel'] = Input::get('ugel');
 			$opciones['genero'] = Input::get('genero');

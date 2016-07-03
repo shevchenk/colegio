@@ -30,7 +30,7 @@ EOT;
 		$sSql = <<<EOT
 			SELECT 
 				c.id, c.ode_id, o.nombre AS ode, c.nombre, c.colegio_tipo_id, ct.nombre AS tipo
-				, c.colegio_nivel_id, cn.nombre AS nivel, c.distrito_id, d.nombre AS distrito
+				, c.colegio_nivel_id, cn.nombre AS nivel, c.distrito_id, d.nombre AS distrito, IFNULL(c.email,'') AS email
 				, d.provincia_id, p.nombre AS provincia, p.departamento_id, de.nombre AS departamento
 				, c.direccion, c.referencia, IFNULL(c.persona_id,0) AS persona_id, IFNULL(pe.nombre,'') AS persona
 				, c.telefono, c.celular, c.estado, IFNULL(c.ugel,'') AS ugel, c.genero AS genero_id, c.turno AS turno_id
