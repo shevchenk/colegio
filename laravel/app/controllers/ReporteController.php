@@ -64,30 +64,30 @@ class ReporteController extends \BaseController
             $array['where']='';$array['usuario']=Auth::user()->id;
             $array['limit']='';$array['order']='';
 
-            if( Input::get("todo")=='0' ){
+            if( Input::get("slct_todo")=='0' ){
 
-                if( Input::has("colegio") ){
-                    $array['where'].=" AND c.nombre LIKE '%".Input::get("colegio")."%' ";
+                if( Input::has("txt_colegio") ){
+                    $array['where'].=" AND c.nombre LIKE '%".Input::get("txt_colegio")."%' ";
                 }
 
-                if( Input::has("fecha_visita") ){
-                    $array['where'].=" AND v.fecha_visita='".Input::get("fecha_visita")."' ";
+                if( Input::has("txt_fecha_visita") ){
+                    $array['where'].=" AND v.fecha_visita='".Input::get("txt_fecha_visita")."' ";
                 }
 
-                if( Input::has("ode") ){
-                    $array['where'].=" AND o.nombre LIKE '%".Input::get("ode")."%' ";
+                if( Input::has("txt_ode") ){
+                    $array['where'].=" AND o.nombre LIKE '%".Input::get("txt_ode")."%' ";
                 }
 
-                if( Input::has("persona") ){
-                    $array['where'].=" AND CONCAT(pv.paterno,' ',pv.materno,', ',pv.nombre) LIKE '%".Input::get("persona")."%' ";
+                if( Input::has("txt_persona") ){
+                    $array['where'].=" AND CONCAT(pv.paterno,' ',pv.materno,', ',pv.nombre) LIKE '%".Input::get("txt_persona")."%' ";
                 }
 
-                if( Input::has("personac") ){
-                    $array['where'].=" AND CONCAT(pc.paterno,' ',pc.materno,', ',pc.nombre) LIKE '%".Input::get("personac")."%' ";
+                if( Input::has("txt_personac") ){
+                    $array['where'].=" AND CONCAT(pc.paterno,' ',pc.materno,', ',pc.nombre) LIKE '%".Input::get("txt_personac")."%' ";
                 }
 
-                if( Input::has("nro_tel") ){
-                    $array['where'].=" AND v.nro_tel LIKE '%".Input::get("nro_tel")."%' ";
+                if( Input::has("txt_nro_tel") ){
+                    $array['where'].=" AND v.nro_tel LIKE '%".Input::get("txt_nro_tel")."%' ";
                 }
 
                 if (Input::has('draw')) {

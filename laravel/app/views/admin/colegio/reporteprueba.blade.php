@@ -38,7 +38,8 @@
         <div class="box row">
             <div class="col-sm-12">
                 <form name="form_filtros" id="form_filtros" method="POST" action="reporte/prueba">
-                    <select onchange="submit();">
+                    <select name='slct_todo' onchange="submit();">
+                        <option value="">Seleccione</option>
                         <option value="0">Solo Filtros de la tabla</option>
                         <option value="1">.::Todo::.</option>
                     </select>
