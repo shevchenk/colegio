@@ -92,3 +92,4 @@ Route::controller('colegio', 'ColegioController');
 Route::controller('ode_distrito', 'OdeDistritoController');
 Route::controller('visita', 'VisitaController');
 Route::controller('alumno', 'AlumnoController');
+Route::controller('reporte', 'ReporteController');
