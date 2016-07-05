@@ -121,9 +121,8 @@ class PersonaController extends BaseController
             $reglas = array(
                 'nombre' => $required.'|'.$regex,
                 'paterno' => $required.'|'.$regex,
-                'materno' => $required.'|'.$regex,
-                'email' => 'required|email|unique:personas,email',
-                'password'      => 'required|min:6',
+                'email' => 'email|unique:personas,email',
+                'password'=> 'required',
                 'dni'      => 'required|min:8|unique:personas,dni',
             );
 
@@ -146,21 +145,24 @@ class PersonaController extends BaseController
 
             DB::beginTransaction();
             $persona = new Persona;
+            if (Input::get('materno')<>'') 
+                $persona['materno'] = Input::get('materno');
+            if (Input::get('email')<>'') 
+                $persona['email'] = Input::get('email');
+            if (Input::get('fecha_nac')<>'') 
+                $persona['fecha_nacimiento'] = Input::get('fecha_nac');
+            if (Input::get('direccion')<>'') 
+                $persona['direccion'] = Input::get('direccion');
+            if (Input::get('referencia')<>'') 
+                $persona['referencia'] = Input::get('referencia');
+
             $persona['paterno'] = Input::get('paterno');
-            $persona['materno'] = Input::get('materno');
             $persona['nombre'] = Input::get('nombre');
-            $persona['email'] = Input::get('email');
             $persona['dni'] = Input::get('dni');
             $persona['sexo'] = Input::get('sexo');
             $persona['password'] = Hash::make(Input::get('password'));
-            if (Input::get('fecha_nac')<>'') 
-            $persona['fecha_nacimiento'] = Input::get('fecha_nac');
             $persona['estado'] = Input::get('estado');
             $persona['usuario_created_at'] = Auth::user()->id;
-            if (Input::get('direccion')<>'') 
-            $persona['direccion'] = Input::get('direccion');
-            if (Input::get('referencia')<>'') 
-            $persona['referencia'] = Input::get('referencia');
             $persona->save();
             $personaId = $persona->id;
             //si es cero no seguir, si es 1 ->estado se debe copiar de celulas
@@ -189,6 +191,7 @@ class PersonaController extends BaseController
                 }
             }
 
+            $datos=array();
             if ( Input::has('visita_detalle_id') ){
                 $visita_detalle_id=Input::get('visita_detalle_id');
                 $alumno=new Alumno;
@@ -198,16 +201,17 @@ class PersonaController extends BaseController
                 $alumno->visita_detalle_id=$visita_detalle_id;
                 $alumno->usuario_created_at=Auth::user()->id;
                 $alumno->save();
+
+                $datos=array(
+                    'paterno'=>$persona->paterno,
+                    'materno'=>$persona->materno,
+                    'nombre'=>$persona->nombre,
+                    'dni'=>$persona->dni,
+                    'persona_id'=>$alumno->persona_id,
+                    'id'=>$alumno->id
+                );
             }
 
-            $datos=array(
-                'paterno'=>$persona->paterno,
-                'materno'=>$persona->materno,
-                'nombre'=>$persona->nombre,
-                'dni'=>$persona->dni,
-                'persona_id'=>$alumno->persona_id,
-                'id'=>$alumno->id
-            );
 
             DB::commit();
             return Response::json(
@@ -234,8 +238,7 @@ class PersonaController extends BaseController
             $reglas = array(
                 'nombre' => $required.'|'.$regex,
                 'paterno' => $required.'|'.$regex,
-                'materno' => $required.'|'.$regex,
-                'email' => 'required|email|unique:personas,email,'.Input::get('id'),
+                'email' => 'email|unique:personas,email,'.Input::get('id'),
                 'dni'      => 'required|min:8|unique:personas,dni,'.Input::get('id'),
                 //'password'      => 'required|min:6',
             );
@@ -259,16 +262,23 @@ class PersonaController extends BaseController
             DB::beginTransaction();
             $personaId = Input::get('id');
             $persona = Persona::find($personaId);
-            $persona['paterno'] = Input::get('paterno');
-            $persona['materno'] = Input::get('materno');
-            $persona['nombre'] = Input::get('nombre');
-            $persona['email'] = Input::get('email');
-            $persona['dni'] = Input::get('dni');
-            $persona['sexo'] = Input::get('sexo');
+            if (Input::get('materno')<>'') 
+                $persona['materno'] = Input::get('materno');
+            if (Input::get('email')<>'') 
+                $persona['email'] = Input::get('email');
+            if (Input::get('fecha_nac')<>'') 
+                $persona['fecha_nacimiento'] = Input::get('fecha_nac');
+            if (Input::get('direccion')<>'') 
+                $persona['direccion'] = Input::get('direccion');
+            if (Input::get('referencia')<>'') 
+                $persona['referencia'] = Input::get('referencia');
             if (Input::get('password')<>'') 
                 $persona['password'] = Hash::make(Input::get('password'));
-            if (Input::get('fecha_nac')<>'') 
-            $persona['fecha_nacimiento'] = Input::get('fecha_nac');
+            
+            $persona['paterno'] = Input::get('paterno');
+            $persona['nombre'] = Input::get('nombre');
+            $persona['dni'] = Input::get('dni');
+            $persona['sexo'] = Input::get('sexo');
             $persona['estado'] = Input::get('estado');
             $persona['usuario_updated_at'] = Auth::user()->id;
             $persona->save();
