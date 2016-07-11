@@ -9,9 +9,43 @@ ADD COLUMN `genero`  varchar(1) NULL COMMENT 'M: Masculino | F: Femenino | X: Mi
 ADD COLUMN `turno`  varchar(2) NULL COMMENT 'M: Mañana | T: Tarde | MT: Mañana y Tarde' AFTER `genero`;
 
 -- table colegios 2016-07-01
-ALTER TABLE colegios 
+ALTER TABLE colegios
 ADD COLUMN email VARCHAR(250) NULL AFTER celular;
 
 -- table odes 2016-07-01
-ALTER TABLE odes 
+ALTER TABLE odes
 ADD COLUMN email VARCHAR(250) NULL AFTER telefono;
+
+-- function fn_visita_alumnos 2016-07-10
+DELIMITER $$
+USE `colegio`$$
+DROP FUNCTION IF EXISTS `fn_visita_alumnos`$$
+CREATE FUNCTION `fn_visita_alumnos`(nVisitaId INT, nGrado INT) RETURNS INT(11)
+BEGIN
+	DECLARE nAlumnoCantidad INT DEFAULT 0;
+	SELECT SUM(cd.total_alumnos)
+		INTO nAlumnoCantidad
+	FROM visitas_detalle vd
+		LEFT JOIN colegios_detalle cd ON vd.colegio_detalle_id=cd.id
+	WHERE vd.visita_id=nVisitaId AND cd.grado=nGrado
+	GROUP BY cd.grado;
+	RETURN nAlumnoCantidad;
+END$$
+DELIMITER ;
+
+-- function fn_visita_grados 2016-07-10
+DELIMITER $$
+USE `colegio`$$
+DROP FUNCTION IF EXISTS `fn_visita_grados`$$
+CREATE FUNCTION `fn_visita_grados`(nVisitaId INT, nGrado INT) RETURNS INT(11)
+BEGIN
+	DECLARE nGradoCantidad INT DEFAULT 0;
+	SELECT COUNT(cd.grado)
+		INTO nGradoCantidad
+	FROM visitas_detalle vd
+		LEFT JOIN colegios_detalle cd ON vd.colegio_detalle_id=cd.id
+	WHERE vd.visita_id=nVisitaId AND cd.grado=nGrado
+	GROUP BY cd.grado;
+	RETURN nGradoCantidad;
+END$$
+DELIMITER ;
