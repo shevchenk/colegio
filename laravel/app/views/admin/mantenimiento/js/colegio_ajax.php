@@ -7,9 +7,10 @@ var Colegios = {
 			cache : false,
 			dataType : 'json',
 			beforeSend : function() {
-
+				$("body").append('<div class="overlay"></div><div class="loading-img"></div>');
 			},
 			success : function(obj) {
+				$(".overlay,.loading-img").remove();
 				var html="";
 				var sEstado="";
 				if(obj.rst==1){
@@ -50,6 +51,7 @@ var Colegios = {
 				evento();
 			},
 			error: function(){
+				$(".overlay,.loading-img").remove();
 			}
 		});
 	},
@@ -99,7 +101,9 @@ var Colegios = {
 					$(sSelector).val(nId);
 			break;
 			case "Turno":
-				var oTurno = { "M": "Ma&ntilde;ana", "T": "Tarde", "MT": "Ma&ntilde;ana y Tarde" };
+				var oTurno = { "M": "Ma&ntilde;ana", "T": "Tarde", "N": "Noche", "MT": "Ma&ntilde;ana y Tarde",
+							   "MN":"Ma&ntilde;ana y Noche", "TN": "Tarde y Noche", "MTN": "Ma&ntilde;ana, Tarde y Noche"
+							 };
 				$.each(oTurno,function(idxTurno,rowTurno){
 					$(sSelector).append('<option value='+idxTurno+'>'+rowTurno+'</option>');
 				});

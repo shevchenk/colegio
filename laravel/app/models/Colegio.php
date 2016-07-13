@@ -35,14 +35,15 @@ EOT;
 				, c.direccion, c.referencia, IFNULL(c.persona_id,0) AS persona_id, IFNULL(pe.nombre,'') AS persona
 				, c.telefono, c.celular, c.estado, IFNULL(c.ugel,'') AS ugel, c.genero AS genero_id, c.turno AS turno_id
 				, CASE c.genero WHEN 'M' THEN 'Masculino' WHEN 'F' THEN 'Femenino' WHEN 'X' THEN 'Mixto' ELSE '' END genero
-				, CASE c.turno WHEN 'M' THEN 'Mañana' WHEN 'T' THEN 'Tarde' WHEN 'MT' THEN 'Mañana y Tarde' ELSE '' END turno
+				-- , CASE c.turno WHEN 'M' THEN 'Mañana' WHEN 'T' THEN 'Tarde' WHEN 'MT' THEN 'Mañana y Tarde' ELSE '' END turno
+				,c.turno
 			FROM colegios c
-				INNER JOIN odes o ON c.ode_id=o.id
-				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
-				INNER JOIN colegios_niveles cn ON c.colegio_nivel_id=cn.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
 				INNER JOIN provincias p ON d.provincia_id=p.id
 				INNER JOIN departamentos de ON p.departamento_id=de.id
+				LEFT JOIN odes o ON c.ode_id=o.id
+				LEFT JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
+				LEFT JOIN colegios_niveles cn ON c.colegio_nivel_id=cn.id
 				LEFT JOIN personas pe ON c.persona_id=pe.id
 EOT;
 		$sSql.=	$array['where'].

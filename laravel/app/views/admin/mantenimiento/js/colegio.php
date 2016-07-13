@@ -142,8 +142,20 @@ agregarDetalle = function(){
 		case "T":
 			var sOption = "<option value='T'>Tarde</option>";
 		break;
+		case 'N':
+			var sOption = "<option value='N'>Noche</option>";
+		break;
 		case 'MT':
 			var sOption = "<option value='M'>Ma&ntilde;ana</option><option value='T'>Tarde</option>";
+		break;
+		case 'MN':
+			var sOption = "<option value='M'>Ma&ntilde;ana</option><option value='N'>Noche</option>";
+		break;
+		case 'TN':
+			var sOption = "<option value='T'>Tarde</option><option value='N'>Noche</option>";
+		break;
+		case 'MTN':
+			var sOption = "<option value='M'>Ma&ntilde;ana</option><option value='T'>Tarde</option><option value='N'>Noche</option>";
 		break;
 	}
 	var sGrado = "<select name='slct_grado[]' class='form-control input-sm'>"+
