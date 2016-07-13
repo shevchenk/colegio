@@ -110,7 +110,7 @@ class ReporteController extends \BaseController
         $valorinicial=3;
         $azcant=0;
 
-        foreach($aData as $r){ 
+        foreach($aData as $r){
         $cont++;
         $valorinicial++;
         $azcant=0;
@@ -141,5 +141,10 @@ class ReporteController extends \BaseController
         exit;
 
     }
+
+	public function postDistribucion()
+	{
+
+	}
 
 }
