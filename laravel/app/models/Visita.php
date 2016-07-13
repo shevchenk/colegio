@@ -51,7 +51,7 @@ EOT;
 		FROM (
 			SELECT
 				o.nombre AS ode, ct.nombre AS tipo_colegio, c.nombre AS colegio, c.telefono
-				, d.nombre AS distrito, DATE_FORMAT(v.fecha_visita, '%d/%m/%Y') AS fecha_visita
+				, d.nombre AS distrito, v.fecha_visita
 				, '' AS hora, '' AS tiempo, fn_visita_grados(v.id,1) AS sec_1, fn_visita_grados(v.id,2) AS sec_2
 				, fn_visita_grados(v.id,3) AS sec_3, fn_visita_grados(v.id,4) AS sec_4
 				, fn_visita_grados(v.id,5) AS sec_5, fn_visita_alumnos(v.id,1) AS dat_1
