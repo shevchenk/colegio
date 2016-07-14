@@ -188,12 +188,6 @@ class ReporteController extends \BaseController
 		$aHeadSeccion[] = "5";
 		$aHeadSeccion[] = "Total";
 
-		$cabecera[] = "Observacion";
-		$cabecera[] = "Promotor que ingreso";
-		$cabecera[] = "Realizadas";
-		$cabecera[] = "Pendientes";
-		$cabecera[] = "Motivo";
-
 		$objPHPExcel->getActiveSheet()->setCellValue("A2","DISTRIBUCIÓN DE COLEGIOS");
 		$objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setSize(20);
 		$objPHPExcel->getActiveSheet()->mergeCells('A2:Z2');
