@@ -1,9 +1,7 @@
 <script type="text/javascript">
-var IdeGlobal={visita:''};// para crear objeto en arreglo e inicializarlo.
 var cabeceraVP=[];
 var columnDefsVP=[];
 var targetsVP=-1;
-var VisitaDetalleIdG=0;
 
 $(document).ready(function() {
 	cabeceraVP=[
@@ -170,22 +168,11 @@ $(document).ready(function() {
 
 			$("#t_distribucion>thead>tr:eq(1)").append('<th class="unread" id="'+cabeceraVP[i].idide+'">'
 				+cabeceraVP[i].nombre+'<input name="txt_'+cabeceraVP[i].id+'" id="txt_'+cabeceraVP[i].id+'" '
-				+cabeceraVP[i].evento+'="MostrarAjax(\'visita\');" onKeyPress="return enterGlobal(event,\''+cabeceraVP[i].idide+'\',1)" type="text" placeholder="'+cabeceraVP[i].nombre+'" />'+
+				+cabeceraVP[i].evento+'="MostrarAjax(\'distribucion\');" onKeyPress="return enterGlobal(event,\''+cabeceraVP[i].idide+'\',1)" type="text" placeholder="'+cabeceraVP[i].nombre+'" />'+
 				'</th>');
 				$("#t_distribucion>tfoot>tr").append('<th class="unread">'+cabeceraVP[i].nombre+'</th>');
 		}
-
 		targetsVP++;
-		//$("#t_distribucion>tfoot>tr,#t_distribucion>thead>tr:eq(1)").append('<th class="unread">[]</th>');
-		columnDefsVP.push({
-			"targets": targetsVP,
-			"data": function ( row, type, val, meta ) {
-				return  '<a class="form-control btn btn-primary" onClick="detalleVisita(this,'+row.id+')">'
-					+'<i class="fa fa-lg fa-search"></i></a>';
-			},
-			"defaultContent": '',
-			"name": "id"
-		});
 
 	$("#txt_fecha_visita").daterangepicker(
 		{
@@ -195,13 +182,21 @@ $(document).ready(function() {
 		}
 	);
 	MostrarAjax('distribucion');
+
+	$("select[name='slct_todo']").change(function(){
+		var mFiltro = $(this).val();
+		if(mFiltro!="")
+		{
+			$("#form_filtros").submit();
+		}
+	});
+
 });
 
 MostrarAjax=function(t){
 	if( t=="distribucion" )
 	{
-		console.log("cargando...");
-		//VisitaPro.Cargar(columnDefsVP);
+		oDistribucion.Cargar(columnDefsVP);
 	}
 }
 </script>
