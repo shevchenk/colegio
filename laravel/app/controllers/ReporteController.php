@@ -226,77 +226,77 @@ class ReporteController extends \BaseController
 
 		if( Input::get("slct_todo")=='0' )
 		{
-			if( Input::has("ode") ){
-				$array['where'].=" AND a.ode LIKE '%".Input::get("ode")."%' ";
+			if( Input::has("txt_ode") ){
+				$array['where'].=" AND a.ode LIKE '%".Input::get("txt_ode")."%' ";
 			}
-			if( Input::has("tipo_colegio") ){
-				$array['where'].=" AND a.tipo_colegio LIKE '%".Input::get("tipo_colegio")."%' ";
+			if( Input::has("txt_tipo_colegio") ){
+				$array['where'].=" AND a.tipo_colegio LIKE '%".Input::get("txt_tipo_colegio")."%' ";
 			}
-			if( Input::has("colegio") ){
-				$array['where'].=" AND a.colegio LIKE '%".Input::get("colegio")."%' ";
+			if( Input::has("txt_colegio") ){
+				$array['where'].=" AND a.colegio LIKE '%".Input::get("txt_colegio")."%' ";
 			}
-			if( Input::has("telefono") ){
-				$array['where'].=" AND a.telefono LIKE '%".Input::get("telefono")."%' ";
+			if( Input::has("txt_telefono") ){
+				$array['where'].=" AND a.telefono LIKE '%".Input::get("txt_telefono")."%' ";
 			}
-			if( Input::has("distrito") ){
-				$array['where'].=" AND a.distrito LIKE '%".Input::get("distrito")."%' ";
+			if( Input::has("txt_distrito") ){
+				$array['where'].=" AND a.distrito LIKE '%".Input::get("txt_distrito")."%' ";
 			}
-			if( Input::has("fecha_visita") ){
-				$array['where'].=" AND a.fecha_visita LIKE '%".Input::get("fecha_visita")."%' ";
+			if( Input::has("txt_fecha_visita") ){
+				$array['where'].=" AND a.fecha_visita LIKE '%".Input::get("txt_fecha_visita")."%' ";
 			}
-			if( Input::has("hora") ){
-				$array['where'].=" AND a.hora LIKE '%".Input::get("hora")."%' ";
+			if( Input::has("txt_hora") ){
+				$array['where'].=" AND a.hora LIKE '%".Input::get("txt_hora")."%' ";
 			}
-			if( Input::has("tiempo") ){
-				$array['where'].=" AND a.tiempo LIKE '%".Input::get("tiempo")."%' ";
+			if( Input::has("txt_tiempo") ){
+				$array['where'].=" AND a.tiempo LIKE '%".Input::get("txt_tiempo")."%' ";
 			}
-			if( Input::has("sec_1") ){
-				$array['where'].=" AND a.sec_1='".Input::get("sec_1")."' ";
+			if( Input::has("txt_sec_1") ){
+				$array['where'].=" AND a.sec_1='".Input::get("txt_sec_1")."' ";
 			}
-			if( Input::has("sec_2") ){
-				$array['where'].=" AND a.sec_2='".Input::get("sec_2")."' ";
+			if( Input::has("txt_sec_2") ){
+				$array['where'].=" AND a.sec_2='".Input::get("txt_sec_2")."' ";
 			}
-			if( Input::has("sec_3") ){
-				$array['where'].=" AND a.sec_3='".Input::get("sec_3")."' ";
+			if( Input::has("txt_sec_3") ){
+				$array['where'].=" AND a.sec_3='".Input::get("txt_sec_3")."' ";
 			}
-			if( Input::has("sec_4") ){
-				$array['where'].=" AND a.sec_4='".Input::get("sec_4")."' ";
+			if( Input::has("txt_sec_4") ){
+				$array['where'].=" AND a.sec_4='".Input::get("txt_sec_4")."' ";
 			}
-			if( Input::has("sec_5") ){
-				$array['where'].=" AND a.sec_5='".Input::get("sec_5")."' ";
+			if( Input::has("txt_sec_5") ){
+				$array['where'].=" AND a.sec_5='".Input::get("txt_sec_5")."' ";
 			}
-			if( Input::has("total_sec") ){
-				$array['where'].=" AND a.total_sec='".Input::get("total_sec")."' ";
+			if( Input::has("txt_total_sec") ){
+				$array['where'].=" AND a.total_sec='".Input::get("txt_total_sec")."' ";
 			}
-			if( Input::has("dat_1") ){
-				$array['where'].=" AND a.dat_1='".Input::get("dat_1")."' ";
+			if( Input::has("txt_dat_1") ){
+				$array['where'].=" AND a.dat_1='".Input::get("txt_dat_1")."' ";
 			}
-			if( Input::has("dat_2") ){
-				$array['where'].=" AND a.dat_2='".Input::get("dat_2")."' ";
+			if( Input::has("txt_dat_2") ){
+				$array['where'].=" AND a.dat_2='".Input::get("txt_dat_2")."' ";
 			}
-			if( Input::has("dat_3") ){
-				$array['where'].=" AND a.dat_3='".Input::get("dat_3")."' ";
+			if( Input::has("txt_dat_3") ){
+				$array['where'].=" AND a.dat_3='".Input::get("txt_dat_3")."' ";
 			}
-			if( Input::has("dat_4") ){
-				$array['where'].=" AND a.dat_4='".Input::get("dat_4")."' ";
+			if( Input::has("txt_dat_4") ){
+				$array['where'].=" AND a.dat_4='".Input::get("txt_dat_4")."' ";
 			}
-			if( Input::has("dat_5") ){
-				$array['where'].=" AND a.dat_5='".Input::get("dat_5")."' ";
+			if( Input::has("txt_dat_5") ){
+				$array['where'].=" AND a.dat_5='".Input::get("txt_dat_5")."' ";
 			}
-			if( Input::has("total_dat") ){
-				$array['where'].=" AND a.total_dat='".Input::get("total_dat")."' ";
+			if( Input::has("txt_total_dat") ){
+				$array['where'].=" AND a.total_dat='".Input::get("txt_total_dat")."' ";
 			}
-			if( Input::has("observacion") ){
-				$array['where'].=" AND a.observacion LIKE '%".Input::get("observacion")."%' ";
+			if( Input::has("txt_observacion") ){
+				$array['where'].=" AND a.observacion LIKE '%".Input::get("txt_observacion")."%' ";
 			}
-			if( Input::has("promotor") ){
-				$array['where'].=" AND a.promotor LIKE '%".Input::get("promotor")."' ";
+			if( Input::has("txt_promotor") ){
+				$array['where'].=" AND a.promotor LIKE '%".Input::get("txt_promotor")."' ";
 			}
-			if( Input::has("realizada") ){
-				$array['where'].=" AND a.realizada='".Input::get("realizada")."' ";
+			if( Input::has("txt_realizada") ){
+				$array['where'].=" AND a.realizada='".Input::get("txt_realizada")."' ";
 			}
-			if( Input::has("pendiente") ){
-				$array['where'].=" AND a.pendiente='".Input::get("pendiente")."' ";
+			if( Input::has("txt_pendiente") ){
+				$array['where'].=" AND a.pendiente='".Input::get("txt_pendiente")."' ";
 			}
 
 			if (Input::has('draw'))
