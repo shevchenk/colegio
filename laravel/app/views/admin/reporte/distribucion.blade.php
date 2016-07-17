@@ -10,6 +10,8 @@
 	{{ HTML::script('//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js') }}
 	{{ HTML::script('lib/daterangepicker/js/daterangepicker_single.js') }}
 
+	@include('admin.js.slct_global_ajax')
+	@include('admin.js.slct_global')
 	@include('admin.reporte.js.distribucion_ajax')
 	@include('admin.reporte.js.distribucion')
 @stop
@@ -27,7 +29,7 @@
 		<div class="box row">
 			<div class="col-sm-12">
 				<form name="form_filtros" id="form_filtros" method="POST" action="reporte/distribucion">
-					<select name='slct_todo' onchange="submit();">
+					<select name='slct_todo'>
 						<option value="">Seleccione</option>
 						<option value="0">Solo Filtros de la tabla</option>
 						<option value="1">.::Todo::.</option>

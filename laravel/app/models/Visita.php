@@ -39,18 +39,18 @@ EOT;
         return $oData;
     }
 
-	public static function getCargadistribucion($aParametro)
+	public static function getCargaDistribucion($aParametro)
 	{
 		$sSql = <<<EOT
 		SELECT
-			a.ode, a.tipo_colegio, a.colegio, a.telefono, a.distrito, a.fecha_visita, a.hora, a.tiempo
+			a.id, a.ode, a.tipo_colegio, a.colegio, a.telefono, a.distrito, a.fecha_visita, a.hora, a.tiempo
 			, a.sec_1, a.sec_2, a.sec_3, a.sec_4, a.sec_5, (a.sec_1 + a.sec_2 + a.sec_3 + a.sec_4 + a.sec_5) AS total_sec
 			, a.dat_1, a.dat_2, a.dat_3, a.dat_4, a.dat_5, (a.dat_1 + a.dat_2 + a.dat_3 + a.dat_4 + a.dat_5) AS total_dat
 			, a.observacion, a.promotor, a.realizada, ((a.sec_1 + a.sec_2 + a.sec_3 + a.sec_4 + a.sec_5) - a.realizada) AS pendiente
 			, a.motivo
 		FROM (
 			SELECT
-				o.nombre AS ode, ct.nombre AS tipo_colegio, c.nombre AS colegio, c.telefono
+				v.id, o.nombre AS ode, ct.nombre AS tipo_colegio, c.nombre AS colegio, c.telefono
 				, d.nombre AS distrito, v.fecha_visita
 				, '' AS hora, '' AS tiempo, fn_visita_grados(v.id,1) AS sec_1, fn_visita_grados(v.id,2) AS sec_2
 				, fn_visita_grados(v.id,3) AS sec_3, fn_visita_grados(v.id,4) AS sec_4
@@ -72,5 +72,36 @@ EOT;
 		$oData = DB::select($sSql);
 		return $oData;
 	}
+
+	public static function getCargaDistribucionCount( $array )
+	{
+		$sSql = <<<EOT
+		SELECT
+			COUNT(a.id) AS cant
+		FROM (
+			SELECT
+				v.id, o.nombre AS ode, ct.nombre AS tipo_colegio, c.nombre AS colegio, c.telefono
+				, d.nombre AS distrito, v.fecha_visita
+				, '' AS hora, '' AS tiempo, fn_visita_grados(v.id,1) AS sec_1, fn_visita_grados(v.id,2) AS sec_2
+				, fn_visita_grados(v.id,3) AS sec_3, fn_visita_grados(v.id,4) AS sec_4
+				, fn_visita_grados(v.id,5) AS sec_5, fn_visita_alumnos(v.id,1) AS dat_1
+				, fn_visita_alumnos(v.id,2) AS dat_2, fn_visita_alumnos(v.id,3) AS dat_3
+				, fn_visita_alumnos(v.id,4) AS dat_4, fn_visita_alumnos(v.id,5) AS dat_5
+				, '' AS observacion, CONCAT_WS(' ', p.paterno, p.materno, p.nombre) AS promotor
+				, (SELECT SUM(r_vd.alumnos_registrados) FROM visitas_detalle r_vd WHERE r_vd.visita_id=v.id) AS realizada
+				, '' AS motivo
+			FROM visitas v
+				INNER JOIN colegios c ON v.colegio_id=c.id
+				INNER JOIN odes o ON c.ode_id=o.id
+				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
+				INNER JOIN distritos d ON c.distrito_id=d.id
+				LEFT JOIN personas p ON v.personac_id=p.id
+		) a
+EOT;
+		$sSql.= $array['where'];
+		$oData = DB::select($sSql);
+		return $oData[0]->cant;
+	}
+
 }
 ?>
