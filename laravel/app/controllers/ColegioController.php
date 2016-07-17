@@ -19,6 +19,7 @@ class ColegioController extends BaseController
 	public function postCargar()
 	{
 		if ( Request::ajax() ) {
+			ini_set('memory_limit','1024M');
 			$array=array();
 			$array['where']=' WHERE c.estado=1 ';
 			$array['distrito']='';
