@@ -34,7 +34,7 @@ var Colegios = {
 							"<td id='distrito_"+data.id+"' distrito_id='"+data.distrito_id+"'>"+data.distrito+"</td>"+
 							"<td id='direccion_"+data.id+"'>"+data.direccion+"</td>"+
 							"<td id='referencia_"+data.id+"'>"+data.referencia+"</td>"+
-							"<td id='persona_"+data.id+"' persona_id='"+data.persona_id+"'>"+data.persona+"</td>"+
+							"<td id='director_"+data.id+"'>"+data.director+"</td>"+
 							"<td id='telefono_"+data.id+"'>"+data.telefono+"</td>"+
 							"<td id='celular_"+data.id+"'>"+data.celular+"</td>"+
 							"<td id='email_"+data.id+"'>"+data.email+"</td>"+
@@ -101,8 +101,8 @@ var Colegios = {
 					$(sSelector).val(nId);
 			break;
 			case "Turno":
-				var oTurno = { "M": "Ma&ntilde;ana", "T": "Tarde", "N": "Noche", "MT": "Ma&ntilde;ana y Tarde",
-							   "MN":"Ma&ntilde;ana y Noche", "TN": "Tarde y Noche", "MTN": "Ma&ntilde;ana, Tarde y Noche"
+				var oTurno = { "M": "M", "T": "T", "N": "N", "MT": "MT",
+							   "MN":"MN", "TN": "TN", "MTN": "MTN"
 							 };
 				$.each(oTurno,function(idxTurno,rowTurno){
 					$(sSelector).append('<option value='+idxTurno+'>'+rowTurno+'</option>');
@@ -221,13 +221,25 @@ var Colegios = {
 		switch (sTurno)
 		{
 			case "M":
-				var oTurno = { "M": "Ma&ntilde;ana" };
+				var oTurno = { "M": "M" };
 			break;
 			case "T":
-				var oTurno = { "T": "Tarde" };
+				var oTurno = { "T": "T" };
 			break;
-			case 'MT':
-				var oTurno = { "M": "Ma&ntilde;ana", "T": "Tarde" };
+			case "N":
+				var oTurno = { "N": "N" };
+			break;
+			case "MT":
+				var oTurno = { "M": "M","T":"T" };
+			break;
+			case "TN":
+				var oTurno = { "T": "T","N":"N" };
+			break;
+			case "MN":
+				var oTurno = { "M": "M","N":"N" };
+			break;
+			case "MTN":
+				var oTurno = { "M": "M","T":"T","N":"N" };
 			break;
 		}
 

@@ -132,7 +132,7 @@ class ColegioController extends BaseController
 				'distrito_id' => $required,
 				'direccion' => $required,
 				'referencia' => $required,
-				'email' => 'required|email'
+				'email' => 'email'
 			);
 
 			$mensaje= array(
@@ -159,10 +159,7 @@ class ColegioController extends BaseController
 			$opciones['distrito_id'] = Input::get('distrito_id');
 			$opciones['direccion'] = Input::get('direccion');
 			$opciones['referencia'] = Input::get('referencia');
-			if(Input::has('persona_id'))
-			{
-				$opciones['persona_id'] = Input::get('persona_id');
-			}
+			$opciones['director'] = Input::get('director');
 			$opciones['telefono'] = Input::get('telefono');
 			$opciones['celular'] = Input::get('celular');
 			$opciones['email'] = Input::get('email');
@@ -195,7 +192,7 @@ class ColegioController extends BaseController
 				'distrito_id' => $required,
 				'direccion' => $required,
 				'referencia' => $required,
-				'email' => 'required|email'
+				'email' => 'email'
 			);
 
 			$mensaje= array(
@@ -223,10 +220,7 @@ class ColegioController extends BaseController
 			$opciones['distrito_id'] = Input::get('distrito_id');
 			$opciones['direccion'] = Input::get('direccion');
 			$opciones['referencia'] = Input::get('referencia');
-			if(Input::has('persona_id'))
-			{
-				$opciones['persona_id'] = Input::get('persona_id');
-			}
+			$opciones['director'] = Input::get('director');
 			$opciones['telefono'] = Input::get('telefono');
 			$opciones['celular'] = Input::get('celular');
 			$opciones['email'] = Input::get('email');

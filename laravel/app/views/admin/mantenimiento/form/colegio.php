@@ -48,12 +48,23 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Ugel
-							<a id="error_ugel" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ingrese Nombre">
-								<i class="fa fa-exclamation"></i>
-							</a>
-						</label>
-						<input type="text" class="form-control" placeholder="Ingrese Ugel" name="txt_ugel" id="txt_ugel">
+						<label class="control-label">Ugel:</label>
+						<select class="form-control" name="slct_ugel" id="slct_ugel">
+							<option value='' selected="">Seleccione</option>
+							<option value='01'>01</option>
+							<option value='02'>02</option>
+							<option value='03'>03</option>
+							<option value='04'>04</option>
+							<option value='05'>05</option>
+							<option value='06'>06</option>
+							<option value='07'>07</option>
+							<option value='08'>08</option>
+							<option value='09'>09</option>
+							<option value='10'>10</option>
+							<option value='11'>11</option>
+							<option value='12'>12</option>
+							<option value='13'>13</option>
+						</select>
 					</div>
 
 					<div class="form-group">
@@ -104,22 +115,22 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Persona:</label>
-						<select class="form-control" name="slct_persona_id" id="slct_persona_id"></select>
+						<label class="control-label">Director:</label>
+						<input type="text" class="form-control" placeholder="Ingrese Director" name="txt_director" id="txt_director">
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Telefono</label>
+						<label class="control-label">Telefono del Colegio</label>
 						<input type="text" class="form-control" placeholder="Ingrese Telefono" name="txt_telefono" id="txt_telefono">
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Celular</label>
+						<label class="control-label">Celular del Colegio</label>
 						<input type="text" class="form-control" placeholder="Ingrese Celular" name="txt_celular" id="txt_celular">
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Correo electr&oacute;nico
+						<label class="control-label">Correo electr&oacute;nico del Colegio
 							<a id="error_email" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ingrese Correo electr&oacute;nico">
 								<i class="fa fa-exclamation"></i>
 							</a>

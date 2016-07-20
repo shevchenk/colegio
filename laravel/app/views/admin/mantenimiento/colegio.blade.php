@@ -46,10 +46,10 @@
 										<th>Distritos</th>
 										<th>Direcci&oacute;n</th>
 										<th>Referencia</th>
-										<th>Personal</th>
-										<th>Telefono</th>
-										<th>Celular</th>
-										<th>Email</th>
+										<th>Director</th>
+										<th>Telefono del Colegio</th>
+										<th>Celular del Colegio</th>
+										<th>Email del Colegio</th>
 										<th>Estado</th>
 										<th> [ ] </th>
 									</tr>
@@ -70,10 +70,10 @@
 										<th>Distritos</th>
 										<th>Direcci&oacute;n</th>
 										<th>Referencia</th>
-										<th>Personal</th>
-										<th>Telefono</th>
-										<th>Celular</th>
-										<th>Email</th>
+										<th>Director</th>
+										<th>Telefono del Colegio</th>
+										<th>Celular del Colegio</th>
+										<th>Email del Colegio</th>
 										<th>Estado</th>
 										<th> [ ] </th>
 									</tr>

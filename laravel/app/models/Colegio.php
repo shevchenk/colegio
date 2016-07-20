@@ -32,7 +32,7 @@ EOT;
 				c.id, c.ode_id, o.nombre AS ode, c.nombre, c.colegio_tipo_id, ct.nombre AS tipo
 				, c.colegio_nivel_id, cn.nombre AS nivel, c.distrito_id, d.nombre AS distrito, IFNULL(c.email,'') AS email
 				, d.provincia_id, p.nombre AS provincia, p.departamento_id, de.nombre AS departamento
-				, c.direccion, c.referencia, IFNULL(c.persona_id,0) AS persona_id, IFNULL(pe.nombre,'') AS persona
+				, c.direccion, c.referencia, c.director
 				, c.telefono, c.celular, c.estado, IFNULL(c.ugel,'') AS ugel, c.genero AS genero_id, c.turno AS turno_id
 				, CASE c.genero WHEN 'M' THEN 'Masculino' WHEN 'F' THEN 'Femenino' WHEN 'X' THEN 'Mixto' ELSE '' END genero
 				-- , CASE c.turno WHEN 'M' THEN 'Mañana' WHEN 'T' THEN 'Tarde' WHEN 'MT' THEN 'Mañana y Tarde' ELSE '' END turno
@@ -44,7 +44,6 @@ EOT;
 				LEFT JOIN odes o ON c.ode_id=o.id
 				LEFT JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				LEFT JOIN colegios_niveles cn ON c.colegio_nivel_id=cn.id
-				LEFT JOIN personas pe ON c.persona_id=pe.id
 EOT;
 		$sSql.=	$array['where'].
 				$array['distrito'].
@@ -92,7 +91,7 @@ EOT;
 	public static function getListardepartamento()
 	{
 		$sSql = <<<EOT
-			SELECT id, nombre FROM departamentos
+			SELECT id, nombre FROM departamentos ORDER BY nombre
 EOT;
 		$oData = DB::select($sSql);
 		return $oData;
@@ -110,7 +109,7 @@ EOT;
 	public static function getListarprovincia($nIdPadre)
 	{
 		$sSql = <<<EOT
-			SELECT id, nombre FROM provincias WHERE departamento_id={$nIdPadre}
+			SELECT id, nombre FROM provincias WHERE departamento_id={$nIdPadre}  ORDER BY nombre
 EOT;
 		$oData = DB::select($sSql);
 		return $oData;
@@ -119,7 +118,7 @@ EOT;
 	public static function getListardistrito($nIdPadre)
 	{
 		$sSql = <<<EOT
-			SELECT id, nombre FROM distritos WHERE provincia_id={$nIdPadre}
+			SELECT id, nombre FROM distritos WHERE provincia_id={$nIdPadre}  ORDER BY nombre
 EOT;
 		$oData = DB::select($sSql);
 		return $oData;
