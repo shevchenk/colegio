@@ -41,6 +41,10 @@ $(document).ready(function() {
             $('#form_personas #txt_email').val( PersonaObj[persona_id].email );
             $('#form_personas #slct_sexo').val( PersonaObj[persona_id].sexo );
             $('#form_personas #slct_estado').val( PersonaObj[persona_id].estado );
+            $('#form_personas #txt_horario').val( PersonaObj[persona_id].horario );
+            $('#form_personas #txt_codigo').val( PersonaObj[persona_id].codigo );
+            $('#form_personas #txt_fecha_ingreso').val( PersonaObj[persona_id].fecha_ingreso );
+            $('#form_personas #txt_fecha_retiro').val( PersonaObj[persona_id].fecha_retiro );
             $("#form_personas").append("<input type='hidden' value='"+PersonaObj[persona_id].id+"' name='id'>");
         }
         $( "#form_personas #slct_estado" ).trigger('change');

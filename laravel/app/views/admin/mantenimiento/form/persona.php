@@ -94,6 +94,30 @@
                   </select>
                 </div>
               </div>
+              <div class="col-sm-12">
+                <div class="col-sm-4">
+                  <label class="control-label">Horario
+                  </label>
+                  <input type="text" class="form-control" placeholder="Ingrese horario" name="txt_horario" id="txt_horario">
+                </div>
+                <div class="col-sm-4">
+                  <label class="control-label">Código
+                  </label>
+                  <input type="text" class="form-control" placeholder="Ingrese codigo" name="txt_codigo" id="txt_codigo">
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="col-sm-4">
+                  <label class="control-label">Fecha Ingreso
+                  </label>
+                  <input type="text" class="form-control" placeholder="Ingrese fecha ingreso" name="txt_fecha_ingreso" id="txt_fecha_ingreso">
+                </div>
+                <div class="col-sm-4">
+                  <label class="control-label">Fecha Retiro
+                  </label>
+                  <input type="text" class="form-control" placeholder="Ingrese fecha retiro" name="txt_fecha_retiro" id="txt_fecha_retiro">
+                </div>
+              </div>
 
             </div>
           </fieldset>

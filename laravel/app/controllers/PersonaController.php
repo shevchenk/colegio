@@ -155,6 +155,14 @@ class PersonaController extends BaseController
                 $persona['direccion'] = Input::get('direccion');
             if (Input::get('referencia')<>'') 
                 $persona['referencia'] = Input::get('referencia');
+            if (Input::get('horario')<>'') 
+                $persona['horario'] = Input::get('horario');
+            if (Input::get('codigo')<>'') 
+                $persona['codigo'] = Input::get('codigo');
+            if (Input::get('fecha_ingreso')<>'') 
+                $persona['fecha_ingreso'] = Input::get('fecha_ingreso');
+            if (Input::get('fecha_retiro')<>'') 
+                $persona['fecha_retiro'] = Input::get('fecha_retiro');
 
             $persona['paterno'] = Input::get('paterno');
             $persona['nombre'] = Input::get('nombre');
@@ -274,6 +282,14 @@ class PersonaController extends BaseController
                 $persona['referencia'] = Input::get('referencia');
             if (Input::get('password')<>'') 
                 $persona['password'] = Hash::make(Input::get('password'));
+            if (Input::get('horario')<>'') 
+                $persona['horario'] = Input::get('horario');
+            if (Input::get('codigo')<>'') 
+                $persona['codigo'] = Input::get('codigo');
+            if (Input::get('fecha_ingreso')<>'') 
+                $persona['fecha_ingreso'] = Input::get('fecha_ingreso');
+            if (Input::get('fecha_retiro')<>'') 
+                $persona['fecha_retiro'] = Input::get('fecha_retiro');
             
             $persona['paterno'] = Input::get('paterno');
             $persona['nombre'] = Input::get('nombre');
