@@ -1,7 +1,7 @@
 <script type="text/javascript">
 $(document).ready(function() {  
     Persona.CargarPersonas(activarTabla);
-    $('#txt_fecha_nac').daterangepicker({
+    $('#txt_fecha_nac,#txt_fecha_ingreso,#txt_fecha_retiro').daterangepicker({
         format: 'YYYY-MM-DD',
         singleDatePicker: true,
         showDropdowns: true

@@ -18,11 +18,13 @@ class Persona extends Base implements UserInterface, RemindableInterface
     
     public static $where =[
                         'id', 'paterno','materno','nombre','email','dni',
-                        'password','fecha_nacimiento','sexo', 'estado'
+                        'password','fecha_nacimiento','sexo', 'estado',
+                        'horario','codigo','fecha_ingreso','fecha_retiro'
                         ];
     public static $selec =[
                         'id', 'paterno','materno','nombre','email','dni',
-                        'password','fecha_nacimiento','sexo', 'estado'
+                        'password','fecha_nacimiento','sexo', 'estado',
+                        'horario','codigo','fecha_ingreso','fecha_retiro'
                         ];
     /**
      * Cargos relationship
@@ -45,7 +47,8 @@ class Persona extends Base implements UserInterface, RemindableInterface
     public static function getCargarp( $array )
     {
         $sql="  SELECT p.id ,p.dni,
-                    p.paterno,p.materno,p.nombre
+                    p.paterno,p.materno,p.nombre,p.fecha_retiro,p.fecha_ingreso,
+                    p.horario,p.codigo
                 FROM personas p
                 INNER JOIN cargo_persona cp ON cp.persona_id=p.id 
                 WHERE p.estado=1 ";
