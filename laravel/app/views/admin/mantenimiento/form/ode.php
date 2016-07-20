@@ -20,6 +20,12 @@
 					</div>
 
 					<div class="form-group">
+						<label class="control-label">Responsable
+						</label>
+						<input type="text" class="form-control" placeholder="Ingrese Responsable" name="txt_responsable" id="txt_responsable">
+					</div>
+
+					<div class="form-group">
 						<label class="control-label">Departamento:
 							<a id="error_departamento_id" style="display:none" class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom" title="Seleccionar departamento">
 								<i class="fa fa-exclamation"></i>

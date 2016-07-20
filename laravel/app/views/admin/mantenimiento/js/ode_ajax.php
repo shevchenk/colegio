@@ -21,6 +21,7 @@ var Odes = {
 
 						html+="<tr>"+
 							"<td id='nombre_"+data.id+"'>"+data.nombre+"</td>"+
+							"<td id='responsable_"+data.id+"'>"+$.trim(data.responsable)+"</td>"+
 							"<td id='departamento_id_"+data.id+"' departamento_id='"+data.departamento_id+"'>"+data.departamento+"</td>"+
 							"<td id='provincia_id_"+data.id+"' provincia_id='"+data.provincia_id+"'>"+data.provincia+"</td>"+
 							"<td id='distrito_id_"+data.id+"' distrito_id='"+data.distrito_id+"'>"+data.distrito+"</td>"+

@@ -66,6 +66,7 @@ class OdeController extends \BaseController
 
             $odes = new Ode;
             $odes['nombre'] = Input::get('nombre');
+            $odes['responsable'] = Input::get('responsable');
             $odes['estado'] = Input::get('estado');
             $odes['usuario_created_at'] = Auth::user()->id;
             $odes->save();
@@ -106,6 +107,7 @@ class OdeController extends \BaseController
             $odeId = Input::get('id');
             $ode = Ode::find($odeId);
             $ode['nombre'] = Input::get('nombre');
+            $ode['responsable'] = Input::get('responsable');
             $ode['estado'] = Input::get('estado');
             $ode['usuario_updated_at'] = Auth::user()->id;
             $ode->save();
@@ -184,6 +186,7 @@ class OdeController extends \BaseController
 
 			$oOde = new Ode;
 			$oOde['nombre'] = Input::get('nombre');
+            $oOde['responsable'] = Input::get('responsable');
 			$oOde['departamento_id'] = Input::get('departamento_id');
 			$oOde['provincia_id'] = Input::get('provincia_id');
 			$oOde['distrito_id'] = Input::get('distrito_id');
@@ -263,7 +266,8 @@ class OdeController extends \BaseController
 				$nIdOde = Input::get('id');
 				$oOde = Ode::find($nIdOde);
 				$oOde['nombre'] = Input::get('nombre');
-				$oOde['departamento_id'] = Input::get('departamento_id');
+				$oOde['responsable'] = Input::get('responsable');
+                $oOde['departamento_id'] = Input::get('departamento_id');
 				$oOde['provincia_id'] = Input::get('provincia_id');
 				$oOde['distrito_id'] = Input::get('distrito_id');
 				$oOde['direccion'] = Input::get('direccion');

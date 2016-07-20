@@ -12,6 +12,7 @@ $(document).ready(function() {
 		$('#form_odes [data-toggle="tooltip"]').css("display","none");
 		$("#form_odes input[type='hidden']").remove();
 		$("table.tblDetalle tbody .filaAgregada").remove();
+		$('.tblDetalle tbody').html('');
 		if(titulo=='Nuevo') {
 			Odes.cargarSelectAnidado('Departamento', 'colegio/listardepartamento', '#slct_departamento_id', 'nuevo', null, null);
 			$("#slct_provincia_id, #slct_distrito_id").empty();
@@ -24,6 +25,7 @@ $(document).ready(function() {
 			modal.find('.modal-footer .btn-primary').attr('onClick','Editar();');
 			var idOde = button.data('id');
 			$('#form_odes #txt_nombre').val( $('#tb_odes #nombre_'+idOde).text());
+			$('#form_odes #txt_responsable').val( $('#tb_odes #responsable_'+idOde).text());
 			departamento_id=$('#tb_odes #departamento_id_'+idOde).attr('departamento_id');
 			Odes.cargarSelectAnidado('Departamento', 'colegio/listardepartamento', '#slct_departamento_id', 'editar', departamento_id, null);
 			provincia_id=$('#tb_odes #provincia_id_'+idOde).attr('provincia_id');

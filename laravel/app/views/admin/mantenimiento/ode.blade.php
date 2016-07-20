@@ -34,7 +34,8 @@
 							<table id="t_odes" class="table table-bordered table-striped">
 								<thead>
 									<tr>
-										<th>Nombre</th>
+										<th>Nombre de Ode</th>
+										<th>Responsable</th>
 										<th>Departamento</th>
 										<th>Provincia</th>
 										<th>Distrito</th>
@@ -49,7 +50,8 @@
 								</tbody>
 								<tfoot>
 									<tr>
-										<th>Nombre</th>
+										<th>Nombre de Ode</th>
+										<th>Responsable</th>
 										<th>Departamento</th>
 										<th>Provincia</th>
 										<th>Distrito</th>
