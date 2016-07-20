@@ -163,9 +163,7 @@ class OdeController extends \BaseController
 				'departamento_id' => $required,
 				'provincia_id' => $required,
 				'distrito_id' => $required,
-				'direccion' => $required,
-				'telefono' => $required,
-				'email' => 'required|email'
+				'email' => 'email'
 			);
 
 			$mensaje= array(
@@ -242,9 +240,7 @@ class OdeController extends \BaseController
 					'departamento_id' => $required,
 					'provincia_id' => $required,
 					'distrito_id' => $required,
-					'direccion' => $required,
-					'telefono' => $required,
-					'email' => 'required|email'
+					'email' => 'email'
 				);
 
 				$mensaje= array(
