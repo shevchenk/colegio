@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-@extends('layouts.master')  
+  
 
-@section('includes')
+<?php $__env->startSection('includes'); ?>
 	@parent
-	@include( 'admin.mantenimiento.js.colegio_ajax' )
-	@include( 'admin.mantenimiento.js.colegio' )
-@stop
+	<?php echo $__env->make( 'admin.mantenimiento.js.colegio_ajax' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo $__env->make( 'admin.mantenimiento.js.colegio' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
 <!-- Right side column. Contains the navbar and content of the page -->
-@section('contenido')
+<?php $__env->startSection('contenido'); ?>
 	<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
@@ -89,10 +89,12 @@
 			</div>
 
 		</section><!-- /.content -->
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('formulario')
-	@include( 'admin.mantenimiento.form.colegio' )
-	@include( 'admin.mantenimiento.form.colegio_detalle' )
-	@include( 'admin.mantenimiento.form.convenio' )
-@stop
+<?php $__env->startSection('formulario'); ?>
+	<?php echo $__env->make( 'admin.mantenimiento.form.colegio' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo $__env->make( 'admin.mantenimiento.form.colegio_detalle' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo $__env->make( 'admin.mantenimiento.form.convenio' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

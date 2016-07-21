@@ -224,4 +224,47 @@ procesoDetalle = function(){
 	Colegios.AgregarEditarDetalle();
 }
 
+Mostrar=function(evento){
+    if( evento=='tra' ){
+        $("#div_trabajador").show();
+        data={cargo_id:4};
+        Colegios.Trabajador(TrabajadorHTML,data);
+    }
+}
+
+TrabajadorHTML=function(datos){
+    var html='';
+    $('#t_trabajador').dataTable().fnDestroy();
+    $.each(datos,function(index,data){
+        html+="<tr>"+
+            "<td>"+data.paterno+"</td>"+
+            "<td>"+data.materno+"</td>"+
+            "<td>"+data.nombre+"</td>"+
+            "<td>"+data.dni+"</td>"+
+            '<td><a class="btn btn-primary btn-sm" id="trabajador" data-id="'+data.id+'" data-nombre="'+data.paterno+' '+data.materno+', '+data.nombre+' | DNI:'+data.dni+'" data-titulo="" onClick="SeleccionarTable(this)">'+
+                '<i class="fa fa-check fa-lg"></i> </a></td>';
+        html+="</tr>";
+    });
+
+    if(html==''){
+        $("#div_trabajador").hide();
+        $("#txt_trabajador,#txt_trabajador_id").val('');
+    }
+
+    $("#t_trabajador>tbody").html(html); 
+    $("#t_trabajador").dataTable();
+}
+
+SeleccionarTable=function(ts){
+    var id=$(ts).attr("data-id");
+    var nombre=$(ts).attr("data-nombre");
+    var idT=$(ts).attr("id");
+
+    $("#div_"+idT).hide();
+
+    $("#txt_"+idT).val(nombre);
+    $("#txt_"+idT+"_id").val(id);
+}
+
+
 </script>

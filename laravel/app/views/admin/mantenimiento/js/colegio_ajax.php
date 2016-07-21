@@ -42,6 +42,7 @@ var Colegios = {
 							'<td>'+
 								'<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#colegioModal" data-id="'+data.id+'" data-titulo="Editar"><i class="fa fa-edit fa-lg"></i></a>'+
 								'<a class="btn btn-info btn-xs" data-toggle="modal" data-target="#detalleModal" data-id="'+data.id+'" data-titulo="'+data.nombre+'">Detalle <i class="fa fa-share fa-1x"></i></a>'+
+								'<a class="btn bg-navy btn-xs" data-toggle="modal" data-target="#convenioModal" data-id="'+data.id+'" data-titulo="'+data.nombre+'">Convenio <i class="fa fa-book fa-1x"></i></a>'+
 							'</td>';
 						html+="</tr>";
 
@@ -300,6 +301,29 @@ var Colegios = {
 			}
 			$(".overlay,.loading-img").remove();
 		}, "json");
-	}
+	},
+	Trabajador:function(evento,datos){
+        $.ajax({
+            url         : 'persona/cargarp',
+            type        : 'POST',
+            cache       : false,
+            dataType    : 'json',
+            data        : datos,
+            beforeSend : function() {
+                $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+            },
+            success : function(obj) {
+                $(".overlay,.loading-img").remove();
+                evento(obj.data);
+                if( obj.data.length==0 ){
+                    msjG.mensaje("danger","No hay personas registradas",5000);
+                }
+            },
+            error: function(){
+                $(".overlay,.loading-img").remove();
+                msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
+            }
+        });
+    },
 };
 </script>
