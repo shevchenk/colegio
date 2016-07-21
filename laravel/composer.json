@@ -7,8 +7,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"way/generators": "~2.0",
-		"itsgoingd/clockwork": "1.*",
-		"thujohn/pdf": "dev-master"
+		"itsgoingd/clockwork": "1.*"
 	},
 	"autoload": {
 		"psr-4": {

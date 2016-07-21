@@ -68,13 +68,6 @@ class ComposerStaticInitc6070cbe33e414a96769b5342d3c42e7
                 0 => __DIR__ . '/..' . '/way/generators/src',
             ),
         ),
-        'T' => 
-        array (
-            'Thujohn\\Pdf' => 
-            array (
-                0 => __DIR__ . '/..' . '/thujohn/pdf/src',
-            ),
-        ),
         'S' => 
         array (
             'System' => 
