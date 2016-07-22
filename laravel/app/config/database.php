@@ -61,6 +61,7 @@ return array(
 			'charset'   => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',
+			'strict'    => false,
 		),
 
 		'pgsql' => array(
