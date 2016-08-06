@@ -1,23 +1,29 @@
 <!DOCTYPE html>
-@extends('layouts.master')  
+  
 
-@section('includes')
+<?php $__env->startSection('includes'); ?>
     @parent
-    {{ HTML::style('lib/daterangepicker/css/daterangepicker-bs3.css') }}
-    {{ HTML::style('lib/bootstrap-multiselect/dist/css/bootstrap-multiselect.css') }}
-    {{ HTML::script('lib/daterangepicker/js/daterangepicker.js') }}
-    {{ HTML::script('lib/bootstrap-multiselect/dist/js/bootstrap-multiselect.js') }}
-    {{ HTML::script('//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js') }}
-    {{ HTML::script('lib/daterangepicker/js/daterangepicker_single.js') }}
+    <?php echo HTML::style('lib/daterangepicker/css/daterangepicker-bs3.css'); ?>
+
+    <?php echo HTML::style('lib/bootstrap-multiselect/dist/css/bootstrap-multiselect.css'); ?>
+
+    <?php echo HTML::script('lib/daterangepicker/js/daterangepicker.js'); ?>
+
+    <?php echo HTML::script('lib/bootstrap-multiselect/dist/js/bootstrap-multiselect.js'); ?>
+
+    <?php echo HTML::script('//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js'); ?>
+
+    <?php echo HTML::script('lib/daterangepicker/js/daterangepicker_single.js'); ?>
+
     
     
-    @include( 'admin.js.slct_global_ajax' )
-    @include( 'admin.js.slct_global' )
-    @include( 'admin.colegio.js.visita_ajax' )
-    @include( 'admin.colegio.js.visita' )
-@stop
+    <?php echo $__env->make( 'admin.js.slct_global_ajax' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make( 'admin.js.slct_global' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make( 'admin.colegio.js.visita_ajax' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make( 'admin.colegio.js.visita' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
 <!-- Right side column. Contains the navbar and content of the page -->
-@section('contenido')
+<?php $__env->startSection('contenido'); ?>
 
 <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -195,7 +201,7 @@
                 <div class="col-sm-12">
                     <div class="col-sm-6">
                         <label class="control-label">Observación:</label>
-                        <textarea class="form-control" name="txt_observacion" id="txt_observacion">S/O</textarea>
+                        <textarea class="form-control" name="txt_observacion" id="txt_observacion">S/N</textarea>
                     </div>
                 </div>
             </div>
@@ -209,7 +215,9 @@
         </form>
     </section><!-- /.content -->
 
-@stop
-@section('formulario')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('formulario'); ?>
      
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

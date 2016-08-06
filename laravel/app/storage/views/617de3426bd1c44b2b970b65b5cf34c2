@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+  
+
+<?php $__env->startSection('includes'); ?>
+    @parent
+    <?php echo HTML::style('lib/daterangepicker/css/daterangepicker-bs3.css'); ?>
+
+    <?php echo HTML::style('lib/bootstrap-multiselect/dist/css/bootstrap-multiselect.css'); ?>
+
+    <?php echo HTML::script('lib/daterangepicker/js/daterangepicker.js'); ?>
+
+    <?php echo HTML::script('lib/bootstrap-multiselect/dist/js/bootstrap-multiselect.js'); ?>
+
+    <?php echo HTML::script('//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js'); ?>
+
+    <?php echo HTML::script('lib/daterangepicker/js/daterangepicker_single.js'); ?>
+
+    
+    
+    <?php echo $__env->make( 'admin.js.slct_global_ajax' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make( 'admin.js.slct_global' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make( 'admin.colegio.js.visitapro_ajax' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make( 'admin.colegio.js.visitapro' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
+<!-- Right side column. Contains the navbar and content of the page -->
+<?php $__env->startSection('contenido'); ?>
+
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Visitas Programadas
+            <small> </small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+            <li><a href="#">Proceso</a></li>
+            <li class="active">Asignación y Programación</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="box row">
+            <div class="col-sm-12">
+                <form name="form_filtros" id="form_filtros" method="POST" action="">
+                    <div class="table-responsive">
+                    <table id="t_visita" class="table table-mailbox">
+                        <thead>
+                        <tr>
+                            <th colspan='6' style='text-align:center'><h2>Visitas Proramadas</h2></th>
+                        </tr>
+                        <tr></tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot><tr></tr></tfoot>
+                    </table>
+                    </div>
+                </form>
+            </div>
+            <form name="form_filtros" id="form_filtros" method="POST" action="">
+            <div class="col-sm-12">
+                <hr>
+                <br>
+                <table id="t_visita_detalle" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th colspan='7' style='text-align:center'><h2>Grado y Secciones del colegio</h2></th>
+                    </tr>
+                    <tr>
+                    <th>Nivel</th>
+                    <th>Grado</th>
+                    <th>Seccion</th>
+                    <th>Turno</th>
+                    <th>Total Alumnos</th>
+                    <th>Total Alumnos Registrados</th>
+                    <th>Ver Alumnos</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                    <tr>
+                    <th>Nivel</th>
+                    <th>Grado</th>
+                    <th>Seccion</th>
+                    <th>Turno</th>
+                    <th>Total Alumnos</th>
+                    <th>Total Alumnos Registrados</th>
+                    <th>Ver Alumnos</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="col-sm-12">
+                <hr>
+                <br>
+                <table id="t_alumno" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th colspan='6' style='text-align:center'><h2>Alumnos</h2></th>
+                    </tr>
+                    <tr>
+                    <th>Paterno</th>
+                    <th>Materno</th>
+                    <th>Nombre</th>
+                    <th>Dni</th>
+                    <th>Convenio?</th>
+                    <th>Agregar Alumno
+                        <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoModal" data-trid="t_alumno" data-titulo="Buscar" >
+                            <i class='fa fa-lg fa-plus'></i>
+                        </a></th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                    <tr>
+                    <th>Paterno</th>
+                    <th>Materno</th>
+                    <th>Nombre</th>
+                    <th>Dni</th>
+                    <th>Convenio?</th>
+                    <th>Agregar Alumno
+                        <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoModal" data-trid="t_alumno" data-titulo="Buscar" >
+                            <i class='fa fa-lg fa-plus'></i>
+                        </a></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="col-sm-12">
+                <hr>
+                <br>
+                <table id="t_alumno_detalle" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th colspan='6' style='text-align:center'><h2>Carrera del Alumno</h2></th>
+                    </tr>
+                    <tr>
+                    <th>Ode</th>
+                    <th>Carrera</th>
+                    <th>Monto</th>
+                    <th>Agregar Carrera Alumno
+                        <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoDetalleModal" data-trid="t_alumno_detalle" data-titulo="Buscar" >
+                            <i class='fa fa-lg fa-plus'></i>
+                        </a></th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                    <tr>
+                    <th>Ode</th>
+                    <th>Carrera</th>
+                    <th>Monto</th>
+                    <th>Agregar Carrera Alumno
+                        <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoDetalleModal" data-trid="t_alumno_detalle" data-titulo="Buscar" >
+                            <i class='fa fa-lg fa-plus'></i>
+                        </a></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            </form>
+        </div>
+    </section><!-- /.content -->
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('formulario'); ?>
+     <?php echo $__env->make( 'admin.colegio.form.alumno' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+     <?php echo $__env->make( 'admin.colegio.form.alumnoDetalle' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+     <?php echo $__env->make( 'admin.colegio.form.persona' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

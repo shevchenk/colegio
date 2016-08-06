@@ -47,7 +47,7 @@ Mostrar=function(evento){
     else if( evento=='pte' ){
         IdeGlobal['persona']="t";
         $("#div_persona").show();
-        data={cargo_id:4};
+        data={cargo_id:5};
         Visita.ColegioPersona(ColegioPersonaHTML,data);
     }
 }
@@ -205,6 +205,7 @@ Guardar=function(){
 
 Limpiar=function(){
     $("#form_vista input").val('');
+    $("#form_vista textarea").val('S/O');
     $("#div_colegio").hide();
     $('#t_colegio_detalle').dataTable().fnDestroy();
     $("#t_colegio_detalle>tbody").html('');
