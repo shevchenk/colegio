@@ -22,7 +22,7 @@
 <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Asignar colegio a una campaña y Programar visitas
+            Programar visitas
             <small> </small>
         </h1>
         <ol class="breadcrumb">
@@ -38,9 +38,20 @@
         <form id="form_vista" name="form_vista" method="post">
             <div class="box row">
                 <div class="col-sm-12">
+                    <div class="col-sm-6">
+                    <h2 style='text-align:center; background-color:#A7C0DC;' class="control-label">PROGRAMACIÓN</h2>
+                    </div>
+                </div>
+                <div class="col-sm-12">
                     <div class="col-sm-2">
-                        <label class="control-label">Fecha Visita:</label>
+                        <label class="control-label">Fecha y Hora Visita:</label>
                         <input type="text" class="form-control fechaDP" name="txt_fecha_visita" id="txt_fecha_visita" readonly>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-2">
+                        <label class="control-label">Tiempo Programado:</label>
+                        <input type="text" class="form-control" name="txt_tiempo_programado" id="txt_tiempo_programado">
                     </div>
                 </div>
                 <div class="col-sm-12">
@@ -55,55 +66,6 @@
                         <select class="form-control" name="slct_distrito" id="slct_distrito" onChange="Cargar('col',this.value);">
                             <option>.::Seleccione::.</option>
                         </select>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-6">
-                        <label class="control-label">Persona que Visitará:</label>
-                        <input class="form-control" type="hidden" name="txt_persona_id" id="txt_persona_id">
-                        <input class="form-control" type="text" name="txt_persona" id="txt_persona" readonly>
-                    </div>
-                    <div class="col-sm-1">
-                        <label class="control-label"></label>
-                        <a class="form-control btn btn-primary" onClick="Mostrar('pvi');" id="buscar" name="buscar">
-                            <i class="fa fa-lg fa-search"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-6">
-                        <label class="control-label">Persona que se Contactó:</label>
-                        <input class="form-control" type="hidden" name="txt_personac_id" id="txt_personac_id">
-                        <input class="form-control" type="text" name="txt_personac" id="txt_personac" readonly>
-                    </div>
-                    <div class="col-sm-1">
-                        <label class="control-label"></label>
-                        <a class="form-control btn btn-primary" onClick="Mostrar('pco');" id="buscar" name="buscar">
-                            <i class="fa fa-lg fa-search"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-3">
-                        <label class="control-label">Nro telefónico que se contactó:</label>
-                        <input type="text" class="form-control" name="txt_nro_tel" id="txt_nro_tel">
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div id="div_persona" class="box row table-responsive" style="display:none">
-                        <table id="t_persona" class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Paterno</th>
-                                    <th>Materno</th>
-                                    <th>Nombre</th>
-                                    <th>DNI</th>
-                                    <th> [ ] </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
                 <div class="col-sm-12">
@@ -152,6 +114,88 @@
                             <tbody>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                    <h2 style='text-align:center; background-color:#A7C0DC;' class="control-label">CONTACTO</h2>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <label class="control-label">Persona que se Contactó:</label>
+                        <input class="form-control" type="text" name="txt_personac" id="txt_personac">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-3">
+                        <label class="control-label">Nro telefónico que se contactó:</label>
+                        <input type="text" class="form-control" name="txt_nro_tel" id="txt_nro_tel">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                    <h2 style='text-align:center; background-color:#A7C0DC;' class="control-label">TRABAJADOR</h2>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <label class="control-label">Trabajador que visitará:</label>
+                        <input class="form-control" type="hidden" name="txt_persona_id" id="txt_persona_id">
+                        <input class="form-control" type="text" name="txt_persona" id="txt_persona" readonly>
+                    </div>
+                    <div class="col-sm-1">
+                        <label class="control-label"></label>
+                        <a class="form-control btn btn-primary" onClick="Mostrar('pvi');" id="buscar" name="buscar">
+                            <i class="fa fa-lg fa-search"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                    <h2 style='text-align:center; background-color:#A7C0DC;' class="control-label">TELECITA</h2>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <label class="control-label">Trabajador:</label>
+                        <input class="form-control" type="hidden" name="txt_personat_id" id="txt_personat_id">
+                        <input class="form-control" type="text" name="txt_personat" id="txt_personat" readonly>
+                    </div>
+                    <div class="col-sm-1">
+                        <label class="control-label"></label>
+                        <a class="form-control btn btn-primary" onClick="Mostrar('pte');" id="buscar" name="buscar">
+                            <i class="fa fa-lg fa-search"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-3">
+                        <label class="control-label">Nro telefónico:</label>
+                        <input type="text" class="form-control" name="txt_nrot_tel" id="txt_nrot_tel">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div id="div_persona" class="box row table-responsive" style="display:none">
+                        <table id="t_persona" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Paterno</th>
+                                    <th>Materno</th>
+                                    <th>Nombre</th>
+                                    <th>DNI</th>
+                                    <th> [ ] </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <label class="control-label">Observación:</label>
+                        <textarea class="form-control" name="txt_observacion" id="txt_observacion">S/N</textarea>
                     </div>
                 </div>
             </div>

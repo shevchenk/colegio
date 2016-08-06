@@ -63,7 +63,7 @@ var Visita={
                 $(".overlay,.loading-img").remove();
                 evento(obj.aData);
                 if( obj.aData.length==0 ){
-                    msjG.mensaje("danger","No hay colegios para el distrito seleccionado",5000);
+                    msjG.mensaje("danger","El colegio no cuenta con grados y secciones registrados",5000);
                 }
             },
             error: function(){
