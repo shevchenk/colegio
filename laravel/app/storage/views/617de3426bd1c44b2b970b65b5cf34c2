@@ -45,10 +45,10 @@
             <div class="col-sm-12">
                 <form name="form_filtros" id="form_filtros" method="POST" action="">
                     <div class="table-responsive">
-                    <table id="t_visita" class="table table-mailbox">
+                    <table id="t_visita" class="table table-mailbox table-hover">
                         <thead>
                         <tr>
-                            <th colspan='6' style='text-align:center'><h2>Visitas Proramadas</h2></th>
+                            <th colspan='7' style='text-align:center; background-color:#A7C0DC;'><h2>VISITA PROGRAMADAS</h2></th>
                         </tr>
                         <tr></tr>
                         </thead>
@@ -58,35 +58,95 @@
                     </div>
                 </form>
             </div>
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                <h2 style='text-align:center; background-color:#A7C0DC;' class="control-label">TRABAJADOR</h2>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <label class="control-label">Trabajador que visitó:</label>
+                    <input class="form-control" type="hidden" name="txt_persona2_id" id="txt_persona2_id">
+                    <input class="form-control" type="text" name="txt_persona2" id="txt_persona2" readonly>
+                </div>
+                <div class="col-sm-1">
+                    <label class="control-label"></label>
+                    <a class="form-control btn btn-primary" onClick="Mostrar('pvi');" id="buscar" name="buscar">
+                        <i class="fa fa-lg fa-search"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div id="div_persona" class="box row table-responsive" style="display:none">
+                    <table id="t_persona" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Paterno</th>
+                                <th>Materno</th>
+                                <th>Nombre</th>
+                                <th>DNI</th>
+                                <th> [ ] </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-12">
+                <h2 style='text-align:center; background-color:#A7C0DC;' class="control-label">CONTACTO POSTERIOR A VISITA</h2>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <label class="control-label">Contacto:</label>
+                    <input class="form-control" type="text" name="txt_contacto" id="txt_contacto">
+                </div>
+                <div class="col-sm-6">
+                    <label class="control-label">Cargo:</label>
+                    <input class="form-control" type="text" name="txt_cargo" id="txt_cargo">
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <label class="control-label">Email:</label>
+                    <input class="form-control" type="text" name="txt_email" id="txt_email">
+                </div>
+                <div class="col-sm-6">
+                    <label class="control-label">Teléfono:</label>
+                    <input class="form-control" type="text" name="txt_telefono" id="txt_telefono">
+                </div>
+            </div>
             <form name="form_filtros" id="form_filtros" method="POST" action="">
             <div class="col-sm-12">
                 <hr>
                 <br>
-                <table id="t_visita_detalle" class="table table-bordered">
+                <table id="t_visita_detalle" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th colspan='7' style='text-align:center'><h2>Grado y Secciones del colegio</h2></th>
+                        <th colspan='7' style='text-align:center; background-color:#A7C0DC;'><h2>GRADO Y SECCIONES DEL COLEGIO</h2></th>
                     </tr>
                     <tr>
-                    <th>Nivel</th>
-                    <th>Grado</th>
-                    <th>Seccion</th>
-                    <th>Turno</th>
-                    <th>Total Alumnos</th>
-                    <th>Total Alumnos Registrados</th>
-                    <th>Ver Alumnos</th>
+                    <th style="background-color:#DCE6F1;">Nivel</th>
+                    <th style="background-color:#DCE6F1;">Grado</th>
+                    <th style="background-color:#DCE6F1;">Seccion</th>
+                    <th style="background-color:#DCE6F1;">Turno</th>
+                    <th style="background-color:#DCE6F1;">Total Alumnos</th>
+                    <th style="background-color:#DCE6F1;">Total Alumnos Registrados</th>
+                    <th style="background-color:#DCE6F1;">Ver Alumnos</th>
                     </tr>
                     </thead>
                     <tbody></tbody>
                     <tfoot>
                     <tr>
-                    <th>Nivel</th>
-                    <th>Grado</th>
-                    <th>Seccion</th>
-                    <th>Turno</th>
-                    <th>Total Alumnos</th>
-                    <th>Total Alumnos Registrados</th>
-                    <th>Ver Alumnos</th>
+                    <th style="background-color:#DCE6F1;">Nivel</th>
+                    <th style="background-color:#DCE6F1;">Grado</th>
+                    <th style="background-color:#DCE6F1;">Seccion</th>
+                    <th style="background-color:#DCE6F1;">Turno</th>
+                    <th style="background-color:#DCE6F1;">Total Alumnos</th>
+                    <th style="background-color:#DCE6F1;">Total Alumnos Registrados</th>
+                    <th style="background-color:#DCE6F1;">Ver Alumnos</th>
                     </tr>
                     </tfoot>
                 </table>
@@ -94,18 +154,18 @@
             <div class="col-sm-12">
                 <hr>
                 <br>
-                <table id="t_alumno" class="table table-bordered">
+                <table id="t_alumno" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th colspan='6' style='text-align:center'><h2>Alumnos</h2></th>
+                        <th colspan='6' style='text-align:center; background-color:#A7C0DC;'><h2>ALUMNOS</h2></th>
                     </tr>
                     <tr>
-                    <th>Paterno</th>
-                    <th>Materno</th>
-                    <th>Nombre</th>
-                    <th>Dni</th>
-                    <th>Convenio?</th>
-                    <th>Agregar Alumno
+                    <th style="background-color:#DCE6F1;">Paterno</th>
+                    <th style="background-color:#DCE6F1;">Materno</th>
+                    <th style="background-color:#DCE6F1;">Nombre</th>
+                    <th style="background-color:#DCE6F1;">Dni</th>
+                    <th style="background-color:#DCE6F1;">Convenio?</th>
+                    <th style="background-color:#DCE6F1;">Agregar Alumno
                         <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoModal" data-trid="t_alumno" data-titulo="Buscar" >
                             <i class='fa fa-lg fa-plus'></i>
                         </a></th>
@@ -114,12 +174,12 @@
                     <tbody></tbody>
                     <tfoot>
                     <tr>
-                    <th>Paterno</th>
-                    <th>Materno</th>
-                    <th>Nombre</th>
-                    <th>Dni</th>
-                    <th>Convenio?</th>
-                    <th>Agregar Alumno
+                    <th style="background-color:#DCE6F1;">Paterno</th>
+                    <th style="background-color:#DCE6F1;">Materno</th>
+                    <th style="background-color:#DCE6F1;">Nombre</th>
+                    <th style="background-color:#DCE6F1;">Dni</th>
+                    <th style="background-color:#DCE6F1;">Convenio?</th>
+                    <th style="background-color:#DCE6F1;">Agregar Alumno
                         <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoModal" data-trid="t_alumno" data-titulo="Buscar" >
                             <i class='fa fa-lg fa-plus'></i>
                         </a></th>
@@ -130,16 +190,16 @@
             <div class="col-sm-12">
                 <hr>
                 <br>
-                <table id="t_alumno_detalle" class="table table-bordered">
+                <table id="t_alumno_detalle" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th colspan='6' style='text-align:center'><h2>Carrera del Alumno</h2></th>
+                        <th colspan='6' style='text-align:center; background-color:#A7C0DC;'><h2>CARRERA DEL ALUMNO</h2></th>
                     </tr>
                     <tr>
-                    <th>Ode</th>
-                    <th>Carrera</th>
-                    <th>Monto</th>
-                    <th>Agregar Carrera Alumno
+                    <th style="background-color:#DCE6F1;">Ode</th>
+                    <th style="background-color:#DCE6F1;">Carrera</th>
+                    <th style="background-color:#DCE6F1;">Monto</th>
+                    <th style="background-color:#DCE6F1;">Agregar Carrera Alumno
                         <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoDetalleModal" data-trid="t_alumno_detalle" data-titulo="Buscar" >
                             <i class='fa fa-lg fa-plus'></i>
                         </a></th>
@@ -148,10 +208,10 @@
                     <tbody></tbody>
                     <tfoot>
                     <tr>
-                    <th>Ode</th>
-                    <th>Carrera</th>
-                    <th>Monto</th>
-                    <th>Agregar Carrera Alumno
+                    <th style="background-color:#DCE6F1;">Ode</th>
+                    <th style="background-color:#DCE6F1;">Carrera</th>
+                    <th style="background-color:#DCE6F1;">Monto</th>
+                    <th style="background-color:#DCE6F1;">Agregar Carrera Alumno
                         <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoDetalleModal" data-trid="t_alumno_detalle" data-titulo="Buscar" >
                             <i class='fa fa-lg fa-plus'></i>
                         </a></th>

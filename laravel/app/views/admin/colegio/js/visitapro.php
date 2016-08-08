@@ -1,5 +1,5 @@
 <script type="text/javascript">
-var IdeGlobal={visita:''};// para crear objeto en arreglo e inicializarlo.
+var IdeGlobal={visita:'',persona:'',seleccion:''};// para crear objeto en arreglo e inicializarlo.
 var cabeceraVP=[];
 var columnDefsVP=[];
 var targetsVP=-1;
@@ -30,11 +30,17 @@ $(document).ready(function() {
                 {
                 'id'    :'persona_id',
                 'idide' :'th_pv',
-                'nombre':'Persona que Visitará',
+                'nombre':'Trabajador que Visitará',
                 'evento':'onBlur',
                 },
                 {
-                'id'    :'personac_id',
+                'id'    :'personat_id',
+                'idide' :'th_pt',
+                'nombre':'Trabajador Telecita',
+                'evento':'onBlur',
+                },
+                {
+                'id'    :'personac',
                 'idide' :'th_pc',
                 'nombre':'Persona que Contactó',
                 'evento':'onBlur',
@@ -73,16 +79,29 @@ $(document).ready(function() {
 
         for(i=0; i<cabeceraVP.length; i++){
             targetsVP++;
-            columnDefsVP.push({
-                                "targets": targetsVP,
-                                "data": cabeceraVP[i].id,
-                                "name": cabeceraVP[i].id
-                            });
 
-            $("#t_visita>thead>tr:eq(1)").append('<th class="unread" id="'+cabeceraVP[i].idide+'">'+cabeceraVP[i].nombre+
+            if( cabeceraVP[i].id!='persona_id' ){
+                columnDefsVP.push({
+                                    "targets": targetsVP,
+                                    "data": cabeceraVP[i].id,
+                                    "name": cabeceraVP[i].id
+                                });
+            }
+            else{
+                columnDefsVP.push({
+                                "targets": targetsVP,
+                                "data": function ( row, type, val, meta ) {
+                                        return  '<span>'+$.trim(row.persona_id)+'</span><input type="hidden" name="txt_pvid" value="'+row.pvid+'">';
+                                },
+                                "defaultContent": '',
+                                "name": "id"
+                            });
+            }
+
+            $("#t_visita>thead>tr:eq(1)").append('<th style="background-color:#DCE6F1;" class="unread" id="'+cabeceraVP[i].idide+'">'+cabeceraVP[i].nombre+
                                             '<input name="txt_'+cabeceraVP[i].id+'" id="txt_'+cabeceraVP[i].id+'" '+cabeceraVP[i].evento+'="MostrarAjax(\'visita\');" onKeyPress="return enterGlobal(event,\''+cabeceraVP[i].idide+'\',1)" type="text" placeholder="'+cabeceraVP[i].nombre+'" />'+
                                             '</th>');
-            $("#t_visita>tfoot>tr").append('<th class="unread">'+cabeceraVP[i].nombre+'</th>');
+            $("#t_visita>tfoot>tr").append('<th style="background-color:#DCE6F1;" class="unread">'+cabeceraVP[i].nombre+'</th>');
         }
             targetsVP++;
             $("#t_visita>tfoot>tr,#t_visita>thead>tr:eq(1)").append('<th class="unread">[]</th>');
@@ -239,6 +258,11 @@ var trs = tr.parentNode.children;
 for(var i =0;i<trs.length;i++)
     trs[i].style.backgroundColor="#f9f9f9";
 tr.style.backgroundColor = "#9CD9DE";
+    
+    IdeGlobal.seleccion=tr;
+    $("#txt_persona2_id").val( $(IdeGlobal.seleccion).find("td:eq(3)>input").val() );
+    $("#txt_persona2").val( $(IdeGlobal.seleccion).find("td:eq(3)>span").text() );
+    IdeGlobal.visita=id;
     VisitaPro.CargarDetalle(CargarDetalleHTML,id);
 }
 
@@ -354,9 +378,52 @@ MostrarAjax=function(t){
 }
 
 Mostrar=function(evento){
-    if( evento=='col' ){
-
+    if( evento=='pvi' ){
+        IdeGlobal['persona']="2";
+        $("#div_persona").show();
+        data={cargo_id:4};
+        VisitaPro.ColegioPersona(ColegioPersonaHTML,data);
     }
+}
+
+ColegioPersonaHTML=function(datos){
+    var html='';
+    $('#t_persona').dataTable().fnDestroy();
+    $.each(datos,function(index,data){
+        html+="<tr>"+
+            "<td>"+data.paterno+"</td>"+
+            "<td>"+data.materno+"</td>"+
+            "<td>"+data.nombre+"</td>"+
+            "<td>"+data.dni+"</td>"+
+            '<td><a class="btn btn-primary btn-sm" id="persona" data-id="'+data.id+'" data-nombre="'+data.paterno+' '+data.materno+', '+data.nombre+' | DNI:'+data.dni+'" data-titulo="" onClick="SeleccionarTable(this,'+"'"+IdeGlobal['persona']+"'"+')">'+
+                '<i class="fa fa-check fa-lg"></i> </a></td>';
+        html+="</tr>";
+    });
+
+    if(html==''){
+        $("#div_persona").hide();
+        $("#txt_persona2,#txt_persona2_id").val('');
+    }
+
+    $("#t_persona>tbody").html(html); 
+    $("#t_persona").dataTable();
+}
+
+SeleccionarTable=function(ts,ide){
+    var id=$(ts).attr("data-id");
+    var nombre=$(ts).attr("data-nombre");
+    var idT=$(ts).attr("id");
+
+    $("#div_"+idT).hide();
+
+    $("#txt_"+idT+$.trim(ide)).val(nombre);
+    $("#txt_"+idT+$.trim(ide)+"_id").val(id);
+    var data={id:IdeGlobal.visita,persona_id:id}
+
+    $(IdeGlobal.seleccion).find("td:eq(3)>input").val(id);
+    $(IdeGlobal.seleccion).find("td:eq(3)>span").text(nombre.split("|")[0]);
+
+    VisitaPro.ActualizarTrabajador(data);
 }
 
 CargarAlumnosDetalle=function(btn,id){

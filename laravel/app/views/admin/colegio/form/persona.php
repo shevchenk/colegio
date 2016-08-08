@@ -100,6 +100,23 @@
               </div>
             </div>
           </fieldset>
+          <fieldset>
+            <legend>Datos Padres</legend>
+            <div class="row form-group">
+              <div class="col-sm-12">
+                <div class="col-sm-10">
+                  <label class="control-label">Nombre del Padre/Madre:</label>
+                  <input type="text" class="form-control" placeholder="Nombre del Padre/Madre" name="txt_padre" id="txt_padre">
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="col-sm-10">
+                  <label class="control-label">Telefono del Padre/Madre:</label>
+                  <input type="text" class="form-control" placeholder="Nombre del Padre/Madre" name="txt_tel_padre" id="txt_tel_padre">
+                </div>
+              </div>
+            </div>
+          </fieldset>
         </form>
       </div>
       <div class="modal-footer">
