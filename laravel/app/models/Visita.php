@@ -11,8 +11,8 @@ class Visita extends Base
             INNER JOIN distritos d ON d.id=c.distrito_id AND d.estado=1
             INNER JOIN odes_distritos od ON od.distrito_id=d.id AND od.estado=1
             INNER JOIN odes o ON o.id=od.ode_id AND o.estado=1
-            INNER JOIN personas pv ON pv.id=v.persona_id
-            INNER JOIN personas pc ON pc.id=v.personac_id
+            INNER JOIN personas pt ON pt.id=v.personat_id
+            LEFT JOIN personas pv ON pv.id=v.persona_id
 EOT;
         $sSql.= $array['where'];
         $oData = DB::select($sSql);
@@ -24,14 +24,15 @@ EOT;
         $sSql = <<<EOT
             SELECT v.id, v.fecha_visita, c.nombre colegio, v.nro_tel, o.nombre ode,
             CONCAT(pv.paterno,' ',pv.materno,', ',pv.nombre) persona_id,
-            CONCAT(pc.paterno,' ',pc.materno,', ',pc.nombre) personac_id
+            CONCAT(pt.paterno,' ',pt.materno,', ',pt.nombre) personat_id,
+            personac,IFNULL(pv.id,'') pvid
             FROM visitas v
             INNER JOIN colegios c ON c.id=v.colegio_id AND c.estado=1
             INNER JOIN distritos d ON d.id=c.distrito_id AND d.estado=1
             INNER JOIN odes_distritos od ON od.distrito_id=d.id AND od.estado=1
             INNER JOIN odes o ON o.id=od.ode_id
-            INNER JOIN personas pv ON pv.id=v.persona_id
-            INNER JOIN personas pc ON pc.id=v.personac_id
+            INNER JOIN personas pt ON pt.id=v.personat_id
+            LEFT JOIN personas pv ON pv.id=v.persona_id
 EOT;
         $sSql.= $array['where'].
                 $array['limit'];

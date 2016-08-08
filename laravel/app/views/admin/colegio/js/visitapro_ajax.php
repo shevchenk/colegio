@@ -1,5 +1,47 @@
 <script type="text/javascript">
 var VisitaPro={
+    ActualizarTrabajador:function(datos){
+        $.ajax({
+            url         : 'visita/actualizartrabajador',
+            type        : 'POST',
+            cache       : false,
+            dataType    : 'json',
+            data        : datos,
+            beforeSend : function() {
+                $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+            },
+            success : function(obj) {
+                $(".overlay,.loading-img").remove();
+            },
+            error: function(){
+                $(".overlay,.loading-img").remove();
+                msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
+            }
+        });
+    },
+    ColegioPersona:function(evento,datos){
+        $.ajax({
+            url         : 'persona/cargarp',
+            type        : 'POST',
+            cache       : false,
+            dataType    : 'json',
+            data        : datos,
+            beforeSend : function() {
+                $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+            },
+            success : function(obj) {
+                $(".overlay,.loading-img").remove();
+                evento(obj.data);
+                if( obj.data.length==0 ){
+                    msjG.mensaje("danger","No hay personas registradas",5000);
+                }
+            },
+            error: function(){
+                $(".overlay,.loading-img").remove();
+                msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
+            }
+        });
+    },
     Cargar:function(columnDefs){
         $('#t_visita').dataTable().fnDestroy();
         $('#t_visita')

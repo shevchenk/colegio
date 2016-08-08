@@ -64,9 +64,21 @@ class VisitaController extends BaseController
             $visita = new Visita;
             $visita['colegio_id'] = Input::get('colegio_id');
             $visita['fecha_visita'] = Input::get('fecha_visita');
-            $visita['persona_id'] = Input::get('persona_id');
-            $visita['personac_id'] = Input::get('personac_id');
+            $visita['tiempo_programado'] = Input::get('tiempo_programado');
+            /******************Persona Contacto********************************/
+            $visita['personac'] = Input::get('personac');
             $visita['nro_tel'] = Input::get('nro_tel');
+            /******************************************************************/
+            /******************Trabajador Visitará*****************************/
+            if( Input::has('persona_id') ){
+                $visita['persona_id'] = Input::get('persona_id');
+            }
+            /******************************************************************/
+            /******************Trabajador Telecita*****************************/
+            $visita['personat_id'] = Input::get('personat_id');
+            $visita['nrot_tel'] = Input::get('nrot_tel');
+            $visita['observacion'] = Input::get('observacion');
+            /******************************************************************/
             $visita['usuario_created_at'] = Auth::user()->id;
             $visita->save();
 
@@ -251,5 +263,26 @@ class VisitaController extends BaseController
 			return Response::json($aParametro);
 		}
 	}
+
+    public function postActualizartrabajador()
+    {
+        if ( Request::ajax() ) {
+            DB::beginTransaction();
+            $id=Input::get('id');
+            $persona_id=Input::get('persona_id');
+            $visita = Visita::find($id);
+            $visita['persona_id'] = $persona_id;
+            $visita['usuario_updated_at'] = Auth::user()->id;
+            $visita->save();
+            DB::commit();
+
+            return Response::json(
+                array(
+                'rst'=>1,
+                'msj'=>'Registro realizado correctamente',
+                )
+            );
+        }
+    }
 }
 ?>

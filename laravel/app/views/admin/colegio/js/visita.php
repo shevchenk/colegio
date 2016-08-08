@@ -4,12 +4,13 @@ $(document).ready(function() {
     slctGlobal.listarSlct('ode','slct_ode','simple');
     slctGlobalHtml('slct_distrito','simple');
     $('.fechaDP').daterangepicker({
-        format: 'YYYY-MM-DD',
+        format: 'YYYY-MM-DD HH:mm',
         singleDatePicker:true,
-        showDropdowns:true
+        showDropdowns:true,
+        timePicker:true
     });
 
-    $('.fechaDP').val('<?php echo date("Y-m-d");?>');
+    $('.fechaDP').val('<?php echo date("Y-m-d H:i:s");?>');
 });
 
 Cargar=function(evento,id){
@@ -43,8 +44,8 @@ Mostrar=function(evento){
         data={cargo_id:4};
         Visita.ColegioPersona(ColegioPersonaHTML,data);
     }
-    else if( evento=='pco' ){
-        IdeGlobal['persona']="c";
+    else if( evento=='pte' ){
+        IdeGlobal['persona']="t";
         $("#div_persona").show();
         data={cargo_id:5};
         Visita.ColegioPersona(ColegioPersonaHTML,data);
@@ -145,35 +146,54 @@ ValidarForm=function(){
     if( $.trim($("#txt_fecha_visita").val())=="" ){
         r=false;
         alert('Seleccione una fecha');
+        $("#txt_fecha_visita").focus()
+    }
+    else if( $.trim($("#txt_tiempo_programado").val())=="" ){
+        r=false;
+        alert('Ingrese su tiempo programado');
+        $("#txt_tiempo_programado").focus()
     }
     else if( $.trim($("#slct_ode").val())=="" ){
         r=false;
         alert('Seleccione Ode');
+        $("#slct_ode").focus()
     }
     else if( $.trim($("#slct_distrito").val())=="" ){
         r=false;
         alert('Seleccione Distrito');
+        $("#slct_distrito").focus()
     }
-    else if( $.trim($("#txt_persona_id").val())=="" ){
+    else if( $.trim($("#txt_colegio_id").val())=="" ){
+        r=false;
+        alert('Busque y Seleccione Colegio');
+        $("#txt_colegio_id").focus()
+    }
+    else if( $("input[name='colegio_detalle[]']:checked").length==0 ){
+        r=false;
+        alert('Busque y Seleccione Grado y Sección del Colegio');
+    }
+    else if( $.trim($("#txt_personat_id").val())=="" ){
+        r=false;
+        alert('Ingrese trabajador Telecita');
+        $("#txt_personat").focus()
+    }
+    else if( $.trim($("#txt_nrot_tel").val())=="" ){
+        r=false;
+        alert('Ingrese Nro telefónico de Telecita');
+        $("#txt_nrot_tel").focus()
+    }
+    /*else if( $.trim($("#txt_persona_id").val())=="" ){
         r=false;
         alert('Ingrese persona que visitará');
     }
-    else if( $.trim($("#txt_personac_id").val())=="" ){
+    else if( $.trim($("#txt_personac").val())=="" ){
         r=false;
         alert('Ingrese persona que se contactó');
     }
     else if( $.trim($("#txt_nro_tel").val())=="" ){
         r=false;
         alert('Ingrese Nro telefónico que se contactó');
-    }
-    else if( $.trim($("#txt_colegio_id").val())=="" ){
-        r=false;
-        alert('Busque y Seleccione Colegio');
-    }
-    else if( $("input[name='colegio_detalle[]']:checked").length==0 ){
-        r=false;
-        alert('Busque y Seleccione Grado y Sección del Colegio');
-    }
+    }*/
     return r;
 }
 
@@ -185,13 +205,14 @@ Guardar=function(){
 
 Limpiar=function(){
     $("#form_vista input").val('');
+    $("#form_vista textarea").val('S/O');
     $("#div_colegio").hide();
     $('#t_colegio_detalle').dataTable().fnDestroy();
     $("#t_colegio_detalle>tbody").html('');
     $("#slct_ode,#slct_distrito").val('');
     $('#slct_ode').multiselect('rebuild');
     $("#slct_ode").change();
-    $('.fechaDP').val('<?php echo date("Y-m-d");?>');
+    $('.fechaDP').val('<?php echo date("Y-m-d H:i:s");?>');
 }
 </script>
 

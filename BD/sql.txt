@@ -1,3 +1,27 @@
+-- 2016-08-06
+ALTER TABLE `personas`
+MODIFY COLUMN `paterno`  varchar(70) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '' AFTER `distrito_id`,
+MODIFY COLUMN `materno`  varchar(70) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '' AFTER `paterno`,
+MODIFY COLUMN `nombre`  varchar(70) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '' AFTER `materno`;
+
+ALTER TABLE `visitas`
+MODIFY COLUMN `persona_id`  int(11) NULL COMMENT 'Persona que dará la visita' AFTER `colegio_id`,
+MODIFY COLUMN `visita_estado_id`  int(11) NOT NULL DEFAULT 1 AFTER `persona_id`,
+CHANGE COLUMN `personac_id` `personac`  varchar(150) NULL DEFAULT NULL COMMENT 'persona que se contacto para la visita' AFTER `visita_estado_id`,
+MODIFY COLUMN `fecha_visita`  datetime NULL AFTER `personac`,
+ADD COLUMN `personat_id`  int(11) NULL COMMENT 'Id del trabajador' AFTER `visita_estado_id`,
+ADD COLUMN `fecha_contacto`  date NULL AFTER `personat_id`,
+ADD COLUMN `observacion`  longtext NULL AFTER `fecha_contacto`,
+ADD COLUMN `tiempo_programado`  varchar(50) NULL AFTER `fecha_visita`;
+
+ALTER TABLE `visitas`
+DROP COLUMN `fecha_contacto`,
+MODIFY COLUMN `personat_id`  int(11) NULL DEFAULT NULL COMMENT 'Id del trabajador telecita' AFTER `visita_estado_id`,
+MODIFY COLUMN `observacion`  longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL COMMENT 'Observacion de Telecita' AFTER `personat_id`,
+MODIFY COLUMN `nro_tel`  varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT 'telefono del contacto' AFTER `personac`,
+ADD COLUMN `nrot_tel`  varchar(20) NULL COMMENT 'telefono de telecita' AFTER `personat_id`;
+
+
 -- table colegios_detalle 2016-06-09
 ALTER TABLE `colegios_detalle`
 ADD COLUMN `total_alumnos`  int UNSIGNED NULL AFTER `turno`;
