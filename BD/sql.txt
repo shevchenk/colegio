@@ -1,5 +1,8 @@
 --2016-08-08
 ALTER TABLE `visitas`
+CHANGE COLUMN `nro_tel` `personacr`  varchar(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT 'telefono del contacto' AFTER `personac`;
+
+ALTER TABLE `visitas`
 CHANGE COLUMN `nrot_tel` `fechat`  date NULL DEFAULT NULL COMMENT 'fecha de telecita' AFTER `personat_id`;
 
 ALTER TABLE `personas`

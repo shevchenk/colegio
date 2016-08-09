@@ -28,10 +28,6 @@ class VisitaController extends BaseController
                 $array['where'].=" AND CONCAT(pc.paterno,' ',pc.materno,', ',pc.nombre) LIKE '%".Input::get("personac")."%' ";
             }
 
-            if( Input::has("nro_tel") ){
-                $array['where'].=" AND v.nro_tel LIKE '%".Input::get("nro_tel")."%' ";
-            }
-
             if (Input::has('draw')) {
                 if (Input::has('order')) {
                     $inorder=Input::get('order');
@@ -67,7 +63,7 @@ class VisitaController extends BaseController
             $visita['tiempo_programado'] = Input::get('tiempo_programado');
             /******************Persona Contacto********************************/
             $visita['personac'] = Input::get('personac');
-            $visita['nro_tel'] = Input::get('nro_tel');
+            $visita['personacr'] = Input::get('personacr');
             /******************************************************************/
             /******************Trabajador Visitará*****************************/
             if( Input::has('persona_id') ){

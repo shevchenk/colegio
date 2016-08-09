@@ -123,14 +123,14 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="col-sm-6">
-                        <label class="control-label">Persona que se Contactó:</label>
+                        <label class="control-label">Contacto quien da la cita:</label>
                         <input class="form-control" type="text" name="txt_personac" id="txt_personac">
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="col-sm-3">
-                        <label class="control-label">Nro telefónico que se contactó:</label>
-                        <input type="text" class="form-control" name="txt_nro_tel" id="txt_nro_tel">
+                    <div class="col-sm-6">
+                        <label class="control-label">Contacto quien recibe en el colegio:</label>
+                        <input type="text" class="form-control" name="txt_personacr" id="txt_personacr">
                     </div>
                 </div>
                 <div class="col-sm-12">

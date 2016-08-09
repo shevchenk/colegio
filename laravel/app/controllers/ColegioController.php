@@ -132,7 +132,6 @@ class ColegioController extends BaseController
 				'distrito_id' => $required,
 				'direccion' => $required,
 				'referencia' => $required,
-				'email' => 'email'
 			);
 
 			$mensaje= array(
@@ -192,7 +191,6 @@ class ColegioController extends BaseController
 				'distrito_id' => $required,
 				'direccion' => $required,
 				'referencia' => $required,
-				'email' => 'email'
 			);
 
 			$mensaje= array(

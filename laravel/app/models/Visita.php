@@ -22,7 +22,7 @@ EOT;
     public static function getCargar($array)
     {
         $sSql = <<<EOT
-            SELECT v.id, v.fecha_visita, c.nombre colegio, v.nro_tel, o.nombre ode,
+            SELECT v.id, v.fecha_visita, c.nombre colegio, o.nombre ode,
             CONCAT(pv.paterno,' ',pv.materno,', ',pv.nombre) persona_id,
             CONCAT(pt.paterno,' ',pt.materno,', ',pt.nombre) personat_id,
             personac,IFNULL(pv.id,'') pvid

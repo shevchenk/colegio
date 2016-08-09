@@ -44,12 +44,6 @@ $(document).ready(function() {
                 'idide' :'th_pc',
                 'nombre':'Persona que Contactó',
                 'evento':'onBlur',
-                },
-                {
-                'id'    :'nro_tel',
-                'idide' :'th_nt',
-                'nombre':'Nro que Contactó',
-                'evento':'onBlur'
                 }];
     cabeceraA=  [{
                 'id'    :'paterno',
