@@ -9,6 +9,12 @@ $(document).ready(function() {
         showDropdowns:true,
         timePicker:true
     });
+    $('.fechaG').daterangepicker({
+        format: 'YYYY-MM-DD',
+        singleDatePicker:true,
+        showDropdowns:true,
+        timePicker:false
+    });
 
     $('.fechaDP').val('<?php echo date("Y-m-d H:i:s");?>');
 });
@@ -47,7 +53,7 @@ Mostrar=function(evento){
     else if( evento=='pte' ){
         IdeGlobal['persona']="t";
         $("#div_persona").show();
-        data={cargo_id:5};
+        data={cargo_id:4};
         Visita.ColegioPersona(ColegioPersonaHTML,data);
     }
 }
@@ -177,10 +183,10 @@ ValidarForm=function(){
         alert('Ingrese trabajador Telecita');
         $("#txt_personat").focus()
     }
-    else if( $.trim($("#txt_nrot_tel").val())=="" ){
+    else if( $.trim($("#txt_fechat").val())=="" ){
         r=false;
-        alert('Ingrese Nro telefónico de Telecita');
-        $("#txt_nrot_tel").focus()
+        alert('Ingrese Fecha de Telecita');
+        $("#txt_fechat").focus()
     }
     /*else if( $.trim($("#txt_persona_id").val())=="" ){
         r=false;

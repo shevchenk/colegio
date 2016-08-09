@@ -76,7 +76,7 @@ class VisitaController extends BaseController
             /******************************************************************/
             /******************Trabajador Telecita*****************************/
             $visita['personat_id'] = Input::get('personat_id');
-            $visita['nrot_tel'] = Input::get('nrot_tel');
+            $visita['fechat'] = Input::get('fechat');
             $visita['observacion'] = Input::get('observacion');
             /******************************************************************/
             $visita['usuario_created_at'] = Auth::user()->id;

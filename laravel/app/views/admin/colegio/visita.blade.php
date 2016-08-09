@@ -171,8 +171,8 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="col-sm-3">
-                        <label class="control-label">Nro telefónico:</label>
-                        <input type="text" class="form-control" name="txt_nrot_tel" id="txt_nrot_tel">
+                        <label class="control-label">Fecha:</label>
+                        <input type="text" class="form-control fechaG" readonly name="txt_fechat" id="txt_fechat">
                     </div>
                 </div>
                 <div class="col-sm-12">

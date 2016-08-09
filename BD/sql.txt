@@ -1,4 +1,7 @@
 --2016-08-08
+ALTER TABLE `visitas`
+CHANGE COLUMN `nrot_tel` `fechat`  date NULL DEFAULT NULL COMMENT 'fecha de telecita' AFTER `personat_id`;
+
 ALTER TABLE `personas`
 ADD COLUMN `padre`  varchar(100) NULL DEFAULT '' AFTER `remember_token`,
 ADD COLUMN `tel_pradre`  varchar(50) NULL DEFAULT '' AFTER `padre`;
