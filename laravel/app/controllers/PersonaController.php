@@ -121,10 +121,13 @@ class PersonaController extends BaseController
             $reglas = array(
                 'nombre' => $required.'|'.$regex,
                 'paterno' => $required.'|'.$regex,
-                'email' => 'email|unique:personas,email',
                 'password'=> 'required',
-                'dni'      => 'required|min:8|unique:personas,dni',
             );
+
+            if( !Input::has('visita_detalle_id') ){
+                array_push($reglas, array('email' => 'email|unique:personas,email') );
+                array_push($reglas, array('dni'   => 'required|min:8|unique:personas,dni') );
+            }
 
             $mensaje= array(
                 'required'    => ':attribute Es requerido',
@@ -145,24 +148,28 @@ class PersonaController extends BaseController
 
             DB::beginTransaction();
             $persona = new Persona;
-            if (Input::get('materno')<>'') 
+            if ( trim(Input::get('materno') )<>'') 
                 $persona['materno'] = Input::get('materno');
-            if (Input::get('email')<>'') 
+            if ( trim(Input::get('email') )<>'') 
                 $persona['email'] = Input::get('email');
-            if (Input::get('fecha_nac')<>'') 
+            if ( trim(Input::get('fecha_nac') )<>'') 
                 $persona['fecha_nacimiento'] = Input::get('fecha_nac');
-            if (Input::get('direccion')<>'') 
+            if ( trim(Input::get('direccion') )<>'') 
                 $persona['direccion'] = Input::get('direccion');
-            if (Input::get('referencia')<>'') 
+            if ( trim(Input::get('referencia') )<>'') 
                 $persona['referencia'] = Input::get('referencia');
-            if (Input::get('horario')<>'') 
+            if ( trim(Input::get('horario') )<>'') 
                 $persona['horario'] = Input::get('horario');
-            if (Input::get('codigo')<>'') 
+            if ( trim(Input::get('codigo') )<>'') 
                 $persona['codigo'] = Input::get('codigo');
-            if (Input::get('fecha_ingreso')<>'') 
+            if ( trim(Input::get('fecha_ingreso') )<>'') 
                 $persona['fecha_ingreso'] = Input::get('fecha_ingreso');
-            if (Input::get('fecha_retiro')<>'') 
+            if ( trim(Input::get('fecha_retiro') )<>'') 
                 $persona['fecha_retiro'] = Input::get('fecha_retiro');
+            if ( trim(Input::get('padre') )<>'') 
+                $persona['padre'] = Input::get('padre');
+            if ( trim(Input::get('tel_padre') )<>'') 
+                $persona['tel_padre'] = Input::get('tel_padre');
 
             $persona['paterno'] = Input::get('paterno');
             $persona['nombre'] = Input::get('nombre');

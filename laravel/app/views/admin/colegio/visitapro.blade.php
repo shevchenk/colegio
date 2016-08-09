@@ -95,21 +95,21 @@
             <div class="col-sm-12">
                 <div class="col-sm-6">
                     <label class="control-label">Contacto:</label>
-                    <input class="form-control" type="text" name="txt_contacto" id="txt_contacto">
+                    <input class="form-control" onblur="ActualizarContactoP(this);" type="text" name="txt_contacto" id="txt_contacto">
                 </div>
                 <div class="col-sm-6">
                     <label class="control-label">Cargo:</label>
-                    <input class="form-control" type="text" name="txt_cargo" id="txt_cargo">
+                    <input class="form-control" onblur="ActualizarContactoP(this);" type="text" name="txt_cargo" id="txt_cargo">
                 </div>
             </div>
             <div class="col-sm-12">
                 <div class="col-sm-6">
                     <label class="control-label">Email:</label>
-                    <input class="form-control" type="text" name="txt_email" id="txt_email">
+                    <input class="form-control" onblur="ActualizarContactoP(this);" type="text" name="txt_email" id="txt_email">
                 </div>
                 <div class="col-sm-6">
                     <label class="control-label">Teléfono:</label>
-                    <input class="form-control" type="text" name="txt_telefono" id="txt_telefono">
+                    <input class="form-control" onblur="ActualizarContactoP(this);" type="text" name="txt_telefono" id="txt_telefono">
                 </div>
             </div>
             <form name="form_filtros" id="form_filtros" method="POST" action="">
@@ -151,14 +151,13 @@
                 <table id="t_alumno" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th colspan='6' style='text-align:center; background-color:#A7C0DC;'><h2>ALUMNOS</h2></th>
+                        <th colspan='5' style='text-align:center; background-color:#A7C0DC;'><h2>ALUMNOS</h2></th>
                     </tr>
                     <tr>
                     <th style="background-color:#DCE6F1;">Paterno</th>
                     <th style="background-color:#DCE6F1;">Materno</th>
                     <th style="background-color:#DCE6F1;">Nombre</th>
                     <th style="background-color:#DCE6F1;">Dni</th>
-                    <th style="background-color:#DCE6F1;">Convenio?</th>
                     <th style="background-color:#DCE6F1;">Agregar Alumno
                         <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoModal" data-trid="t_alumno" data-titulo="Buscar" >
                             <i class='fa fa-lg fa-plus'></i>
@@ -172,7 +171,6 @@
                     <th style="background-color:#DCE6F1;">Materno</th>
                     <th style="background-color:#DCE6F1;">Nombre</th>
                     <th style="background-color:#DCE6F1;">Dni</th>
-                    <th style="background-color:#DCE6F1;">Convenio?</th>
                     <th style="background-color:#DCE6F1;">Agregar Alumno
                         <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoModal" data-trid="t_alumno" data-titulo="Buscar" >
                             <i class='fa fa-lg fa-plus'></i>
@@ -187,10 +185,9 @@
                 <table id="t_alumno_detalle" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th colspan='6' style='text-align:center; background-color:#A7C0DC;'><h2>CARRERA DEL ALUMNO</h2></th>
+                        <th colspan='3' style='text-align:center; background-color:#A7C0DC;'><h2>CARRERA DEL ALUMNO</h2></th>
                     </tr>
                     <tr>
-                    <th style="background-color:#DCE6F1;">Ode</th>
                     <th style="background-color:#DCE6F1;">Carrera</th>
                     <th style="background-color:#DCE6F1;">Monto</th>
                     <th style="background-color:#DCE6F1;">Agregar Carrera Alumno
@@ -202,7 +199,6 @@
                     <tbody></tbody>
                     <tfoot>
                     <tr>
-                    <th style="background-color:#DCE6F1;">Ode</th>
                     <th style="background-color:#DCE6F1;">Carrera</th>
                     <th style="background-color:#DCE6F1;">Monto</th>
                     <th style="background-color:#DCE6F1;">Agregar Carrera Alumno

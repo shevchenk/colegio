@@ -284,5 +284,56 @@ class VisitaController extends BaseController
             );
         }
     }
+
+    public function postActualizarcontactop()
+    {
+        if ( Request::ajax() ) {
+            DB::beginTransaction();
+            $id=Input::get('id');
+            $visita = Visita::find($id);
+            $visita[Input::get('campo')] = Input::get('valor');
+            $visita['usuario_updated_at'] = Auth::user()->id;
+            $visita->save();
+            DB::commit();
+
+            return Response::json(
+                array(
+                'rst'=>1,
+                'msj'=>'Registro realizado correctamente',
+                )
+            );
+        }
+    }
+
+    public function postActualizaralumnor()
+    {
+        if ( Request::ajax() ) {
+            DB::beginTransaction();
+            $id=Input::get('id');
+            $visita = VisitaDetalle::find($id);
+            $visita[Input::get('campo')] = Input::get('valor');
+            $visita['usuario_updated_at'] = Auth::user()->id;
+            $visita->save();
+            DB::commit();
+
+            return Response::json(
+                array(
+                'rst'=>1,
+                'msj'=>'Registro realizado correctamente',
+                )
+            );
+        }
+    }
+
+    public function postCargarcontactos()
+    {
+        if ( Request::ajax() ) {
+            $aData=Visita::find( Input::get('visita_id') );
+            $aParametro['rst'] = 1;
+            $aParametro['data'] = $aData;
+            $aParametro['msj'] = "No hay detalle aún";
+            return Response::json($aParametro);
+        }
+    }
 }
 ?>

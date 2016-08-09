@@ -19,9 +19,8 @@ EOT;
     public static function CargarDetalle( $array )
     {
         $sSql = <<<EOT
-            SELECT ad.id, o.nombre ode, c.nombre carrera, ad.monto
+            SELECT ad.id, c.nombre carrera, ad.monto
             FROM alumnos_detalle ad
-            INNER JOIN odes o ON o.id=ad.ode_id
             INNER JOIN carreras c ON c.id=ad.carrera_id
             WHERE ad.estado=1
 EOT;

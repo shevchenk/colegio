@@ -186,7 +186,6 @@ $(document).ready(function() {
         modal.find('.modal-footer .btn-primary').text('Guardar');
         modal.find('.modal-footer .btn-primary').attr('onClick','CrearAlumnoDetalle();');
 
-        slctGlobal.listarSlct2('ode','slct_ode');
         slctGlobal.listarSlct3('carrera','listartipo','slct_tipo_carrera');
     });
 
@@ -227,6 +226,24 @@ AgregarAlumno=function(){
     }
 }
 
+ActualizarContactoP=function(t){
+    var data={
+            id:     IdeGlobal.visita,
+            campo:  $(t).attr("name").split("txt_").join(""),
+            valor:  $(t).val() 
+        };
+    VisitaPro.ActualizarContactoP(data);
+}
+
+ActualizarAlumnoR=function(t){
+    var data={
+            id:     $(t).attr("data-id"),
+            campo:  $(t).attr("name").split("txt_").join(""),
+            valor:  $(t).val() 
+        };
+    VisitaPro.ActualizarAlumnoR(data);
+}
+
 validarPersona=function(){
     var rpta=true;
     if( $.trim( $("#form_personas #txt_nombre").val() )=='' ){
@@ -235,18 +252,6 @@ validarPersona=function(){
     }
     else if( $.trim( $("#form_personas #txt_paterno").val() )=='' ){
         alert('Ingrese Paterno');
-        rpta=false;
-    }
-    else if( $.trim( $("#form_personas #txt_materno").val() )=='' ){
-        alert('Ingrese Materno');
-        rpta=false;
-    }
-    else if( $.trim( $("#form_personas #txt_dni").val() )=='' ){
-        alert('Ingrese DNI');
-        rpta=false;
-    }
-    else if( $.trim( $("#form_personas #txt_email").val() )=='' ){
-        alert('Ingrese Email');
         rpta=false;
     }
     return rpta;
@@ -263,7 +268,15 @@ tr.style.backgroundColor = "#9CD9DE";
     $("#txt_persona2_id").val( $(IdeGlobal.seleccion).find("td:eq(3)>input").val() );
     $("#txt_persona2").val( $(IdeGlobal.seleccion).find("td:eq(3)>span").text() );
     IdeGlobal.visita=id;
+    VisitaPro.CargarContactos(CargarContactosHTML,id);
     VisitaPro.CargarDetalle(CargarDetalleHTML,id);
+}
+
+CargarContactosHTML=function(obj){
+    $("#txt_contacto").val(obj.contacto);
+    $("#txt_cargo").val(obj.cargo);
+    $("#txt_email").val(obj.email);
+    $("#txt_telefono").val(obj.telefono);
 }
 
 CargarDetalleHTML=function(datos){
@@ -277,7 +290,7 @@ CargarDetalleHTML=function(datos){
         html+="<td>"+data.seccion+"</td>";
         html+="<td>"+data.turno+"</td>";
         html+="<td>"+data.alumnos_total+"</td>";
-        html+="<td><input type='text' value='"+data.alumnos_registrados+"' id='txt_ar_"+data.id+"' name='txt_ar[]' </td>";
+        html+="<td><input type='text' data-id='"+data.id+"' onBlur='ActualizarAlumnoR(this);' value='"+data.alumnos_registrados+"' id='txt_alumnos_registrados_"+data.id+"' name='txt_alumnos_registrados' </td>";
         html+=  "<td>"+
                 "<input type='hidden' value='"+data.id+"' name='txt_visita_detalle_id[]'>"+
                     "<a class='form-control btn btn-primary' onClick='CargarAlumnos(this,"+data.id+")'>"+
@@ -318,18 +331,6 @@ CargarAlumnosHTML=function(datos){
         html+="<td>"+data.materno+"</td>";
         html+="<td>"+data.nombre+"</td>";
         html+="<td>"+data.dni+"</td>";
-        html+=  "<td>"+
-                "<select onChange='CambiarConvenio(this.value,"+data.id+");'>";
-                if( data.convenio==1 ){
-        html+=  "<option value='0'>No Acepto</option>"+
-                "<option value='1' selected>Si Acepto</option>";
-                }
-                else{
-        html+=  "<option value='0' selected>No Acepto</option>"+
-                "<option value='1'>Si Acepto</option>";
-                }
-        html+=  "</select>"+
-                "</td>";
         html+=  "<td>"+
                 "<input type='hidden' value='"+data.id+"' name='txt_alumno_id[]'>"+
                 "<input type='hidden' value='"+data.persona_id+"' name='txt_persona_id[]'>"+
@@ -442,7 +443,6 @@ CargarAlumnosDetalleHTML=function(datos){
     $("#t_alumno_detalle tbody").html("");
     $.each(datos,function(id,data){
         html+="<tr>";
-        html+="<td>"+data.ode+"</td>";
         html+="<td>"+data.carrera+"</td>";
         html+="<td>"+data.monto+"</td>";
         html+=  "<td>"+
@@ -478,11 +478,7 @@ CrearAlumnoDetalle=function(){
 ValidarAlumnoDetalle=function(){
     var rpta=true;
 
-    if( $.trim( $("#form_alumnos_detalle #slct_ode").val() )=='' ){
-        alert('Seleccione Ode');
-        rpta=false;
-    }
-    else if( $.trim( $("#form_alumnos_detalle #slct_tipo_carrera").val() )=='' ){
+    if( $.trim( $("#form_alumnos_detalle #slct_tipo_carrera").val() )=='' ){
         alert('Seleccione Tipo Carrera');
         rpta=false;
     }

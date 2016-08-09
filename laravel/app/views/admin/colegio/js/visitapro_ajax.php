@@ -1,5 +1,65 @@
 <script type="text/javascript">
 var VisitaPro={
+    CargarContactos:function(evento,id){
+        $.ajax({
+            url         : 'visita/cargarcontactos',
+            type        : 'POST',
+            cache       : false,
+            dataType    : 'json',
+            data        : {visita_id:id},
+            beforeSend : function() {
+                $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+            },
+            success : function(obj) {
+                $(".overlay,.loading-img").remove();
+                if(obj.rst==1){
+                    evento(obj.data);
+                }
+            },
+            error: function(){
+                $(".overlay,.loading-img").remove();
+                msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
+            }
+        });
+    },
+    ActualizarAlumnoR:function(datos){
+        $.ajax({
+            url         : 'visita/actualizaralumnor',
+            type        : 'POST',
+            cache       : false,
+            dataType    : 'json',
+            data        : datos,
+            beforeSend : function() {
+                $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+            },
+            success : function(obj) {
+                $(".overlay,.loading-img").remove();
+            },
+            error: function(){
+                $(".overlay,.loading-img").remove();
+                msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
+            }
+        });
+    },
+    ActualizarContactoP:function(datos){
+        $.ajax({
+            url         : 'visita/actualizarcontactop',
+            type        : 'POST',
+            cache       : false,
+            dataType    : 'json',
+            data        : datos,
+            beforeSend : function() {
+                $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+            },
+            success : function(obj) {
+                $(".overlay,.loading-img").remove();
+            },
+            error: function(){
+                $(".overlay,.loading-img").remove();
+                msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
+            }
+        });
+    },
     ActualizarTrabajador:function(datos){
         $.ajax({
             url         : 'visita/actualizartrabajador',
@@ -205,20 +265,14 @@ var VisitaPro={
                     $("#t_alumno").dataTable().fnDestroy();
                 var html="";
                     html+="<tr>";
-                    html+="<td>"+obj.datos.paterno+"</td>";
-                    html+="<td>"+obj.datos.materno+"</td>";
-                    html+="<td>"+obj.datos.nombre+"</td>";
-                    html+="<td>"+obj.datos.dni+"</td>";
-                    html+=  "<td>"+
-                            "<select onChange='CambiarConvenio(this.value,"+obj.datos.id+");'>"+
-                            "<option value='0' selected>No Acepto</option>"+
-                            "<option value='1'>Si Acepto</option>"+
-                            "</select>"+
-                            "</td>";
+                    html+="<td>"+$.trim(obj.datos.paterno)+"</td>";
+                    html+="<td>"+$.trim(obj.datos.materno)+"</td>";
+                    html+="<td>"+$.trim(obj.datos.nombre)+"</td>";
+                    html+="<td>"+$.trim(obj.datos.dni)+"</td>";
                     html+=  "<td>"+
                                 "<input type='hidden' value='"+obj.datos.id+"' name='txt_alumno_id[]'>"+
                                 "<input type='hidden' value='"+obj.datos.persona_id+"' name='txt_persona_id[]'>"+
-                                "<a class='form-control btn btn-primary' onClick='CargarDetalleAlumnos(this,"+obj.datos.id+")'>"+
+                                "<a class='form-control btn btn-primary' onClick='CargarAlumnosDetalle(this,"+obj.datos.id+")'>"+
                                     "<i class='fa fa-lg fa-search'></i>"+
                                 "</a>"+
                                 "<a class='form-control btn btn-danger' onClick='EliminarAlumno(this,"+obj.datos.id+")'>"+
@@ -270,20 +324,14 @@ var VisitaPro={
                     $("#t_alumno").dataTable().fnDestroy();
                     var html="";
                         html+="<tr>";
-                        html+="<td>"+$(tr).find("td:eq(0)").html()+"</td>";
-                        html+="<td>"+$(tr).find("td:eq(1)").html()+"</td>";
-                        html+="<td>"+$(tr).find("td:eq(2)").html()+"</td>";
-                        html+="<td>"+$(tr).find("td:eq(3)").html()+"</td>";
-                        html+=  "<td>"+
-                                "<select onChange='CambiarConvenio(this.value,"+obj.id+");'>"+
-                                "<option value='0' selected>No Acepto</option>"+
-                                "<option value='1'>Si Acepto</option>"+
-                                "</select>"+
-                                "</td>";
+                        html+="<td>"+$.trim( $(tr).find("td:eq(0)").html() )+"</td>";
+                        html+="<td>"+$.trim( $(tr).find("td:eq(1)").html() )+"</td>";
+                        html+="<td>"+$.trim( $(tr).find("td:eq(2)").html() )+"</td>";
+                        html+="<td>"+$.trim( $(tr).find("td:eq(3)").html() )+"</td>";
                         html+=  "<td>"+
                                     "<input type='hidden' value='"+obj.id+"' name='txt_alumno_id[]'>"+
                                     "<input type='hidden' value='"+idpersona+"' name='txt_persona_id[]'>"+
-                                    "<a class='form-control btn btn-primary' onClick='CargarDetalleAlumnos(this,"+obj.id+")'>"+
+                                    "<a class='form-control btn btn-primary' onClick='CargarAlumnosDetalle(this,"+obj.id+")'>"+
                                         "<i class='fa fa-lg fa-search'></i>"+
                                     "</a>"+
                                     "<a class='form-control btn btn-danger' onClick='EliminarAlumno(this,"+obj.id+")'>"+
@@ -423,7 +471,6 @@ var VisitaPro={
                     $("#t_alumno_detalle").dataTable().fnDestroy();
                     var html="";
                         html+="<tr>";
-                        html+="<td>"+$("#form_alumnos_detalle #slct_ode>option:selected").text()+"</td>";
                         html+="<td>"+$("#form_alumnos_detalle #slct_carrera>option:selected").text()+"</td>";
                         html+="<td>"+$("#form_alumnos_detalle #txt_monto").val()+"</td>";
                         html+=  "<td>"+

@@ -31,7 +31,6 @@ class AlumnoController extends \BaseController
             // Falta validar q no se repita
             $alumnoDetalle=new AlumnoDetalle;
             $alumnoDetalle->alumno_id=Input::get('alumno_id');
-            $alumnoDetalle->ode_id=Input::get('ode');
             $alumnoDetalle->carrera_id=Input::get('carrera');
             $alumnoDetalle->monto=Input::get('monto');
             $alumnoDetalle->usuario_created_at=Auth::user()->id;

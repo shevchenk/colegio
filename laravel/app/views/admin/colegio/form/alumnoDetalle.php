@@ -14,14 +14,6 @@
             <legend>Seleccione e ingrese su datos</legend>
             <div class="row form-group">
 
-              <div class="col-sm-12">
-                <div class="col-sm-4">
-                  <label class="control-label">Ode</label>
-                  <select class="form-control" name='slct_ode' id='slct_ode'>
-                      <option value=''>.::Seleccione::.</option>
-                  </select>
-                </div>
-            </div>
             <div class="col-sm-12">
                 <div class="col-sm-4">
                   <label class="control-label">Tipo Carrera</label>

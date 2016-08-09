@@ -1,3 +1,19 @@
+--2016-08-08
+ALTER TABLE `personas`
+ADD COLUMN `padre`  varchar(100) NULL DEFAULT '' AFTER `remember_token`,
+ADD COLUMN `tel_pradre`  varchar(50) NULL DEFAULT '' AFTER `padre`;
+
+ALTER TABLE `alumnos_detalle` DROP FOREIGN KEY `alumnos_detalle_ibfk_3`;
+ALTER TABLE `alumnos_detalle`
+DROP COLUMN `ode_id`;
+
+--2016-08-06
+ALTER TABLE `visitas`
+ADD COLUMN `contacto`  varchar(150) NULL AFTER `tiempo_programado`,
+ADD COLUMN `cargo`  varchar(150) NULL AFTER `contacto`,
+ADD COLUMN `email`  varchar(150) NULL AFTER `cargo`,
+ADD COLUMN `telefono`  varchar(100) NULL AFTER `email`;
+
 -- 2016-08-06
 ALTER TABLE `personas`
 MODIFY COLUMN `paterno`  varchar(70) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '' AFTER `distrito_id`,
