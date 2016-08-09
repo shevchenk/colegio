@@ -170,6 +170,16 @@ class PersonaController extends BaseController
                 $persona['padre'] = Input::get('padre');
             if ( trim(Input::get('tel_padre') )<>'') 
                 $persona['tel_padre'] = Input::get('tel_padre');
+            if ( trim(Input::get('telefono') )<>'') 
+                $persona['telefono'] = Input::get('telefono');
+            if ( trim(Input::get('celular') )<>'') 
+                $persona['celular'] = Input::get('celular');
+            if ( trim(Input::get('departamento_id') )<>'') 
+                $persona['departamento_id'] = Input::get('departamento_id');
+            if ( trim(Input::get('provincia_id') )<>'') 
+                $persona['provincia_id'] = Input::get('provincia_id');
+            if ( trim(Input::get('distrito_id') )<>'') 
+                $persona['distrito_id'] = Input::get('distrito_id');
 
             $persona['paterno'] = Input::get('paterno');
             $persona['nombre'] = Input::get('nombre');

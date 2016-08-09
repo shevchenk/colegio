@@ -7,7 +7,10 @@ CHANGE COLUMN `nrot_tel` `fechat`  date NULL DEFAULT NULL COMMENT 'fecha de tele
 
 ALTER TABLE `personas`
 ADD COLUMN `padre`  varchar(100) NULL DEFAULT '' AFTER `remember_token`,
-ADD COLUMN `tel_pradre`  varchar(50) NULL DEFAULT '' AFTER `padre`;
+ADD COLUMN `tel_pradre`  varchar(50) NULL DEFAULT '' AFTER `padre`,
+ADD COLUMN `celular`  varchar(30) NULL DEFAULT '' AFTER `tel_pradre`,
+ADD COLUMN `departamento_id`  int NULL AFTER `celular`,
+ADD COLUMN `provincia_id`  int NULL AFTER `departamento_id`;
 
 ALTER TABLE `alumnos_detalle` DROP FOREIGN KEY `alumnos_detalle_ibfk_3`;
 ALTER TABLE `alumnos_detalle`

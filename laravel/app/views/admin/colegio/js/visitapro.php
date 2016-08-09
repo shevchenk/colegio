@@ -207,6 +207,19 @@ $(document).ready(function() {
         var modal = $(this); //captura el modal
         modal.find('.modal-body input').val(''); // busca un input para copiarle texto
     });
+
+    Colegios.cargarSelect('Departamento', 'colegio/listardepartamento', '#slct_departamento_id', 'nuevo', null);
+
+    $("#slct_departamento_id").change(function(){
+        var id_departamento = $(this).val();
+        Colegios.cargarSelectAnidado('Provincia', 'colegio/listarprovincia', '#slct_provincia_id', 'nuevo',null, id_departamento);
+        $("#slct_distrito_id").empty();
+    });
+
+    $("#slct_provincia_id").change(function(){
+        var id_provincia = $(this).val();
+        Colegios.cargarSelectAnidado('Distrito', 'colegio/listardistrito', '#slct_distrito_id', 'nuevo',null, id_provincia);
+    });
 });
 
 CargarCarreras=function(val){

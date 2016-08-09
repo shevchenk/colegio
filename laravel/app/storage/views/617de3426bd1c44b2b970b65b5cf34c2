@@ -19,6 +19,7 @@
     
     <?php echo $__env->make( 'admin.js.slct_global_ajax' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <?php echo $__env->make( 'admin.js.slct_global' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make( 'admin.mantenimiento.js.colegio_ajax' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <?php echo $__env->make( 'admin.colegio.js.visitapro_ajax' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <?php echo $__env->make( 'admin.colegio.js.visitapro' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $__env->stopSection(); ?>

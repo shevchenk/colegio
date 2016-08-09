@@ -13,6 +13,7 @@
     
     @include( 'admin.js.slct_global_ajax' )
     @include( 'admin.js.slct_global' )
+    @include( 'admin.mantenimiento.js.colegio_ajax' )
     @include( 'admin.colegio.js.visitapro_ajax' )
     @include( 'admin.colegio.js.visitapro' )
 @stop

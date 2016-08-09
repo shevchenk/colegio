@@ -8,7 +8,7 @@
         </button>
         <h4 class="modal-title">Alumno</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="overflow: scroll; height:550px;">
         <form id="form_personas" name="form_personas" action="" method="post">
           <fieldset>
             <legend>Datos personales</legend>
@@ -84,6 +84,32 @@
                       <option value='F'>Femenino</option>
                       <option value='M' selected>Masculino</option>
                   </select>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="col-sm-3">
+                  <label class="control-label">Fijo:</label>
+                  <input type="text" class="form-control" placeholder="Ingrese Fijo" name="txt_telefono" id="txt_telefono">
+                </div>
+                <div class="col-sm-3">
+                  <label class="control-label">Celular:</label>
+                  <input type="text" class="form-control" placeholder="Ingrese Celular" name="txt_celular" id="txt_celular">
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="col-sm-4">
+                  <label class="control-label">Departamento:</label>
+                  <select class="form-control" name="slct_departamento_id" id="slct_departamento_id"></select>
+                </div>
+
+                <div class="col-sm-4">
+                  <label class="control-label">Provincia:</label>
+                  <select class="form-control" name="slct_provincia_id" id="slct_provincia_id"></select>
+                </div>
+
+                <div class="col-sm-4">
+                  <label class="control-label">Distrito</label>
+                  <select class="form-control" name="slct_distrito_id" id="slct_distrito_id"></select>
                 </div>
               </div>
               <div class="col-sm-12">
