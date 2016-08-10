@@ -43,4 +43,11 @@ EOT;
 		return $bData;
 	}
 
+    public static function getColegioOde($nIdOde, $nIdUser, $nIdDistrito)
+    {
+        $aParametro = array($nIdOde, $nIdUser, $nIdDistrito);
+        $bData = DB::update('UPDATE colegios SET ode_id= ?, usuario_updated_at = ? WHERE distrito_id = ?', $aParametro);
+        return $bData;
+    }
+
 }

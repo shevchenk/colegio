@@ -182,6 +182,7 @@ class OdeController extends \BaseController
 				);
 			}
 
+            DB::beginTransaction();
 			$oOde = new Ode;
 			$oOde['nombre'] = Input::get('nombre');
             $oOde['responsable'] = Input::get('responsable');
@@ -206,6 +207,7 @@ class OdeController extends \BaseController
 					{
 						$nOdeDistritoId = Input::get('ode_distrito_id.'.$nKey);
 						OdeDistrito::getEstadodetalle($nIdUser, $nOdeDistritoId);
+                        OdeDistrito::getColegioOde($nIdOde, $nIdUser, $nOdeDistritoId);
 						$oOdeDistrito = new OdeDistrito;
 						$oOdeDistrito['ode_id'] = $nIdOde;
 						$oOdeDistrito['distrito_id'] = $nOdeDistritoId;
@@ -216,6 +218,7 @@ class OdeController extends \BaseController
 					}
 				}
 			}
+            DB::commit();
 
 			return Response::json(
 				array(
@@ -258,7 +261,7 @@ class OdeController extends \BaseController
 						)
 					);
 				}
-
+                DB::beginTransaction();
 				$nIdOde = Input::get('id');
 				$oOde = Ode::find($nIdOde);
 				$oOde['nombre'] = Input::get('nombre');
@@ -282,6 +285,7 @@ class OdeController extends \BaseController
 					{
 						$nOdeDistritoId = Input::get('ode_distrito_id.'.$nKey);
 						OdeDistrito::getEstadodetalle($nIdUser, $nOdeDistritoId);
+                        OdeDistrito::getColegioOde($nIdOde, $nIdUser, $nOdeDistritoId);
 						if($aAccion[$nKey] == "I")
 						{
 							$oOdeDistrito = new OdeDistrito;
@@ -303,7 +307,8 @@ class OdeController extends \BaseController
 						}
 					}
 				}
-			}
+                DB::commit();
+            }
 			return Response::json(
 				array(
 				'rst'=>1,
