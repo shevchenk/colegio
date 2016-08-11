@@ -15,7 +15,7 @@
 		@show
 		<title>
 			@section('titulo')
-				M. Independencia
+				ColegioJS
 			@show
 		</title>
 

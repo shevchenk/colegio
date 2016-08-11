@@ -52,13 +52,14 @@ EOT;
 		FROM (
 			SELECT
 				v.id, o.nombre AS ode, ct.nombre AS tipo_colegio, c.nombre AS colegio, c.telefono
-				, d.nombre AS distrito, v.fecha_visita
-				, '' AS hora, '' AS tiempo, fn_visita_grados(v.id,1) AS sec_1, fn_visita_grados(v.id,2) AS sec_2
+				, d.nombre AS distrito, DATE(v.fecha_visita) AS fecha_visita
+				, TIME(v.fecha_visita) AS hora, tiempo_programado AS tiempo
+                , fn_visita_grados(v.id,1) AS sec_1, fn_visita_grados(v.id,2) AS sec_2
 				, fn_visita_grados(v.id,3) AS sec_3, fn_visita_grados(v.id,4) AS sec_4
 				, fn_visita_grados(v.id,5) AS sec_5, fn_visita_alumnos(v.id,1) AS dat_1
 				, fn_visita_alumnos(v.id,2) AS dat_2, fn_visita_alumnos(v.id,3) AS dat_3
 				, fn_visita_alumnos(v.id,4) AS dat_4, fn_visita_alumnos(v.id,5) AS dat_5
-				, '' AS observacion, CONCAT_WS(' ', p.paterno, p.materno, p.nombre) AS promotor
+				, v.observacion, CONCAT_WS(' ', p.paterno, p.materno, p.nombre) AS promotor
 				, (SELECT SUM(r_vd.alumnos_registrados) FROM visitas_detalle r_vd WHERE r_vd.visita_id=v.id) AS realizada
 				, '' AS motivo
 			FROM visitas v
@@ -66,7 +67,7 @@ EOT;
 				INNER JOIN odes o ON c.ode_id=o.id
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
-				LEFT JOIN personas p ON v.personac_id=p.id
+				LEFT JOIN personas p ON v.persona_id=p.id
 		) a
 EOT;
 		$sSql .= $aParametro['where'].$aParametro['limit'];
@@ -96,7 +97,7 @@ EOT;
 				INNER JOIN odes o ON c.ode_id=o.id
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
-				LEFT JOIN personas p ON v.personac_id=p.id
+				LEFT JOIN personas p ON v.persona_id=p.id
 		) a
 EOT;
 		$sSql.= $array['where'];

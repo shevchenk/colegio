@@ -1,6 +1,6 @@
 <?php
 
-class ReporteController extends \BaseController
+class ReporteController extends BaseController
 {
     public function postPrueba()
     {
