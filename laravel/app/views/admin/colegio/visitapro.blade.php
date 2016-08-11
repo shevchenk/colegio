@@ -43,7 +43,7 @@
                     <table id="t_visita" class="table table-mailbox table-hover">
                         <thead>
                         <tr>
-                            <th colspan='7' style='text-align:center; background-color:#A7C0DC;'><h2>VISITA PROGRAMADAS</h2></th>
+                            <th colspan='6' style='text-align:center; background-color:#A7C0DC;'><h2>VISITA PROGRAMADAS</h2></th>
                         </tr>
                         <tr></tr>
                         </thead>

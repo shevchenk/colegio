@@ -16,15 +16,21 @@ $(document).ready(function() {
                 'evento':'onChange',
                 },
                 {
-                'id'    :'ode',
-                'idide' :'th_od',
-                'nombre':'Ode',
+                'id'    :'distrito',
+                'idide' :'th_di',
+                'nombre':'Distrito',
                 'evento':'onBlur',
                 },
                 {
                 'id'    :'colegio',
                 'idide' :'th_co',
                 'nombre':'Colegio',
+                'evento':'onBlur',
+                },
+                {
+                'id'    :'telefono',
+                'idide' :'th_te',
+                'nombre':'Teléfono',
                 'evento':'onBlur',
                 },
                 {
@@ -37,12 +43,6 @@ $(document).ready(function() {
                 'id'    :'personat_id',
                 'idide' :'th_pt',
                 'nombre':'Trabajador Telecita',
-                'evento':'onBlur',
-                },
-                {
-                'id'    :'personac',
-                'idide' :'th_pc',
-                'nombre':'Persona que Contactó',
                 'evento':'onBlur',
                 }];
     cabeceraA=  [{

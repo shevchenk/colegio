@@ -125,7 +125,7 @@ var VisitaPro={
                         "type": "POST",
                         //"async": false,
                             "data": function(d){
-                                datos=$("#form_filtros").serialize().split("txt_").join("").split("slct_").join("").split("%5B%5D").join("[]").split("+").join(" ").split("%7C").join("|").split("&");
+                                datos=$("#form_filtros").serialize().split("txt_").join("").split("slct_").join("").split("%5B%5D").join("[]").split("+").join(" ").split("%7C").join("|").split("%2C").join(",").split("&");
                                 
                                 for (var i = datos.length - 1; i >= 0; i--) {
                                     if( datos[i].split("[]").length>1 ){

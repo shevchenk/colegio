@@ -25,7 +25,7 @@ EOT;
             SELECT v.id, v.fecha_visita, c.nombre colegio, o.nombre ode,
             CONCAT(pv.paterno,' ',pv.materno,', ',pv.nombre) persona_id,
             CONCAT(pt.paterno,' ',pt.materno,', ',pt.nombre) personat_id,
-            personac,IFNULL(pv.id,'') pvid
+            personac,IFNULL(pv.id,'') pvid,d.nombre distrito,c.telefono
             FROM visitas v
             INNER JOIN colegios c ON c.id=v.colegio_id AND c.estado=1
             INNER JOIN distritos d ON d.id=c.distrito_id AND d.estado=1

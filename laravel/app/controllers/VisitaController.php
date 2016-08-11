@@ -5,27 +5,31 @@ class VisitaController extends BaseController
     {
         if ( Request::ajax() ) {
             $array=array();
-            $array['where']='';$array['usuario']=Auth::user()->id;
+            $array['where']=' WHERE 1=1 ';$array['usuario']=Auth::user()->id;
             $array['limit']='';$array['order']='';
 
             if( Input::has("colegio") ){
                 $array['where'].=" AND c.nombre LIKE '%".Input::get("colegio")."%' ";
             }
 
+            if( Input::has("telefono") ){
+                $array['where'].=" AND c.telefono LIKE '%".Input::get("telefono")."%' ";
+            }
+
             if( Input::has("fecha_visita") ){
-                $array['where'].=" AND v.fecha_visita='".Input::get("fecha_visita")."' ";
+                $array['where'].=" AND DATE(v.fecha_visita)='".Input::get("fecha_visita")."' ";
             }
 
-            if( Input::has("ode") ){
-                $array['where'].=" AND o.nombre LIKE '%".Input::get("ode")."%' ";
+            if( Input::has("distrito") ){
+                $array['where'].=" AND d.nombre LIKE '%".Input::get("distrito")."%' ";
             }
 
-            if( Input::has("persona") ){
-                $array['where'].=" AND CONCAT(pv.paterno,' ',pv.materno,', ',pv.nombre) LIKE '%".Input::get("persona")."%' ";
+            if( Input::has("persona_id") ){
+                $array['where'].=" AND CONCAT(pv.paterno,' ',pv.materno,', ',pv.nombre) LIKE '%".Input::get("persona_id")."%' ";
             }
 
-            if( Input::has("personac") ){
-                $array['where'].=" AND CONCAT(pc.paterno,' ',pc.materno,', ',pc.nombre) LIKE '%".Input::get("personac")."%' ";
+            if( Input::has("personat_id") ){
+                $array['where'].=" AND CONCAT(pt.paterno,' ',pt.materno,', ',pt.nombre) LIKE '%".Input::get("personat_id")."%' ";
             }
 
             if (Input::has('draw')) {
