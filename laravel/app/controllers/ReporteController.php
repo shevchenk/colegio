@@ -179,6 +179,8 @@ class ReporteController extends BaseController
 		$aHeadColegio[] = "Tipo";
 		$aHeadColegio[] = "Nombre de Colegio";
 		$aHeadColegio[] = "Teléfono";
+        $aHeadColegio[] = "Dirección";
+        $aHeadColegio[] = "Referencia";
 		$aHeadColegio[] = "Distrito";
 
 		$aHeadSeccion[] = "1";
@@ -194,15 +196,15 @@ class ReporteController extends BaseController
 		$objPHPExcel->getActiveSheet()->getStyle('A2:Z2')->applyFromArray($styleAlignmentBold);
 
 		$objPHPExcel->getActiveSheet()->setCellValue("A3","DATOS DEL COLEGIO");
-		$objPHPExcel->getActiveSheet()->getStyle('A3:F4')
+		$objPHPExcel->getActiveSheet()->getStyle('A3:H4')
 			->applyFromArray($styleAlignmentBold)->getFill()
 			->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
 			->getStartColor()->setARGB('fff176');
-		$objPHPExcel->getActiveSheet()->mergeCells('A3:F4');
+		$objPHPExcel->getActiveSheet()->mergeCells('A3:H4');
 
-		$objPHPExcel->getActiveSheet()->setCellValue("G3","PROGRAMACIÓN");
-		$objPHPExcel->getActiveSheet()->mergeCells('G3:W3');
-		$objPHPExcel->getActiveSheet()->getStyle('G3:W3')
+		$objPHPExcel->getActiveSheet()->setCellValue("I3","PROGRAMACIÓN");
+		$objPHPExcel->getActiveSheet()->mergeCells('I3:Y3');
+		$objPHPExcel->getActiveSheet()->getStyle('I3:Y3')
 			->applyFromArray($styleAlignmentBold)->getFill()
 			->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
 			->getStartColor()->setARGB('64b5f6');
@@ -215,74 +217,74 @@ class ReporteController extends BaseController
 		$objPHPExcel->getActiveSheet()->getStyle('A5:'.$az[($i-1)].'5')->applyFromArray($styleAlignmentBold);
 		$objPHPExcel->getActiveSheet()->getStyle("A5:".$az[($i-1)]."5")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('FFCCCCCC');
 
-		$objPHPExcel->getActiveSheet()->setCellValue("G4","Fecha");
-		$objPHPExcel->getActiveSheet()->mergeCells('G4:G5');
-		$objPHPExcel->getActiveSheet()->getStyle('G4:G5')->applyFromArray($styleAlignmentBold);
-
-		$objPHPExcel->getActiveSheet()->setCellValue("H4","Hora");
-		$objPHPExcel->getActiveSheet()->mergeCells('H4:H5');
-		$objPHPExcel->getActiveSheet()->getStyle('H4:H5')->applyFromArray($styleAlignmentBold);
-
-		$objPHPExcel->getActiveSheet()->setCellValue("I4","Tiempo");
+		$objPHPExcel->getActiveSheet()->setCellValue("I4","Fecha");
 		$objPHPExcel->getActiveSheet()->mergeCells('I4:I5');
 		$objPHPExcel->getActiveSheet()->getStyle('I4:I5')->applyFromArray($styleAlignmentBold);
 
-		$objPHPExcel->getActiveSheet()->setCellValue("J4","Secciones");
-		$objPHPExcel->getActiveSheet()->mergeCells('J4:O4');
-		$objPHPExcel->getActiveSheet()->getStyle('J4:O4')->applyFromArray($styleAlignmentBold);
+		$objPHPExcel->getActiveSheet()->setCellValue("J4","Hora");
+		$objPHPExcel->getActiveSheet()->mergeCells('J4:J5');
+		$objPHPExcel->getActiveSheet()->getStyle('J4:J5')->applyFromArray($styleAlignmentBold);
 
-		$nInicioSeccion = 9;
+		$objPHPExcel->getActiveSheet()->setCellValue("K4","Tiempo");
+		$objPHPExcel->getActiveSheet()->mergeCells('K4:K5');
+		$objPHPExcel->getActiveSheet()->getStyle('K4:K5')->applyFromArray($styleAlignmentBold);
+
+		$objPHPExcel->getActiveSheet()->setCellValue("L4","Secciones");
+		$objPHPExcel->getActiveSheet()->mergeCells('L4:Q4');
+		$objPHPExcel->getActiveSheet()->getStyle('L4:Q4')->applyFromArray($styleAlignmentBold);
+
+		$nInicioSeccion = 11;
 		for($x=0;$x<count($aHeadSeccion);$x++)
 		{
 			$objPHPExcel->getActiveSheet()->setCellValue($az[$nInicioSeccion]."5",$aHeadSeccion[$x]);
 			$objPHPExcel->getActiveSheet()->getStyle($az[$nInicioSeccion]."5")->getAlignment()->setWrapText(true);
 			$nInicioSeccion++;
 		}
-		$objPHPExcel->getActiveSheet()->getStyle('J5:O5')->applyFromArray($styleAlignmentBold);
-		$objPHPExcel->getActiveSheet()->getStyle("J5:O5")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('FFCCCCCC');
+		$objPHPExcel->getActiveSheet()->getStyle('L5:Q5')->applyFromArray($styleAlignmentBold);
+		$objPHPExcel->getActiveSheet()->getStyle("L5:Q5")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('FFCCCCCC');
 
-		$objPHPExcel->getActiveSheet()->setCellValue("P4","Data");
-		$objPHPExcel->getActiveSheet()->mergeCells('P4:U4');
-		$objPHPExcel->getActiveSheet()->getStyle('P4:U4')->applyFromArray($styleAlignmentBold);
+		$objPHPExcel->getActiveSheet()->setCellValue("R4","Data");
+		$objPHPExcel->getActiveSheet()->mergeCells('R4:W4');
+		$objPHPExcel->getActiveSheet()->getStyle('R4:W4')->applyFromArray($styleAlignmentBold);
 
-		$nInicioData = 15;
+		$nInicioData = 17;
 		for($z=0;$z<count($aHeadSeccion);$z++)
 		{
 			$objPHPExcel->getActiveSheet()->setCellValue($az[$nInicioData]."5",$aHeadSeccion[$z]);
 			$objPHPExcel->getActiveSheet()->getStyle($az[$nInicioData]."5")->getAlignment()->setWrapText(true);
 			$nInicioData++;
 		}
-		$objPHPExcel->getActiveSheet()->getStyle('P5:U5')->applyFromArray($styleAlignmentBold);
-		$objPHPExcel->getActiveSheet()->getStyle("P5:U5")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('FFCCCCCC');
+		$objPHPExcel->getActiveSheet()->getStyle('R5:W5')->applyFromArray($styleAlignmentBold);
+		$objPHPExcel->getActiveSheet()->getStyle("R5:W5")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('FFCCCCCC');
 
-		$objPHPExcel->getActiveSheet()->setCellValue("V4","Observación");
-		$objPHPExcel->getActiveSheet()->mergeCells('V4:V5');
-		$objPHPExcel->getActiveSheet()->getStyle('V4:V5')->applyFromArray($styleAlignmentBold);
+		$objPHPExcel->getActiveSheet()->setCellValue("X4","Observación");
+		$objPHPExcel->getActiveSheet()->mergeCells('X4:X5');
+		$objPHPExcel->getActiveSheet()->getStyle('X4:X5')->applyFromArray($styleAlignmentBold);
 
-		$objPHPExcel->getActiveSheet()->setCellValue("W4","Promotor que ingreso");
-		$objPHPExcel->getActiveSheet()->mergeCells('W4:W5');
-		$objPHPExcel->getActiveSheet()->getStyle('W4:W5')->applyFromArray($styleAlignmentBold);
+		$objPHPExcel->getActiveSheet()->setCellValue("Y4","Promotor que ingreso");
+		$objPHPExcel->getActiveSheet()->mergeCells('Y4:Y5');
+		$objPHPExcel->getActiveSheet()->getStyle('Y4:Y5')->applyFromArray($styleAlignmentBold);
 
-		$objPHPExcel->getActiveSheet()->setCellValue("X3","REPORTE");
-		$objPHPExcel->getActiveSheet()->mergeCells('X3:Z3');
-		$objPHPExcel->getActiveSheet()->getStyle('X3:Z3')
+		$objPHPExcel->getActiveSheet()->setCellValue("Z3","REPORTE");
+		$objPHPExcel->getActiveSheet()->mergeCells('Z3:AB3');
+		$objPHPExcel->getActiveSheet()->getStyle('Z3:AB3')
 			->applyFromArray($styleAlignmentBold)->getFill()
 			->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
 			->getStartColor()->setARGB('a5d6a7');
 
-		$objPHPExcel->getActiveSheet()->setCellValue("X4","Grados y Secciones");
-		$objPHPExcel->getActiveSheet()->mergeCells('X4:Y4');
-		$objPHPExcel->getActiveSheet()->getStyle('X4:Y4')->applyFromArray($styleAlignmentBold);
+		$objPHPExcel->getActiveSheet()->setCellValue("Z4","Grados y Secciones");
+		$objPHPExcel->getActiveSheet()->mergeCells('Z4:AA4');
+		$objPHPExcel->getActiveSheet()->getStyle('Z4:AA4')->applyFromArray($styleAlignmentBold);
 
-		$objPHPExcel->getActiveSheet()->setCellValue("X5","Realizadas");
-		$objPHPExcel->getActiveSheet()->getStyle('X5')->applyFromArray($styleAlignmentBold);
+		$objPHPExcel->getActiveSheet()->setCellValue("Z5","Realizadas");
+		$objPHPExcel->getActiveSheet()->getStyle('Z5')->applyFromArray($styleAlignmentBold);
 
-		$objPHPExcel->getActiveSheet()->setCellValue("Y5","Pendientes");
-		$objPHPExcel->getActiveSheet()->getStyle('Y5')->applyFromArray($styleAlignmentBold);
+		$objPHPExcel->getActiveSheet()->setCellValue("AA5","Pendientes");
+		$objPHPExcel->getActiveSheet()->getStyle('AA5')->applyFromArray($styleAlignmentBold);
 
-		$objPHPExcel->getActiveSheet()->setCellValue("Z4","Motivo (Por que no se recopilo data)");
-		$objPHPExcel->getActiveSheet()->mergeCells('Z4:Z5');
-		$objPHPExcel->getActiveSheet()->getStyle('Z4:Z5')->applyFromArray($styleAlignmentBold);
+		$objPHPExcel->getActiveSheet()->setCellValue("AB4","Motivo (Por que no se recopilo data)");
+		$objPHPExcel->getActiveSheet()->mergeCells('AB4:AB5');
+		$objPHPExcel->getActiveSheet()->getStyle('AB4:AB5')->applyFromArray($styleAlignmentBold);
 
 		$array=array();
 		$array['where']=' WHERE 1=1 ';
@@ -398,6 +400,10 @@ class ReporteController extends BaseController
 				$azcant++;
 			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->telefono);
 				$azcant++;
+            $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->direccion);
+                $azcant++;
+            $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->referencia);
+                $azcant++;
 			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->distrito);
 				$azcant++;
 			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->fecha_visita);
@@ -443,8 +449,10 @@ class ReporteController extends BaseController
 		$objPHPExcel->getActiveSheet()->setTitle('Distribución');
 		$objPHPExcel->setActiveSheetIndex(0);
 		foreach ($az as $nK => $sV) {
-			$objPHPExcel->getActiveSheet()->getColumnDimension($sV)->setAutoSize(true);
-			if($sV=="Z")
+            if($sV=="A" OR ($sV>="L" AND $sV<="W") ){
+			     $objPHPExcel->getActiveSheet()->getColumnDimension($sV)->setAutoSize(true);
+            }
+			if($sV=="AB")
 			{
 				break;
 			}

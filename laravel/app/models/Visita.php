@@ -48,10 +48,11 @@ EOT;
 			, a.sec_1, a.sec_2, a.sec_3, a.sec_4, a.sec_5, (a.sec_1 + a.sec_2 + a.sec_3 + a.sec_4 + a.sec_5) AS total_sec
 			, a.dat_1, a.dat_2, a.dat_3, a.dat_4, a.dat_5, (a.dat_1 + a.dat_2 + a.dat_3 + a.dat_4 + a.dat_5) AS total_dat
 			, a.observacion, a.promotor, a.realizada, ((a.sec_1 + a.sec_2 + a.sec_3 + a.sec_4 + a.sec_5) - a.realizada) AS pendiente
-			, a.motivo
+			, a.motivo, a.direccion, a.referencia
 		FROM (
 			SELECT
 				v.id, o.nombre AS ode, ct.nombre AS tipo_colegio, c.nombre AS colegio, c.telefono
+                , c.direccion, c.referencia
 				, d.nombre AS distrito, DATE(v.fecha_visita) AS fecha_visita
 				, TIME(v.fecha_visita) AS hora, tiempo_programado AS tiempo
                 , fn_visita_grados(v.id,1) AS sec_1, fn_visita_grados(v.id,2) AS sec_2
