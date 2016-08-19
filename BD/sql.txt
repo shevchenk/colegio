@@ -1,3 +1,20 @@
+-- 2016-08-19
+DELIMITER $$
+USE `colegio`$$
+DROP FUNCTION IF EXISTS `fn_visita_alumnos`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `fn_visita_alumnos`(nVisitaId INT, nGrado INT) RETURNS INT(11)
+BEGIN
+	DECLARE nAlumnoCantidad INT DEFAULT 0;
+	SELECT SUM(vd.alumnos_total)
+		INTO nAlumnoCantidad
+	FROM visitas_detalle vd
+		LEFT JOIN colegios_detalle cd ON vd.colegio_detalle_id=cd.id
+	WHERE vd.visita_id=nVisitaId AND cd.grado=nGrado
+	GROUP BY cd.grado;
+	RETURN nAlumnoCantidad;
+END$$
+DELIMITER ; 
+
 --2016-08-08
 ALTER TABLE `visitas`
 CHANGE COLUMN `nro_tel` `personacr`  varchar(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT 'telefono del contacto' AFTER `personac`;

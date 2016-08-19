@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'cpdteles_colegio',
+			'database'  => 'colegio',
 			'username'  => 'root',
-			'password'  => '',
+			'password'  => 'root',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',

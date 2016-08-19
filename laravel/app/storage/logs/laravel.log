@@ -876,3 +876,324 @@ Stack trace:
 #24 C:\wamp\www\colegio\laravel\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
 #25 C:\wamp\www\colegio\public\index.php(49): Illuminate\Foundation\Application->run()
 #26 {main} [] []
+[2016-08-18 20:24:04] production.ERROR: exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: NO)' in /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php:47
+Stack trace:
+#0 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php(47): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connectors/MySqlConnector.php(20): Illuminate\Database\Connectors\Connector->createConnection('mysql:host=loca...', Array, Array)
+#2 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFactory.php(57): Illuminate\Database\Connectors\MySqlConnector->connect(Array)
+#3 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFactory.php(46): Illuminate\Database\Connectors\ConnectionFactory->createSingleConnection(Array)
+#4 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(176): Illuminate\Database\Connectors\ConnectionFactory->make(Array, 'mysql')
+#5 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(64): Illuminate\Database\DatabaseManager->makeConnection('mysql')
+#6 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(2922): Illuminate\Database\DatabaseManager->connection(NULL)
+#7 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(2888): Illuminate\Database\Eloquent\Model::resolveConnection(NULL)
+#8 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1849): Illuminate\Database\Eloquent\Model->getConnection()
+#9 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1790): Illuminate\Database\Eloquent\Model->newBaseQueryBuilder()
+#10 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1764): Illuminate\Database\Eloquent\Model->newQueryWithoutScopes()
+#11 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Auth/EloquentUserProvider.php(87): Illuminate\Database\Eloquent\Model->newQuery()
+#12 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Auth/Guard.php(354): Illuminate\Auth\EloquentUserProvider->retrieveByCredentials(Array)
+#13 [internal function]: Illuminate\Auth\Guard->attempt(Array, 'on')
+#14 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Manager.php(138): call_user_func_array(Array, Array)
+#15 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(211): Illuminate\Support\Manager->__call('attempt', Array)
+#16 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(211): Illuminate\Auth\AuthManager->attempt(Array, 'on')
+#17 /var/www/html/colegio/laravel/app/controllers/LoginController.php(14): Illuminate\Support\Facades\Facade::__callStatic('attempt', Array)
+#18 /var/www/html/colegio/laravel/app/controllers/LoginController.php(14): Illuminate\Support\Facades\Auth::attempt(Array, 'on')
+#19 [internal function]: LoginController->postLogin()
+#20 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#21 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('postLogin', Array)
+#22 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(LoginController), Object(Illuminate\Routing\Route), 'postLogin')
+#23 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(967): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'LoginController', 'postLogin')
+#24 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}()
+#25 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#26 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1033): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#27 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1001): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#28 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#29 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#30 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#31 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#32 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#33 /var/www/html/colegio/laravel/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#34 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#35 /var/www/html/colegio/public/index.php(49): Illuminate\Foundation\Application->run()
+#36 {main} [] []
+[2016-08-18 20:26:24] production.ERROR: exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: NO)' in /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php:47
+Stack trace:
+#0 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php(47): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connectors/MySqlConnector.php(20): Illuminate\Database\Connectors\Connector->createConnection('mysql:host=loca...', Array, Array)
+#2 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFactory.php(57): Illuminate\Database\Connectors\MySqlConnector->connect(Array)
+#3 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFactory.php(46): Illuminate\Database\Connectors\ConnectionFactory->createSingleConnection(Array)
+#4 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(176): Illuminate\Database\Connectors\ConnectionFactory->make(Array, 'mysql')
+#5 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(64): Illuminate\Database\DatabaseManager->makeConnection('mysql')
+#6 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(2922): Illuminate\Database\DatabaseManager->connection(NULL)
+#7 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(2888): Illuminate\Database\Eloquent\Model::resolveConnection(NULL)
+#8 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1849): Illuminate\Database\Eloquent\Model->getConnection()
+#9 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1790): Illuminate\Database\Eloquent\Model->newBaseQueryBuilder()
+#10 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1764): Illuminate\Database\Eloquent\Model->newQueryWithoutScopes()
+#11 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Auth/EloquentUserProvider.php(87): Illuminate\Database\Eloquent\Model->newQuery()
+#12 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Auth/Guard.php(354): Illuminate\Auth\EloquentUserProvider->retrieveByCredentials(Array)
+#13 [internal function]: Illuminate\Auth\Guard->attempt(Array, 'on')
+#14 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Manager.php(138): call_user_func_array(Array, Array)
+#15 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(211): Illuminate\Support\Manager->__call('attempt', Array)
+#16 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(211): Illuminate\Auth\AuthManager->attempt(Array, 'on')
+#17 /var/www/html/colegio/laravel/app/controllers/LoginController.php(14): Illuminate\Support\Facades\Facade::__callStatic('attempt', Array)
+#18 /var/www/html/colegio/laravel/app/controllers/LoginController.php(14): Illuminate\Support\Facades\Auth::attempt(Array, 'on')
+#19 [internal function]: LoginController->postLogin()
+#20 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#21 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('postLogin', Array)
+#22 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(LoginController), Object(Illuminate\Routing\Route), 'postLogin')
+#23 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(967): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'LoginController', 'postLogin')
+#24 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}()
+#25 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#26 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1033): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#27 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1001): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#28 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#29 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#30 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#31 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#32 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#33 /var/www/html/colegio/laravel/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#34 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#35 /var/www/html/colegio/public/index.php(49): Illuminate\Foundation\Application->run()
+#36 {main} [] []
+[2016-08-18 20:26:42] production.ERROR: exception 'PDOException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'v.personat_id' in 'on clause'' in /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:299
+Stack trace:
+#0 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(299): PDO->prepare('            SEL...')
+#1 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(617): Illuminate\Database\Connection->Illuminate\Database\{closure}(Object(Illuminate\Database\MySqlConnection), '            SEL...', Array)
+#2 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(581): Illuminate\Database\Connection->runQueryCallback('            SEL...', Array, Object(Closure))
+#3 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(304): Illuminate\Database\Connection->run('            SEL...', Array, Object(Closure))
+#4 [internal function]: Illuminate\Database\Connection->select('            SEL...')
+#5 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(321): call_user_func_array(Array, Array)
+#6 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(208): Illuminate\Database\DatabaseManager->__call('select', Array)
+#7 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(208): Illuminate\Database\DatabaseManager->select('            SEL...')
+#8 /var/www/html/colegio/laravel/app/models/Visita.php(18): Illuminate\Support\Facades\Facade::__callStatic('select', Array)
+#9 /var/www/html/colegio/laravel/app/models/Visita.php(18): Illuminate\Support\Facades\DB::select('            SEL...')
+#10 /var/www/html/colegio/laravel/app/controllers/VisitaController.php(48): Visita::getCargarCount(Array)
+#11 [internal function]: VisitaController->postCargar()
+#12 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#13 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('postCargar', Array)
+#14 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(VisitaController), Object(Illuminate\Routing\Route), 'postCargar')
+#15 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(967): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'VisitaControlle...', 'postCargar')
+#16 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}()
+#17 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#18 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1033): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#19 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1001): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#20 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#21 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#22 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#23 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#24 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#25 /var/www/html/colegio/laravel/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#26 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#27 /var/www/html/colegio/public/index.php(49): Illuminate\Foundation\Application->run()
+#28 {main}
+
+Next exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'v.personat_id' in 'on clause' (SQL:             SELECT COUNT(v.id) cant
+            FROM visitas v
+            INNER JOIN colegios c ON c.id=v.colegio_id AND c.estado=1
+            INNER JOIN distritos d ON d.id=c.distrito_id AND d.estado=1
+            INNER JOIN odes_distritos od ON od.distrito_id=d.id AND od.estado=1
+            INNER JOIN odes o ON o.id=od.ode_id AND o.estado=1
+            INNER JOIN personas pt ON pt.id=v.personat_id
+            LEFT JOIN personas pv ON pv.id=v.persona_id WHERE 1=1 )' in /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:625
+Stack trace:
+#0 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(581): Illuminate\Database\Connection->runQueryCallback('            SEL...', Array, Object(Closure))
+#1 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(304): Illuminate\Database\Connection->run('            SEL...', Array, Object(Closure))
+#2 [internal function]: Illuminate\Database\Connection->select('            SEL...')
+#3 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(321): call_user_func_array(Array, Array)
+#4 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(208): Illuminate\Database\DatabaseManager->__call('select', Array)
+#5 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(208): Illuminate\Database\DatabaseManager->select('            SEL...')
+#6 /var/www/html/colegio/laravel/app/models/Visita.php(18): Illuminate\Support\Facades\Facade::__callStatic('select', Array)
+#7 /var/www/html/colegio/laravel/app/models/Visita.php(18): Illuminate\Support\Facades\DB::select('            SEL...')
+#8 /var/www/html/colegio/laravel/app/controllers/VisitaController.php(48): Visita::getCargarCount(Array)
+#9 [internal function]: VisitaController->postCargar()
+#10 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#11 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('postCargar', Array)
+#12 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(VisitaController), Object(Illuminate\Routing\Route), 'postCargar')
+#13 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(967): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'VisitaControlle...', 'postCargar')
+#14 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}()
+#15 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#16 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1033): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#17 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1001): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#18 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#19 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#20 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#21 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#22 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#23 /var/www/html/colegio/laravel/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#24 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#25 /var/www/html/colegio/public/index.php(49): Illuminate\Foundation\Application->run()
+#26 {main} [] []
+[2016-08-18 20:26:51] production.ERROR: exception 'PDOException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tiempo_programado' in 'field list'' in /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:299
+Stack trace:
+#0 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(299): PDO->prepare('??SELECT????a.i...')
+#1 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(617): Illuminate\Database\Connection->Illuminate\Database\{closure}(Object(Illuminate\Database\MySqlConnection), '??SELECT????a.i...', Array)
+#2 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(581): Illuminate\Database\Connection->runQueryCallback('??SELECT????a.i...', Array, Object(Closure))
+#3 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(304): Illuminate\Database\Connection->run('??SELECT????a.i...', Array, Object(Closure))
+#4 [internal function]: Illuminate\Database\Connection->select('??SELECT????a.i...')
+#5 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(321): call_user_func_array(Array, Array)
+#6 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(208): Illuminate\Database\DatabaseManager->__call('select', Array)
+#7 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(208): Illuminate\Database\DatabaseManager->select('??SELECT????a.i...')
+#8 /var/www/html/colegio/laravel/app/models/Visita.php(75): Illuminate\Support\Facades\Facade::__callStatic('select', Array)
+#9 /var/www/html/colegio/laravel/app/models/Visita.php(75): Illuminate\Support\Facades\DB::select('??SELECT????a.i...')
+#10 /var/www/html/colegio/laravel/app/controllers/VisitaController.php(256): Visita::getCargaDistribucion(Array)
+#11 [internal function]: VisitaController->postCargardistribucion()
+#12 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#13 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('postCargardistr...', Array)
+#14 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(VisitaController), Object(Illuminate\Routing\Route), 'postCargardistr...')
+#15 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(967): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'VisitaControlle...', 'postCargardistr...')
+#16 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}()
+#17 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#18 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1033): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#19 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1001): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#20 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#21 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#22 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#23 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#24 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#25 /var/www/html/colegio/laravel/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#26 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#27 /var/www/html/colegio/public/index.php(49): Illuminate\Foundation\Application->run()
+#28 {main}
+
+Next exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tiempo_programado' in 'field list' (SQL: 		SELECT
+			a.id, a.ode, a.tipo_colegio, a.colegio, a.telefono, a.distrito, a.fecha_visita, a.hora, a.tiempo
+			, a.sec_1, a.sec_2, a.sec_3, a.sec_4, a.sec_5, (a.sec_1 + a.sec_2 + a.sec_3 + a.sec_4 + a.sec_5) AS total_sec
+			, a.dat_1, a.dat_2, a.dat_3, a.dat_4, a.dat_5, (a.dat_1 + a.dat_2 + a.dat_3 + a.dat_4 + a.dat_5) AS total_dat
+			, a.observacion, a.promotor, a.realizada, ((a.sec_1 + a.sec_2 + a.sec_3 + a.sec_4 + a.sec_5) - a.realizada) AS pendiente
+			, a.motivo, a.direccion, a.referencia
+		FROM (
+			SELECT
+				v.id, o.nombre AS ode, ct.nombre AS tipo_colegio, c.nombre AS colegio, c.telefono
+                , c.direccion, c.referencia
+				, d.nombre AS distrito, DATE(v.fecha_visita) AS fecha_visita
+				, TIME(v.fecha_visita) AS hora, tiempo_programado AS tiempo
+                , fn_visita_grados(v.id,1) AS sec_1, fn_visita_grados(v.id,2) AS sec_2
+				, fn_visita_grados(v.id,3) AS sec_3, fn_visita_grados(v.id,4) AS sec_4
+				, fn_visita_grados(v.id,5) AS sec_5, fn_visita_alumnos(v.id,1) AS dat_1
+				, fn_visita_alumnos(v.id,2) AS dat_2, fn_visita_alumnos(v.id,3) AS dat_3
+				, fn_visita_alumnos(v.id,4) AS dat_4, fn_visita_alumnos(v.id,5) AS dat_5
+				, v.observacion, CONCAT_WS(' ', p.paterno, p.materno, p.nombre) AS promotor
+				, (SELECT SUM(r_vd.alumnos_registrados) FROM visitas_detalle r_vd WHERE r_vd.visita_id=v.id) AS realizada
+				, '' AS motivo
+			FROM visitas v
+				INNER JOIN colegios c ON v.colegio_id=c.id
+				INNER JOIN odes o ON c.ode_id=o.id
+				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
+				INNER JOIN distritos d ON c.distrito_id=d.id
+				LEFT JOIN personas p ON v.persona_id=p.id
+		) a WHERE 1=1  LIMIT 0,10)' in /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:625
+Stack trace:
+#0 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(581): Illuminate\Database\Connection->runQueryCallback('??SELECT????a.i...', Array, Object(Closure))
+#1 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(304): Illuminate\Database\Connection->run('??SELECT????a.i...', Array, Object(Closure))
+#2 [internal function]: Illuminate\Database\Connection->select('??SELECT????a.i...')
+#3 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(321): call_user_func_array(Array, Array)
+#4 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(208): Illuminate\Database\DatabaseManager->__call('select', Array)
+#5 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(208): Illuminate\Database\DatabaseManager->select('??SELECT????a.i...')
+#6 /var/www/html/colegio/laravel/app/models/Visita.php(75): Illuminate\Support\Facades\Facade::__callStatic('select', Array)
+#7 /var/www/html/colegio/laravel/app/models/Visita.php(75): Illuminate\Support\Facades\DB::select('??SELECT????a.i...')
+#8 /var/www/html/colegio/laravel/app/controllers/VisitaController.php(256): Visita::getCargaDistribucion(Array)
+#9 [internal function]: VisitaController->postCargardistribucion()
+#10 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#11 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('postCargardistr...', Array)
+#12 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(VisitaController), Object(Illuminate\Routing\Route), 'postCargardistr...')
+#13 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(967): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'VisitaControlle...', 'postCargardistr...')
+#14 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}()
+#15 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#16 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1033): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#17 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1001): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#18 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#19 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#20 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#21 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#22 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#23 /var/www/html/colegio/laravel/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#24 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#25 /var/www/html/colegio/public/index.php(49): Illuminate\Foundation\Application->run()
+#26 {main} [] []
+[2016-08-18 21:24:08] production.ERROR: exception 'PDOException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'v.personat_id' in 'on clause'' in /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:299
+Stack trace:
+#0 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(299): PDO->prepare('            SEL...')
+#1 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(617): Illuminate\Database\Connection->Illuminate\Database\{closure}(Object(Illuminate\Database\MySqlConnection), '            SEL...', Array)
+#2 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(581): Illuminate\Database\Connection->runQueryCallback('            SEL...', Array, Object(Closure))
+#3 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(304): Illuminate\Database\Connection->run('            SEL...', Array, Object(Closure))
+#4 [internal function]: Illuminate\Database\Connection->select('            SEL...')
+#5 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(321): call_user_func_array(Array, Array)
+#6 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(208): Illuminate\Database\DatabaseManager->__call('select', Array)
+#7 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(208): Illuminate\Database\DatabaseManager->select('            SEL...')
+#8 /var/www/html/colegio/laravel/app/models/Visita.php(18): Illuminate\Support\Facades\Facade::__callStatic('select', Array)
+#9 /var/www/html/colegio/laravel/app/models/Visita.php(18): Illuminate\Support\Facades\DB::select('            SEL...')
+#10 /var/www/html/colegio/laravel/app/controllers/VisitaController.php(48): Visita::getCargarCount(Array)
+#11 [internal function]: VisitaController->postCargar()
+#12 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#13 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('postCargar', Array)
+#14 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(VisitaController), Object(Illuminate\Routing\Route), 'postCargar')
+#15 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(967): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'VisitaControlle...', 'postCargar')
+#16 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}()
+#17 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#18 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1033): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#19 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1001): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#20 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#21 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#22 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#23 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#24 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#25 /var/www/html/colegio/laravel/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#26 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#27 /var/www/html/colegio/public/index.php(49): Illuminate\Foundation\Application->run()
+#28 {main}
+
+Next exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'v.personat_id' in 'on clause' (SQL:             SELECT COUNT(v.id) cant
+            FROM visitas v
+            INNER JOIN colegios c ON c.id=v.colegio_id AND c.estado=1
+            INNER JOIN distritos d ON d.id=c.distrito_id AND d.estado=1
+            INNER JOIN odes_distritos od ON od.distrito_id=d.id AND od.estado=1
+            INNER JOIN odes o ON o.id=od.ode_id AND o.estado=1
+            INNER JOIN personas pt ON pt.id=v.personat_id
+            LEFT JOIN personas pv ON pv.id=v.persona_id WHERE 1=1 )' in /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:625
+Stack trace:
+#0 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(581): Illuminate\Database\Connection->runQueryCallback('            SEL...', Array, Object(Closure))
+#1 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(304): Illuminate\Database\Connection->run('            SEL...', Array, Object(Closure))
+#2 [internal function]: Illuminate\Database\Connection->select('            SEL...')
+#3 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(321): call_user_func_array(Array, Array)
+#4 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(208): Illuminate\Database\DatabaseManager->__call('select', Array)
+#5 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(208): Illuminate\Database\DatabaseManager->select('            SEL...')
+#6 /var/www/html/colegio/laravel/app/models/Visita.php(18): Illuminate\Support\Facades\Facade::__callStatic('select', Array)
+#7 /var/www/html/colegio/laravel/app/models/Visita.php(18): Illuminate\Support\Facades\DB::select('            SEL...')
+#8 /var/www/html/colegio/laravel/app/controllers/VisitaController.php(48): Visita::getCargarCount(Array)
+#9 [internal function]: VisitaController->postCargar()
+#10 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#11 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('postCargar', Array)
+#12 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(VisitaController), Object(Illuminate\Routing\Route), 'postCargar')
+#13 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(967): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'VisitaControlle...', 'postCargar')
+#14 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}()
+#15 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#16 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1033): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#17 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1001): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#18 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#19 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#20 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#21 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#22 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#23 /var/www/html/colegio/laravel/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#24 /var/www/html/colegio/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#25 /var/www/html/colegio/public/index.php(49): Illuminate\Foundation\Application->run()
+#26 {main} [] []
+[2016-08-18 23:49:46] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function save() on a non-object' in /var/www/html/colegio/laravel/app/controllers/VisitaController.php:296
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2016-08-18 23:49:47] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function save() on a non-object' in /var/www/html/colegio/laravel/app/controllers/VisitaController.php:296
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2016-08-18 23:49:47] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function save() on a non-object' in /var/www/html/colegio/laravel/app/controllers/VisitaController.php:296
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2016-08-18 23:49:48] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function save() on a non-object' in /var/www/html/colegio/laravel/app/controllers/VisitaController.php:296
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2016-08-18 23:49:51] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function save() on a non-object' in /var/www/html/colegio/laravel/app/controllers/VisitaController.php:296
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
