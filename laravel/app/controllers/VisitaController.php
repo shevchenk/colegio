@@ -264,6 +264,129 @@ class VisitaController extends BaseController
 		}
 	}
 
+	public function postCargarvisita()
+	{
+		if ( Request::ajax() )
+		{
+			$array=array();
+			$array['where']=' WHERE 1=1 ';
+			$array['usuario']=Auth::user()->id;
+			$array['limit']='';
+			$array['order']='';
+
+			if( Input::has("ode") ){
+				$array['where'].=" AND a.ode LIKE '%".Input::get("ode")."%' ";
+			}
+			if( Input::has("tipo_colegio") ){
+				$array['where'].=" AND a.tipo_colegio LIKE '%".Input::get("tipo_colegio")."%' ";
+			}
+			if( Input::has("colegio") ){
+				$array['where'].=" AND a.colegio LIKE '%".Input::get("colegio")."%' ";
+			}
+			if( Input::has("telefono") ){
+				$array['where'].=" AND a.telefono LIKE '%".Input::get("telefono")."%' ";
+			}
+			if( Input::has("contesta") ){
+				$array['where'].=" AND a.contesta LIKE '%".Input::get("contesta")."%' ";
+			}
+			if( Input::has("recibe") ){
+				$array['where'].=" AND a.recibe LIKE '%".Input::get("recibe")."%' ";
+			}
+			if( Input::has("direccion") ){
+				$array['where'].=" AND a.direccion LIKE '%".Input::get("direccion")."%' ";
+			}
+			if( Input::has("localidad") ){
+				$array['where'].=" AND a.localidad LIKE '%".Input::get("localidad")."%' ";
+			}
+			if( Input::has("referencia") ){
+				$array['where'].=" AND a.referencia LIKE '%".Input::get("referencia")."%' ";
+			}
+			if( Input::has("distrito") ){
+				$array['where'].=" AND a.distrito LIKE '%".Input::get("distrito")."%' ";
+			}
+			if( Input::has("ugel") ){
+				$array['where'].=" AND a.ugel LIKE '%".Input::get("ugel")."%' ";
+			}
+			if( Input::has("fecha_visita") ){
+				$array['where'].=" AND a.fecha_visita LIKE '%".Input::get("fecha_visita")."%' ";
+			}
+			if( Input::has("hora") ){
+				$array['where'].=" AND a.hora LIKE '%".Input::get("hora")."%' ";
+			}
+			if( Input::has("tiempo") ){
+				$array['where'].=" AND a.tiempo LIKE '%".Input::get("tiempo")."%' ";
+			}
+			if( Input::has("sec_1") ){
+				$array['where'].=" AND a.sec_1='".Input::get("sec_1")."' ";
+			}
+			if( Input::has("sec_2") ){
+				$array['where'].=" AND a.sec_2='".Input::get("sec_2")."' ";
+			}
+			if( Input::has("sec_3") ){
+				$array['where'].=" AND a.sec_3='".Input::get("sec_3")."' ";
+			}
+			if( Input::has("sec_4") ){
+				$array['where'].=" AND a.sec_4='".Input::get("sec_4")."' ";
+			}
+			if( Input::has("sec_5") ){
+				$array['where'].=" AND a.sec_5='".Input::get("sec_5")."' ";
+			}
+			if( Input::has("total_sec") ){
+				$array['where'].=" AND a.total_sec='".Input::get("total_sec")."' ";
+			}
+			if( Input::has("dat_1") ){
+				$array['where'].=" AND a.dat_1='".Input::get("dat_1")."' ";
+			}
+			if( Input::has("dat_2") ){
+				$array['where'].=" AND a.dat_2='".Input::get("dat_2")."' ";
+			}
+			if( Input::has("dat_3") ){
+				$array['where'].=" AND a.dat_3='".Input::get("dat_3")."' ";
+			}
+			if( Input::has("dat_4") ){
+				$array['where'].=" AND a.dat_4='".Input::get("dat_4")."' ";
+			}
+			if( Input::has("dat_5") ){
+				$array['where'].=" AND a.dat_5='".Input::get("dat_5")."' ";
+			}
+			if( Input::has("total_dat") ){
+				$array['where'].=" AND a.total_dat='".Input::get("total_dat")."' ";
+			}
+			if( Input::has("observacion") ){
+				$array['where'].=" AND a.observacion LIKE '%".Input::get("observacion")."%' ";
+			}
+			if( Input::has("promotor") ){
+				$array['where'].=" AND a.promotor LIKE '%".Input::get("promotor")."' ";
+			}
+			if( Input::has("convenio") ){
+				$array['where'].=" AND a.convenio='".Input::get("convenio")."' ";
+			}
+
+			if (Input::has('draw'))
+			{
+				if (Input::has('order'))
+				{
+					$inorder=Input::get('order');
+					$incolumns=Input::get('columns');
+					$array['order']=  ' ORDER BY '.$incolumns[ $inorder[0]['column'] ]['name'].' '.$inorder[0]['dir'];
+				}
+
+				$array['limit']=' LIMIT '.Input::get('start').','.Input::get('length');
+				$retorno["draw"]=Input::get('draw');
+			}
+
+			$cant  = Visita::getCargaVisitaColegioCount( $array );
+			$aData = Visita::getCargaVisitaColegio( $array );
+
+			$aParametro['rst'] = 1;
+			$aParametro["recordsTotal"]=$cant;
+			$aParametro["recordsFiltered"]=$cant;
+			$aParametro['data'] = $aData;
+			$aParametro['msj'] = "No hay visitas programadas aún";
+			return Response::json($aParametro);
+		}
+	}
+
     public function postActualizartrabajador()
     {
         if ( Request::ajax() ) {
