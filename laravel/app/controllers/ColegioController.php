@@ -21,7 +21,7 @@ class ColegioController extends BaseController
 		if ( Request::ajax() ) {
 			ini_set('memory_limit','1024M');
 			$array=array();
-			$array['where']=' WHERE c.estado=1 ';
+			$array['where']=' WHERE 1=1 ';
 			$array['distrito']='';
 			$array['ode']='';
 			if( Input::has("distrito") ){
