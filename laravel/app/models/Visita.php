@@ -172,5 +172,84 @@ EOT;
 		return $oData[0]->cant;
 	}
 
+	public static function getCargaDataColegio($aParametro)
+	{
+		$sSql = <<<EOT
+		SELECT
+			a.id, a.ode, a.tipo_colegio, a.colegio, a.nivel_cole, a.genero, a.turno, a.director, a.telefono, a.email
+			, a.direccion, a.localidad, a.referencia, a.distrito, a.provincia, a.departamento, a.ugel, a.contesta, a.recibe
+			, a.tele_nombre, a.tele_fecha, a.fecha_visita, a.hora, a.tiempo
+			, a.sec_1, a.sec_2, a.sec_3, a.sec_4, a.sec_5, (a.sec_1 + a.sec_2 + a.sec_3 + a.sec_4 + a.sec_5) AS total_sec
+			, a.dat_1, a.dat_2, a.dat_3, a.dat_4, a.dat_5, (a.dat_1 + a.dat_2 + a.dat_3 + a.dat_4 + a.dat_5) AS total_dat
+			, a.observacion, a.promotor, a.contacto, a.cargo, a.c_email, a.c_telefono
+		FROM (
+			SELECT
+				v.id, o.nombre AS ode, LEFT(ct.nombre,1) AS tipo_colegio, c.nombre AS colegio, cn.nombre AS nivel_cole
+				, CASE c.genero WHEN "M" THEN "Masculino" WHEN "F" THEN "Femenino" WHEN "X" THEN "Mixto" ELSE "" END AS genero
+				, c.turno, c.director, c.telefono, c.email, c.direccion, '' AS localidad, c.referencia, d.nombre AS distrito
+				, pro.nombre AS provincia, de.nombre AS departamento, c.ugel, v.personac AS contesta, v.personacr AS recibe
+				, CONCAT_WS(' ', pte.paterno, pte.materno, pte.nombre) AS tele_nombre, v.fechat AS tele_fecha
+				, DATE(v.fecha_visita) AS fecha_visita, TIME(v.fecha_visita) AS hora, tiempo_programado AS tiempo
+				, fn_visita_grados(v.id,1) AS sec_1, fn_visita_grados(v.id,2) AS sec_2
+				, fn_visita_grados(v.id,3) AS sec_3, fn_visita_grados(v.id,4) AS sec_4
+				, fn_visita_grados(v.id,5) AS sec_5, fn_visita_alumnos(v.id,1) AS dat_1
+				, fn_visita_alumnos(v.id,2) AS dat_2, fn_visita_alumnos(v.id,3) AS dat_3
+				, fn_visita_alumnos(v.id,4) AS dat_4, fn_visita_alumnos(v.id,5) AS dat_5
+				, v.observacion, CONCAT_WS(' ', p.paterno, p.materno, p.nombre) AS promotor
+				, v.contacto, v.cargo, v.email AS c_email, v.telefono AS c_telefono
+			FROM visitas v
+				INNER JOIN colegios c ON v.colegio_id=c.id
+				LEFT JOIN colegios_niveles cn ON c.colegio_nivel_id=cn.id
+				INNER JOIN odes o ON c.ode_id=o.id
+				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
+				INNER JOIN distritos d ON c.distrito_id=d.id
+				INNER JOIN provincias pro ON d.provincia_id=pro.id
+				INNER JOIN departamentos de ON pro.departamento_id=de.id
+				LEFT JOIN personas p ON v.persona_id=p.id
+				LEFT JOIN personas pte ON v.personat_id=pte.id
+		) a
+EOT;
+		$sSql .= $aParametro['where'].$aParametro['limit'];
+		$oData = DB::select($sSql);
+		return $oData;
+	}
+
+	public static function getCargaDataColegioCount( $array )
+	{
+		$sSql = <<<EOT
+		SELECT
+			COUNT(a.id) AS cant
+		FROM (
+			SELECT
+				v.id, o.nombre AS ode, LEFT(ct.nombre,1) AS tipo_colegio, c.nombre AS colegio, cn.nombre AS nivel_cole
+				, CASE c.genero WHEN "M" THEN "Masculino" WHEN "F" THEN "Femenino" WHEN "X" THEN "Mixto" ELSE "" END AS genero
+				, c.turno, c.director, c.telefono, c.email, c.direccion, '' AS localidad, c.referencia, d.nombre AS distrito
+				, pro.nombre AS provincia, de.nombre AS departamento, c.ugel, v.personac AS contesta, v.personacr AS recibe
+				, CONCAT_WS(' ', pte.paterno, pte.materno, pte.nombre) AS tele_nombre, v.fechat AS tele_fecha
+				, DATE(v.fecha_visita) AS fecha_visita, TIME(v.fecha_visita) AS hora, tiempo_programado AS tiempo
+				, fn_visita_grados(v.id,1) AS sec_1, fn_visita_grados(v.id,2) AS sec_2
+				, fn_visita_grados(v.id,3) AS sec_3, fn_visita_grados(v.id,4) AS sec_4
+				, fn_visita_grados(v.id,5) AS sec_5, fn_visita_alumnos(v.id,1) AS dat_1
+				, fn_visita_alumnos(v.id,2) AS dat_2, fn_visita_alumnos(v.id,3) AS dat_3
+				, fn_visita_alumnos(v.id,4) AS dat_4, fn_visita_alumnos(v.id,5) AS dat_5
+				, v.observacion, CONCAT_WS(' ', p.paterno, p.materno, p.nombre) AS promotor
+				, v.contacto, v.cargo, v.email AS c_email, v.telefono AS c_telefono
+			FROM visitas v
+				INNER JOIN colegios c ON v.colegio_id=c.id
+				LEFT JOIN colegios_niveles cn ON c.colegio_nivel_id=cn.id
+				INNER JOIN odes o ON c.ode_id=o.id
+				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
+				INNER JOIN distritos d ON c.distrito_id=d.id
+				INNER JOIN provincias pro ON d.provincia_id=pro.id
+				INNER JOIN departamentos de ON pro.departamento_id=de.id
+				LEFT JOIN personas p ON v.persona_id=p.id
+				LEFT JOIN personas pte ON v.personat_id=pte.id
+		) a
+EOT;
+		$sSql.= $array['where'];
+		$oData = DB::select($sSql);
+		return $oData[0]->cant;
+	}
+
 }
 ?>
