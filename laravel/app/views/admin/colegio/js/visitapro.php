@@ -143,6 +143,15 @@ $(document).ready(function() {
             showDropdowns: true
         }
     );
+
+    $("#txt_fecha_visita2").daterangepicker(
+        {
+            format: 'YYYY-MM-DD HH:mm',
+            singleDatePicker: true,
+            timePicker: true,
+            showDropdowns: true
+        }
+    );
     MostrarAjax('visita');
 
     $('#alumnoModal').on('show.bs.modal', function (event) {
@@ -242,6 +251,15 @@ ActualizarContactoP=function(t){
     VisitaPro.ActualizarContactoP(data);
 }
 
+ActualizarFecha=function(t){
+    var data={
+            id:     IdeGlobal.visita,
+            campo:  'fecha_visita',
+            valor:  $(t).val() 
+        };
+    VisitaPro.ActualizarContactoP(data);
+}
+
 ActualizarAlumnoR=function(t){
     var data={
             id:     $(t).attr("data-id"),
@@ -272,8 +290,9 @@ for(var i =0;i<trs.length;i++)
 tr.style.backgroundColor = "#9CD9DE";
     
     IdeGlobal.seleccion=tr;
-    $("#txt_persona2_id").val( $(IdeGlobal.seleccion).find("td:eq(3)>input").val() );
-    $("#txt_persona2").val( $(IdeGlobal.seleccion).find("td:eq(3)>span").text() );
+    $("#txt_persona2_id").val( $(IdeGlobal.seleccion).find("td:eq(4)>input").val() );
+    $("#txt_persona2").val( $(IdeGlobal.seleccion).find("td:eq(4)>span").text() );
+    $("#txt_fecha_visita2").val( $(IdeGlobal.seleccion).find("td:eq(0)").text() );
     IdeGlobal.visita=id;
     VisitaPro.CargarContactos(CargarContactosHTML,id);
     VisitaPro.CargarDetalle(CargarDetalleHTML,id);

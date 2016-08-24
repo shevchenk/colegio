@@ -52,6 +52,7 @@ var VisitaPro={
                 $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
             },
             success : function(obj) {
+                msjG.mensaje("success",obj.msj,6000);
                 $(".overlay,.loading-img").remove();
             },
             error: function(){

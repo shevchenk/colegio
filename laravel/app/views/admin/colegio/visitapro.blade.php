@@ -55,6 +55,17 @@
             </div>
             <div class="col-sm-12">
                 <div class="col-sm-6">
+                <h2 style='text-align:center; background-color:#A7C0DC;' class="control-label">VISITA</h2>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-3">
+                    <label class="control-label">Fecha Visita:</label>
+                    <input class="form-control" type="text" onchange="ActualizarFecha(this);" name="txt_fecha_visita2" id="txt_fecha_visita2" readonly>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-6">
                 <h2 style='text-align:center; background-color:#A7C0DC;' class="control-label">TRABAJADOR</h2>
                 </div>
             </div>
