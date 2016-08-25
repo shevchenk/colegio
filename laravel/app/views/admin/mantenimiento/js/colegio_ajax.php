@@ -43,6 +43,7 @@ var Colegios = {
 								'<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#colegioModal" data-id="'+data.id+'" data-titulo="Editar"><i class="fa fa-edit fa-lg"></i></a>'+
 								'<a class="btn btn-info btn-xs" data-toggle="modal" data-target="#detalleModal" data-id="'+data.id+'" data-titulo="'+data.nombre+'">Detalle <i class="fa fa-share fa-1x"></i></a>'+
 								'<a class="btn bg-navy btn-xs" data-toggle="modal" data-target="#convenioModal" data-id="'+data.id+'" data-titulo="'+data.nombre+'">Convenio <i class="fa fa-book fa-1x"></i></a>'+
+								'<a class="btn bg-olive btn-xs" data-toggle="modal" data-target="#seminarioModal" data-id="'+data.id+'" data-titulo="'+data.nombre+'">Seminario <i class="fa fa-users fa-1x"></i></a>'+
 							'</td>';
 						html+="</tr>";
 
