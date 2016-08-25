@@ -197,14 +197,14 @@ EOT;
 				, fn_visita_alumnos(v.id,4) AS dat_4, fn_visita_alumnos(v.id,5) AS dat_5
 				, v.observacion, CONCAT_WS(' ', p.paterno, p.materno, p.nombre) AS promotor
 				, v.contacto, v.cargo, v.email AS c_email, v.telefono AS c_telefono
-			FROM visitas v
-				INNER JOIN colegios c ON v.colegio_id=c.id
+			FROM colegios c 
+				LEFT JOIN visitas v ON c.id = v.colegio_id
 				LEFT JOIN colegios_niveles cn ON c.colegio_nivel_id=cn.id
-				INNER JOIN odes o ON c.ode_id=o.id
-				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
-				INNER JOIN distritos d ON c.distrito_id=d.id
-				INNER JOIN provincias pro ON d.provincia_id=pro.id
-				INNER JOIN departamentos de ON pro.departamento_id=de.id
+				LEFT JOIN odes o ON c.ode_id=o.id
+				LEFT JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
+				LEFT JOIN distritos d ON c.distrito_id=d.id
+				LEFT JOIN provincias pro ON d.provincia_id=pro.id
+				LEFT JOIN departamentos de ON pro.departamento_id=de.id
 				LEFT JOIN personas p ON v.persona_id=p.id
 				LEFT JOIN personas pte ON v.personat_id=pte.id
 		) a
@@ -234,14 +234,14 @@ EOT;
 				, fn_visita_alumnos(v.id,4) AS dat_4, fn_visita_alumnos(v.id,5) AS dat_5
 				, v.observacion, CONCAT_WS(' ', p.paterno, p.materno, p.nombre) AS promotor
 				, v.contacto, v.cargo, v.email AS c_email, v.telefono AS c_telefono
-			FROM visitas v
-				INNER JOIN colegios c ON v.colegio_id=c.id
+			FROM colegios c 
+				LEFT JOIN visitas v ON c.id = v.colegio_id
 				LEFT JOIN colegios_niveles cn ON c.colegio_nivel_id=cn.id
-				INNER JOIN odes o ON c.ode_id=o.id
-				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
-				INNER JOIN distritos d ON c.distrito_id=d.id
-				INNER JOIN provincias pro ON d.provincia_id=pro.id
-				INNER JOIN departamentos de ON pro.departamento_id=de.id
+				LEFT JOIN odes o ON c.ode_id=o.id
+				LEFT JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
+				LEFT JOIN distritos d ON c.distrito_id=d.id
+				LEFT JOIN provincias pro ON d.provincia_id=pro.id
+				LEFT JOIN departamentos de ON pro.departamento_id=de.id
 				LEFT JOIN personas p ON v.persona_id=p.id
 				LEFT JOIN personas pte ON v.personat_id=pte.id
 		) a
