@@ -5,6 +5,8 @@
 	@parent
 	@include( 'admin.mantenimiento.js.colegio_ajax' )
 	@include( 'admin.mantenimiento.js.colegio' )
+	@include( 'admin.mantenimiento.js.convenio' )
+	@include( 'admin.mantenimiento.js.seminario' )
 @stop
 <!-- Right side column. Contains the navbar and content of the page -->
 @section('contenido')
@@ -95,4 +97,5 @@
 	@include( 'admin.mantenimiento.form.colegio' )
 	@include( 'admin.mantenimiento.form.colegio_detalle' )
 	@include( 'admin.mantenimiento.form.convenio' )
+	@include( 'admin.mantenimiento.form.seminario' )
 @stop
