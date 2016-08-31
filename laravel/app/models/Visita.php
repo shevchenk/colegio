@@ -251,5 +251,84 @@ EOT;
 		return $oData[0]->cant;
 	}
 
+	public static function getCargaIndiceColegio($aParametro)
+	{
+		$sAno = 2016;
+		$sInicio = '2016-05-28';
+		$sFinal = '2016-11-28';
+		$sFechaActual = '2016-06-06';
+		$sSql = <<<EOT
+		SELECT 
+			b.id, b.ode, b.nacional, b.particular, b.visitados, b.por_visitar, b.meta, b.inicio, b.termino
+			, b.d1, b.d2, b.d3, b.d4, b.d5, b.d6, b.d7, b.total_cole
+			, b.dia_camp, b.dia_falta_camp, (b.dia_camp + b.dia_falta_camp) AS total_dia_camp
+			, FORMAT(b.total_cole / b.dia_camp, 2) AS indice_diario
+			, FORMAT( (b.meta - b.total_cole) / b.dia_falta_camp, 2) AS inicio_proyectado
+			, FORMAT( (b.dia_camp + b.dia_falta_camp) * (b.total_cole / b.dia_camp), 2) AS total_fin_camp
+		FROM (
+			SELECT 
+				a.id, a.ode, a.nacional, a.particular, (a.nacional + a.particular) AS visitados
+				, ( a.meta - (a.nacional + a.particular)) AS por_visitar, a.meta
+				, a.inicio, a.termino, a.d1, a.d2, a.d3, a.d4, a.d5, a.d6, a.d7
+				, (a.d1 + a.d2 + a.d3 + a.d4 + a.d5 + a.d6 + a.d7) AS total_cole
+				, DATEDIFF({$sFechaActual},a.inicio) AS dia_camp, DATEDIFF(a.termino,{$sFechaActual}) AS dia_falta_camp
+			FROM (
+				SELECT o.id, o.nombre AS ode, fn_ode_visita(o.id, 1, {$sAno}) AS nacional
+					, fn_ode_visita(o.id, 2,{$sAno}) AS particular
+					, (SELECT COUNT(*) FROM colegios r_c WHERE r_c.ode_id=o.id) AS meta
+					, DATE({$sInicio}) AS inicio, DATE(ADDDATE({$sFinal}, INTERVAL 1 DAY)) AS termino
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},0) AS 'd7'
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},1) AS 'd6'
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},2) AS 'd5'
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},3) AS 'd4'
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},4) AS 'd3'
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},5) AS 'd2'
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},6) AS 'd1'
+				FROM odes o
+			) a
+		) b
+EOT;
+		$sSql .= $aParametro['where'].$aParametro['limit'];
+		$oData = DB::select($sSql);
+		return $oData;
+	}
+
+	public static function getCargaIndiceColegioCount( $array )
+	{
+		$sAno = 2016;
+		$sInicio = '2016-05-28';
+		$sFinal = '2016-11-28';
+		$sFechaActual = '2016-06-06';
+		$sSql = <<<EOT
+		SELECT 
+			COUNT(b.id) AS cant
+		FROM (
+			SELECT 
+				a.id, a.ode, a.nacional, a.particular, (a.nacional + a.particular) AS visitados
+				, ( a.meta - (a.nacional + a.particular)) AS por_visitar, a.meta
+				, a.inicio, a.termino, a.d1, a.d2, a.d3, a.d4, a.d5, a.d6, a.d7
+				, (a.d1 + a.d2 + a.d3 + a.d4 + a.d5 + a.d6 + a.d7) AS total_cole
+				, DATEDIFF({$sFechaActual},a.inicio) AS dia_camp, DATEDIFF(a.termino,{$sFechaActual}) AS dia_falta_camp
+			FROM (
+				SELECT o.id, o.nombre AS ode, fn_ode_visita(o.id, 1, {$sAno}) AS nacional
+					, fn_ode_visita(o.id, 2,{$sAno}) AS particular
+					, (SELECT COUNT(*) FROM colegios r_c WHERE r_c.ode_id=o.id) AS meta
+					, DATE({$sInicio}) AS inicio, DATE(ADDDATE({$sFinal}, INTERVAL 1 DAY)) AS termino
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},0) AS 'd7'
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},1) AS 'd6'
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},2) AS 'd5'
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},3) AS 'd4'
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},4) AS 'd3'
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},5) AS 'd2'
+					, fn_ode_visita_fecha(o.id, {$sFechaActual},6) AS 'd1'
+				FROM odes o
+			) a
+		) b
+EOT;
+		$sSql.= $array['where'];
+		$oData = DB::select($sSql);
+		return $oData[0]->cant;
+	}
+
 }
 ?>

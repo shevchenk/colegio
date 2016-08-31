@@ -1,3 +1,20 @@
+-- 2016-08-31
+DELIMITER $$
+USE `colegio`$$
+DROP FUNCTION IF EXISTS `fn_ode_visita_fecha`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `fn_ode_visita_fecha`(nOdeId INT, sFecha DATE,nDia INT) RETURNS INT(11)
+BEGIN
+	DECLARE nColegioVisita INT DEFAULT 0;
+	SELECT COUNT(*) 
+		INTO nColegioVisita
+	FROM visitas v
+		INNER JOIN colegios c ON v.colegio_id=c.id 
+		INNER JOIN odes o ON c.ode_id=o.id
+	WHERE o.id=nOdeId AND DATE(v.fecha_visita)=ADDDATE(sFecha, INTERVAL -nDia DAY);
+	RETURN nColegioVisita;
+END$$
+DELIMITER ;
+
 -- 2016-08-29 actualización de la funcion fn_ode_visita
 DELIMITER $$
 USE `colegio`$$
