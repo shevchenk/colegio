@@ -34,7 +34,7 @@
 	<section class="content">
 		<div class="box row">
 			
-				<form name="form_filtros" id="form_filtros" method="POST" action="reporte/data">
+				<form name="form_filtros" id="form_filtros" method="POST" action="reporte/indice">
 					<div class="col-sm-6">
 						<select name='slct_todo' class="form-control">
 							<option value="">Seleccione</option>

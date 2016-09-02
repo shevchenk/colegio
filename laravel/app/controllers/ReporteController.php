@@ -1291,4 +1291,316 @@ class ReporteController extends BaseController
 
 	}
 
+	public function postIndice()
+	{
+		$az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
+		$styleThinBlackBorderAllborders = array(
+			'borders' => array(
+				'allborders' => array(
+					'style' => PHPExcel_Style_Border::BORDER_THIN,
+					'color' => array('argb' => 'FF000000'),
+				),
+			),
+		);
+		$styleAlignmentBold= array(
+			'font'    => array(
+				'bold'      => true
+			),
+			'alignment' => array(
+				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+				'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+			),
+		);
+		$styleAlignment= array(
+			'alignment' => array(
+				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+				'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+			),
+		);
+
+		$objPHPExcel = new PHPExcel();
+		$objPHPExcel->getProperties()->setCreator("Vic Omar");
+		$objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
+		$objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+
+		$sCadenaFecha = DateTime::createFromFormat('Y-m-d', Input::get("txt_fecha_actual"));
+		$sD6 = date_create(Input::get("txt_fecha_actual"));
+		$sD5 = date_create(Input::get("txt_fecha_actual"));
+		$sD4 = date_create(Input::get("txt_fecha_actual"));
+		$sD3 = date_create(Input::get("txt_fecha_actual"));
+		$sD2 = date_create(Input::get("txt_fecha_actual"));
+		$sD1 = date_create(Input::get("txt_fecha_actual"));
+		$sFecha = $sCadenaFecha->format('Y-m-d');
+		$sFechaVista = $sCadenaFecha->format('d/m/Y');
+
+		$objPHPExcel->getActiveSheet()->setCellValue("A1","FECHA DE ACTUALIZACIÓN : ".$sFechaVista);
+		$objPHPExcel->getActiveSheet()->mergeCells('A1:F1');
+		$objPHPExcel->getActiveSheet()->getStyle('A1:F1')->applyFromArray($styleAlignmentBold);
+
+		$objPHPExcel->getActiveSheet()->setCellValue("A2","INDICE DE COLEGIOS");
+		$objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setSize(20);
+		$objPHPExcel->getActiveSheet()->mergeCells('A2:W2');
+		$objPHPExcel->getActiveSheet()->getStyle('A2:W2')->applyFromArray($styleAlignmentBold);
+
+		$objPHPExcel->getActiveSheet()->setCellValue("A3","#");
+		$objPHPExcel->getActiveSheet()->getStyle('A3:A4')
+			->applyFromArray($styleAlignmentBold)->getFill()
+			->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+		$objPHPExcel->getActiveSheet()->mergeCells('A3:A4');
+
+		$objPHPExcel->getActiveSheet()->setCellValue("B3","Ode");
+		$objPHPExcel->getActiveSheet()->getStyle('B3:B4')
+			->applyFromArray($styleAlignmentBold)->getFill()
+			->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+			->getStartColor()->setARGB('fff176');
+		$objPHPExcel->getActiveSheet()->mergeCells('B3:B4');
+
+		$objPHPExcel->getActiveSheet()->setCellValue("C3","Colegios Visitados");
+		$objPHPExcel->getActiveSheet()->mergeCells('C3:D3');
+		$objPHPExcel->getActiveSheet()->getStyle('C3:D3')
+			->applyFromArray($styleAlignmentBold)->getFill()
+			->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+			->getStartColor()->setARGB('64b5f6');
+		$objPHPExcel->getActiveSheet()->setCellValue("C4","Nacional");
+		$objPHPExcel->getActiveSheet()->setCellValue("D4","Particular");
+		$objPHPExcel->getActiveSheet()->getStyle('C4:D4')->applyFromArray($styleAlignmentBold);
+
+		$objPHPExcel->getActiveSheet()->setCellValue("E3","Colegios");
+		$objPHPExcel->getActiveSheet()->mergeCells('E3:G3');
+		$objPHPExcel->getActiveSheet()->getStyle('E3:G3')
+			->applyFromArray($styleAlignmentBold)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+		$objPHPExcel->getActiveSheet()->setCellValue("E4","Visitados");
+		$objPHPExcel->getActiveSheet()->setCellValue("F4","X Visitar");
+		$objPHPExcel->getActiveSheet()->setCellValue("G4","Meta");
+		$objPHPExcel->getActiveSheet()->getStyle('E4:G4')->applyFromArray($styleAlignmentBold);
+
+		$objPHPExcel->getActiveSheet()->setCellValue("H3","Campaña");
+		$objPHPExcel->getActiveSheet()->mergeCells('H3:I3');
+		$objPHPExcel->getActiveSheet()->getStyle('H3:I3')
+			->applyFromArray($styleAlignmentBold)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+		$objPHPExcel->getActiveSheet()->setCellValue("H4","Inicio");
+		$objPHPExcel->getActiveSheet()->setCellValue("I4","Termino");
+		$objPHPExcel->getActiveSheet()->getStyle('H4:I4')->applyFromArray($styleAlignmentBold);
+
+		$objPHPExcel->getActiveSheet()->setCellValue("J3","Dias (1 Semana)");
+		$objPHPExcel->getActiveSheet()->mergeCells('J3:Q3');
+		$objPHPExcel->getActiveSheet()->getStyle('J3:Q3')
+			->applyFromArray($styleAlignmentBold)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+		$objPHPExcel->getActiveSheet()->setCellValue("J4",$sD6->modify('-6 day')->format('d/m/Y'));
+		$objPHPExcel->getActiveSheet()->setCellValue("K4",$sD5->modify('-5 day')->format('d/m/Y'));
+		$objPHPExcel->getActiveSheet()->setCellValue("L4",$sD4->modify('-4 day')->format('d/m/Y'));
+		$objPHPExcel->getActiveSheet()->setCellValue("M4",$sD3->modify('-3 day')->format('d/m/Y'));
+		$objPHPExcel->getActiveSheet()->setCellValue("N4",$sD2->modify('-2 day')->format('d/m/Y'));
+		$objPHPExcel->getActiveSheet()->setCellValue("O4",$sD1->modify('-1 day')->format('d/m/Y'));
+		$objPHPExcel->getActiveSheet()->setCellValue("P4", $sFechaVista);
+		$objPHPExcel->getActiveSheet()->setCellValue("Q4","Total de Colegio");
+		$objPHPExcel->getActiveSheet()->getStyle('J4:Q4')->applyFromArray($styleAlignmentBold);
+
+		$objPHPExcel->getActiveSheet()->setCellValue("R3","Dia Camp");
+		$objPHPExcel->getActiveSheet()->mergeCells('R3:R4');
+		$objPHPExcel->getActiveSheet()->getStyle('R3:R4')
+			->applyFromArray($styleAlignmentBold)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+
+		$objPHPExcel->getActiveSheet()->setCellValue("S3","Dias Falt Camp");
+		$objPHPExcel->getActiveSheet()->mergeCells('S3:S4');
+		$objPHPExcel->getActiveSheet()->getStyle('S3:S4')
+			->applyFromArray($styleAlignmentBold)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+
+		$objPHPExcel->getActiveSheet()->setCellValue("T3","Total Dias");
+		$objPHPExcel->getActiveSheet()->mergeCells('T3:T4');
+		$objPHPExcel->getActiveSheet()->getStyle('T3:T4')
+			->applyFromArray($styleAlignmentBold)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+
+		$objPHPExcel->getActiveSheet()->setCellValue("U3","Indice Diario");
+		$objPHPExcel->getActiveSheet()->getStyle('U3:U4')
+			->applyFromArray($styleAlignmentBold)->getFill()
+			->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+			->getStartColor()->setARGB('fff176');
+		$objPHPExcel->getActiveSheet()->mergeCells('U3:U4');
+
+		$objPHPExcel->getActiveSheet()->setCellValue("V3","Indice Proyectado");
+		$objPHPExcel->getActiveSheet()->getStyle('V3:V4')
+			->applyFromArray($styleAlignmentBold)->getFill()
+			->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+			->getStartColor()->setARGB('fff176');
+		$objPHPExcel->getActiveSheet()->mergeCells('V3:V4');
+
+		$objPHPExcel->getActiveSheet()->setCellValue("W3","Total a fin de Camp");
+		$objPHPExcel->getActiveSheet()->mergeCells('W3:W4');
+		$objPHPExcel->getActiveSheet()->getStyle('W3:W4')
+			->applyFromArray($styleAlignmentBold)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+
+		$array=array();
+		$array['where']=' WHERE 1=1 ';
+		$array['usuario']=Auth::user()->id;
+		$array['limit']='';
+		$array['order']='';
+
+		if( Input::has("txt_fecha_actual") ){
+			$array['fecha_actual']=Input::get("txt_fecha_actual");
+		} else {
+			$array['fecha_actual']=date("Y-m-d");
+		}
+
+		if( Input::get("slct_todo")=='0' )
+		{
+
+			if( Input::has("txt_ode") ){
+				$array['where'].=" AND c.ode LIKE '%".Input::get("txt_ode")."%' ";
+			}
+			if( Input::has("txt_nacional") ){
+				$array['where'].=" AND c.nacional LIKE '%".Input::get("txt_nacional")."%' ";
+			}
+			if( Input::has("txt_particular") ){
+				$array['where'].=" AND c.particular LIKE '%".Input::get("txt_particular")."%' ";
+			}
+			if( Input::has("txt_visitados") ){
+				$array['where'].=" AND c.visitados LIKE '%".Input::get("txt_visitados")."%' ";
+			}
+			if( Input::has("txt_por_visitar") ){
+				$array['where'].=" AND c.por_visitar LIKE '%".Input::get("txt_por_visitar")."%' ";
+			}
+			if( Input::has("txt_meta") ){
+				$array['where'].=" AND c.meta LIKE '%".Input::get("txt_meta")."%' ";
+			}
+			if( Input::has("txt_inicio") ){
+				$array['where'].=" AND c.inicio LIKE '%".Input::get("txt_inicio")."%' ";
+			}
+			if( Input::has("txt_termino") ){
+				$array['where'].=" AND c.termino LIKE '%".Input::get("txt_termino")."%' ";
+			}
+			if( Input::has("txt_d1") ){
+				$array['where'].=" AND c.d1 LIKE '%".Input::get("txt_d1")."%' ";
+			}
+			if( Input::has("txt_d2") ){
+				$array['where'].=" AND c.d2 LIKE '%".Input::get("txt_d2")."%' ";
+			}
+			if( Input::has("txt_d3") ){
+				$array['where'].=" AND c.d3 LIKE '%".Input::get("txt_d3")."%' ";
+			}
+			if( Input::has("txt_d4") ){
+				$array['where'].=" AND c.d4 LIKE '%".Input::get("txt_d4")."%' ";
+			}
+			if( Input::has("txt_d5") ){
+				$array['where'].=" AND c.d5 LIKE '%".Input::get("txt_d5")."%' ";
+			}
+			if( Input::has("txt_d6") ){
+				$array['where'].=" AND c.d6 LIKE '%".Input::get("txt_d6")."%' ";
+			}
+			if( Input::has("txt_d7") ){
+				$array['where'].=" AND c.d7 LIKE '%".Input::get("txt_d7")."%' ";
+			}
+			if( Input::has("txt_total_cole") ){
+				$array['where'].=" AND c.total_cole LIKE '%".Input::get("txt_total_cole")."%' ";
+			}
+			if( Input::has("txt_dia_camp") ){
+				$array['where'].=" AND c.dia_camp LIKE '%".Input::get("txt_dia_camp")."%' ";
+			}
+			if( Input::has("txt_dia_falta_camp") ){
+				$array['where'].=" AND c.dia_falta_camp LIKE '%".Input::get("txt_dia_falta_camp")."%' ";
+			}
+			if( Input::has("txt_total_dia_camp") ){
+				$array['where'].=" AND c.total_dia_camp LIKE '%".Input::get("txt_total_dia_camp")."%' ";
+			}
+			if( Input::has("txt_indice_diario") ){
+				$array['where'].=" AND c.indice_diario LIKE '%".Input::get("txt_indice_diario")."%' ";
+			}
+			if( Input::has("txt_inicio_proyectado") ){
+				$array['where'].=" AND c.inicio_proyectado LIKE '%".Input::get("txt_inicio_proyectado")."%' ";
+			}
+			if( Input::has("txt_total_fin_camp") ){
+				$array['where'].=" AND c.total_fin_camp LIKE '%".Input::get("txt_total_fin_camp")."%' ";
+			}
+
+			if (Input::has('draw'))
+			{
+				if (Input::has('order'))
+				{
+					$inorder=Input::get('order');
+					$incolumns=Input::get('columns');
+					$array['order']=  ' ORDER BY '.$incolumns[ $inorder[0]['column'] ]['name'].' '.$inorder[0]['dir'];
+				}
+
+				$array['limit']=' LIMIT '.Input::get('start').','.Input::get('length');
+				$retorno["draw"]=Input::get('draw');
+			}
+		}
+
+		$aData = Visita::getCargaIndiceColegio($array);
+		$cont=0;
+		$valorinicial=4;
+
+		foreach($aData as $r)
+		{
+			$cont++;
+			$valorinicial++;
+			$azcant=0;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$cont);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->ode);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->nacional);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->particular);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->visitados);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->por_visitar);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->meta);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->inicio);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->termino);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->d1);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->d2);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->d3);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->d4);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->d5);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->d6);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->d7);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->total_cole);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->dia_camp);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->dia_falta_camp);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->total_dia_camp);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->indice_diario);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->inicio_proyectado);
+				$azcant++;
+			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->total_fin_camp);
+		}
+		$objPHPExcel->getActiveSheet()->getStyle('A2:'.$az[$azcant].$valorinicial)->applyFromArray($styleThinBlackBorderAllborders);
+		$objPHPExcel->getActiveSheet()->setTitle('Data');
+		$objPHPExcel->setActiveSheetIndex(0);
+		foreach ($az as $nK => $sV) {
+			if($sV=="A" OR ($sV>="L" AND $sV<="W") ){
+				$objPHPExcel->getActiveSheet()->getColumnDimension($sV)->setAutoSize(true);
+			}
+			if($sV=="AB")
+			{
+				break;
+			}
+		}
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="Indice_'.date("Y-m-d_H-i-s").'.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+		$objWriter->save('php://output');
+		exit;
+
+	}
+
 }
