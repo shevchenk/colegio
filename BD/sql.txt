@@ -1,3 +1,24 @@
+-- 2016-09-04
+DELIMITER $$
+USE `colegio`$$
+DROP FUNCTION IF EXISTS `fn_ode_grado`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `fn_ode_grado`(nOdeId INT, nGrado INT) RETURNS INT(11)
+BEGIN
+	DECLARE nColegioGrado INT DEFAULT 0;
+	SELECT COUNT(*)
+		INTO nColegioGrado
+	FROM 
+	(
+		SELECT cd.id  
+		FROM colegios_detalle cd
+			LEFT JOIN colegios c ON cd.colegio_id=c.id
+			LEFT JOIN odes o ON c.ode_id=o.id
+		WHERE o.id=nOdeId AND cd.grado=nGrado
+		GROUP BY c.id
+	) a;
+	RETURN nColegioGrado;
+END$$
+DELIMITER ;
 -- 2016-08-31
 DELIMITER $$
 USE `colegio`$$
