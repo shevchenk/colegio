@@ -653,6 +653,122 @@ class VisitaController extends BaseController
 		}
 	}
 
+	public function postCargarindicedata()
+	{
+		if ( Request::ajax() )
+		{
+			$array=array();
+			$array['where']=' WHERE 1=1 ';
+			$array['usuario']=Auth::user()->id;
+			$array['limit']='';
+			$array['order']='';
+			if( Input::has("fecha_actual") ){
+				$array['fecha_actual']=Input::get("fecha_actual");
+			} else {
+				$array['fecha_actual']=date("Y-m-d");
+			}
+
+			if( Input::has("ode") ){
+				$array['where'].=" AND c.ode LIKE '%".Input::get("ode")."%' ";
+			}
+			if( Input::has("g1") ){
+				$array['where'].=" AND c.g1 LIKE '%".Input::get("g1")."%' ";
+			}
+			if( Input::has("g2") ){
+				$array['where'].=" AND c.g2 LIKE '%".Input::get("g2")."%' ";
+			}
+			if( Input::has("g3") ){
+				$array['where'].=" AND c.g3 LIKE '%".Input::get("g3")."%' ";
+			}
+			if( Input::has("g4") ){
+				$array['where'].=" AND c.g4 LIKE '%".Input::get("g4")."%' ";
+			}
+			if( Input::has("g5") ){
+				$array['where'].=" AND c.g5 LIKE '%".Input::get("g5")."%' ";
+			}
+			if( Input::has("recopilada") ){
+				$array['where'].=" AND c.recopilada LIKE '%".Input::get("recopilada")."%' ";
+			}
+			if( Input::has("por_recopilar") ){
+				$array['where'].=" AND c.por_recopilar LIKE '%".Input::get("por_recopilar")."%' ";
+			}
+			if( Input::has("meta") ){
+				$array['where'].=" AND c.meta LIKE '%".Input::get("meta")."%' ";
+			}
+			if( Input::has("inicio") ){
+				$array['where'].=" AND c.inicio LIKE '%".Input::get("inicio")."%' ";
+			}
+			if( Input::has("termino") ){
+				$array['where'].=" AND c.termino LIKE '%".Input::get("termino")."%' ";
+			}
+			if( Input::has("d1") ){
+				$array['where'].=" AND c.d1 LIKE '%".Input::get("d1")."%' ";
+			}
+			if( Input::has("d2") ){
+				$array['where'].=" AND c.d2 LIKE '%".Input::get("d2")."%' ";
+			}
+			if( Input::has("d3") ){
+				$array['where'].=" AND c.d3 LIKE '%".Input::get("d3")."%' ";
+			}
+			if( Input::has("d4") ){
+				$array['where'].=" AND c.d4 LIKE '%".Input::get("d4")."%' ";
+			}
+			if( Input::has("d5") ){
+				$array['where'].=" AND c.d5 LIKE '%".Input::get("d5")."%' ";
+			}
+			if( Input::has("d6") ){
+				$array['where'].=" AND c.d6 LIKE '%".Input::get("d6")."%' ";
+			}
+			if( Input::has("d7") ){
+				$array['where'].=" AND c.d7 LIKE '%".Input::get("d7")."%' ";
+			}
+			if( Input::has("total_cole") ){
+				$array['where'].=" AND c.total_cole LIKE '%".Input::get("total_cole")."%' ";
+			}
+			if( Input::has("dia_camp") ){
+				$array['where'].=" AND c.dia_camp LIKE '%".Input::get("dia_camp")."%' ";
+			}
+			if( Input::has("dia_falta_camp") ){
+				$array['where'].=" AND c.dia_falta_camp LIKE '%".Input::get("dia_falta_camp")."%' ";
+			}
+			if( Input::has("total_dia_camp") ){
+				$array['where'].=" AND c.total_dia_camp LIKE '%".Input::get("total_dia_camp")."%' ";
+			}
+			if( Input::has("indice_diario") ){
+				$array['where'].=" AND c.indice_diario LIKE '%".Input::get("indice_diario")."%' ";
+			}
+			if( Input::has("inicio_proyectado") ){
+				$array['where'].=" AND c.inicio_proyectado LIKE '%".Input::get("inicio_proyectado")."%' ";
+			}
+			if( Input::has("total_fin_camp") ){
+				$array['where'].=" AND c.total_fin_camp LIKE '%".Input::get("total_fin_camp")."%' ";
+			}
+
+			if (Input::has('draw'))
+			{
+				if (Input::has('order'))
+				{
+					$inorder=Input::get('order');
+					$incolumns=Input::get('columns');
+					$array['order']=  ' ORDER BY '.$incolumns[ $inorder[0]['column'] ]['name'].' '.$inorder[0]['dir'];
+				}
+
+				$array['limit']=' LIMIT '.Input::get('start').','.Input::get('length');
+				$retorno["draw"]=Input::get('draw');
+			}
+
+			$cant  = Visita::getCargaIndiceDataCount( $array );
+			$aData = Visita::getCargaIndiceData( $array );
+
+			$aParametro['rst'] = 1;
+			$aParametro["recordsTotal"]=$cant;
+			$aParametro["recordsFiltered"]=$cant;
+			$aParametro['data'] = $aData;
+			$aParametro['msj'] = "No hay visitas programadas aún";
+			return Response::json($aParametro);
+		}
+	}
+
     public function postActualizartrabajador()
     {
         if ( Request::ajax() ) {

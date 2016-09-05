@@ -334,5 +334,98 @@ EOT;
 		return $oData[0]->cant;
 	}
 
+	public static function getCargaIndiceData($aParametro)
+	{
+		$sCadenaFecha = DateTime::createFromFormat('Y-m-d', $aParametro["fecha_actual"]);
+		$sAno = $sCadenaFecha->format('Y');
+		$sFechaActual = $sCadenaFecha->format('Y-m-d');
+		$sSql = <<<EOT
+		SELECT *
+		FROM (
+			SELECT 
+				b.id, b.ode, b.g1, b.g2, b.g3, b.g4, b.g5, b.recopilada
+				, b.por_recopilar, b.meta, b.inicio, b.termino
+				, b.d1, b.d2, b.d3, b.d4, b.d5, b.d6, b.d7, b.total_cole
+				, b.dia_camp, b.dia_falta_camp, (b.dia_camp + b.dia_falta_camp) AS total_dia_camp
+				, FORMAT(b.total_cole / b.dia_camp, 2) AS indice_diario
+				, FORMAT( (b.meta - b.total_cole) / b.dia_falta_camp, 2) AS inicio_proyectado
+				, FORMAT( (b.dia_camp + b.dia_falta_camp) * (b.total_cole / b.dia_camp), 2) AS total_fin_camp
+			FROM (
+				SELECT 
+					a.id, a.ode, a.g1, a.g2, a.g3, a.g4, a.g5
+					, (a.g1 + a.g2 + a.g3 + a.g4 + a.g5) AS recopilada
+					, ( a.meta - (a.g1 + a.g2 + a.g3 + a.g4 + a.g5)) AS por_recopilar, a.meta
+					, a.inicio, a.termino, a.d1, a.d2, a.d3, a.d4, a.d5, a.d6, a.d7
+					, (a.d1 + a.d2 + a.d3 + a.d4 + a.d5 + a.d6 + a.d7) AS total_cole
+					, DATEDIFF('{$sFechaActual}',a.inicio) AS dia_camp, DATEDIFF(a.termino,'{$sFechaActual}') AS dia_falta_camp
+				FROM (
+					SELECT o.id, o.nombre AS ode
+						, fn_ode_grado(o.id, 1) AS g1, fn_ode_grado(o.id, 2) AS g2
+						, fn_ode_grado(o.id, 3) AS g3, fn_ode_grado(o.id, 4) AS g4
+						, fn_ode_grado(o.id, 5) AS g5
+						, (SELECT COUNT(*) FROM colegios r_c 
+							INNER JOIN colegios_detalle r_cd ON r_c.id=r_cd.colegio_id 
+							WHERE r_c.ode_id=o.id) AS meta
+						, DATE('2016-05-28') AS inicio, DATE(ADDDATE('2016-11-28', INTERVAL 1 DAY)) AS termino
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',0) AS 'd7'
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',1) AS 'd6'
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',2) AS 'd5'
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',3) AS 'd4'
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',4) AS 'd3'
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',5) AS 'd2'
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',6) AS 'd1'
+					FROM odes o
+				) a
+			) b
+		) c
+EOT;
+		$sSql .= $aParametro['where'].$aParametro['limit'];
+		$oData = DB::select($sSql);
+		return $oData;
+	}
+
+	public static function getCargaIndiceDataCount( $array )
+	{
+		$sCadenaFecha = DateTime::createFromFormat('Y-m-d', $array["fecha_actual"]);
+		$sAno = $sCadenaFecha->format('Y');
+		$sFechaActual = $sCadenaFecha->format('Y-m-d');
+		$sSql = <<<EOT
+		SELECT COUNT(c.id) AS cant
+		FROM (
+			SELECT *
+			FROM (
+				SELECT 
+					a.id, a.ode, a.g1, a.g2, a.g3, a.g4, a.g5
+					, (a.g1 + a.g2 + a.g3 + a.g4 + a.g5) AS recopilada
+					, ( a.meta - (a.g1 + a.g2 + a.g3 + a.g4 + a.g5)) AS por_recopilar, a.meta
+					, a.inicio, a.termino, a.d1, a.d2, a.d3, a.d4, a.d5, a.d6, a.d7
+					, (a.d1 + a.d2 + a.d3 + a.d4 + a.d5 + a.d6 + a.d7) AS total_cole
+					, DATEDIFF('{$sFechaActual}',a.inicio) AS dia_camp, DATEDIFF(a.termino,'{$sFechaActual}') AS dia_falta_camp
+				FROM (
+					SELECT o.id, o.nombre AS ode
+						, fn_ode_grado(o.id, 1) AS g1, fn_ode_grado(o.id, 2) AS g2
+						, fn_ode_grado(o.id, 3) AS g3, fn_ode_grado(o.id, 4) AS g4
+						, fn_ode_grado(o.id, 5) AS g5
+						, (SELECT COUNT(*) FROM colegios r_c 
+							INNER JOIN colegios_detalle r_cd ON r_c.id=r_cd.colegio_id 
+							WHERE r_c.ode_id=o.id) AS meta
+						, DATE('2016-05-28') AS inicio, DATE(ADDDATE('2016-11-28', INTERVAL 1 DAY)) AS termino
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',0) AS 'd7'
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',1) AS 'd6'
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',2) AS 'd5'
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',3) AS 'd4'
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',4) AS 'd3'
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',5) AS 'd2'
+						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',6) AS 'd1'
+					FROM odes o
+				) a
+			) b
+		) c
+EOT;
+		$sSql.= $array['where'];
+		$oData = DB::select($sSql);
+		return $oData[0]->cant;
+	}
+
 }
 ?>
