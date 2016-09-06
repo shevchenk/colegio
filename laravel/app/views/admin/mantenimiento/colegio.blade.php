@@ -3,6 +3,13 @@
 
 @section('includes')
 	@parent
+	{{ HTML::style('lib/daterangepicker/css/daterangepicker-bs3.css') }}
+    {{ HTML::style('lib/bootstrap-multiselect/dist/css/bootstrap-multiselect.css') }}
+    {{ HTML::script('lib/daterangepicker/js/daterangepicker.js') }}
+    {{ HTML::script('lib/bootstrap-multiselect/dist/js/bootstrap-multiselect.js') }}
+    {{ HTML::script('//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js') }}
+    {{ HTML::script('lib/daterangepicker/js/daterangepicker_single.js') }}
+    
 	@include( 'admin.mantenimiento.js.colegio_ajax' )
 	@include( 'admin.mantenimiento.js.colegio' )
 	@include( 'admin.mantenimiento.js.convenio' )

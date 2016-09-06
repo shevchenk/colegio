@@ -9,7 +9,7 @@
         <h4 class="modal-title">New message</h4>
       </div>
       <div class="modal-body">
-        <form id="form_personas" name="form_personas" action="" method="post">
+        <form id="form_convenio" name="form_convenio" action="" method="post">
           <fieldset>
             <legend>Datos personales</legend>
             <div class="row form-group">

@@ -326,5 +326,48 @@ var Colegios = {
             }
         });
     },
+    ListarSeminarios:function(evento,datos){
+        $.ajax({
+            url         : 'colegio/listarseminario',
+            type        : 'POST',
+            cache       : false,
+            dataType    : 'json',
+            data        : datos,
+            beforeSend : function() {
+                $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+            },
+            success : function(obj) {
+                $(".overlay,.loading-img").remove();
+                evento(obj);
+                if( obj.aData.length==0 ){
+                    msjG.mensaje("danger","No hay personas registradas",5000);
+                }
+            },
+            error: function(){
+                $(".overlay,.loading-img").remove();
+                msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
+            }
+        });
+    },
+    GuardarSeminarios:function(evento,datos){
+        $.ajax({
+            url         : 'colegio/guardarseminarios',
+            type        : 'POST',
+            cache       : false,
+            dataType    : 'json',
+            data        : datos,
+            beforeSend : function() {
+                $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+            },
+            success : function(obj) {
+                $(".overlay,.loading-img").remove();
+                evento(obj);
+            },
+            error: function(){
+                $(".overlay,.loading-img").remove();
+                msjG.mensaje("danger","Ocurrio una interrupción en el proceso,Favor de intentar nuevamente.",3000);
+            }
+        });
+    },
 };
 </script>

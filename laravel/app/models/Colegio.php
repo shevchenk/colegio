@@ -131,5 +131,15 @@ EOT;
 		return $bData;
 	}
 
+	public static function getListarSeminario($colegio_id){
+		$sql=" 	SELECT persona,cargo,horario,IFNULL(fecha,'') fecha,celular,id,colegio_id
+				FROM colegios_seminarios
+				WHERE estado=1
+				AND colegio_id='".$colegio_id."'";
+		$r=DB::select($sql); 
+
+		return $r;
+	}
+
 }
 ?>

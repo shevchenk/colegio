@@ -1,3 +1,20 @@
+-- 2016-06-09
+DROP TABLE IF EXISTS `colegios_seminarios`;
+CREATE TABLE `colegios_seminarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `colegio_id` int(11) DEFAULT NULL,
+  `persona` varchar(120) DEFAULT NULL,
+  `cargo` varchar(100) DEFAULT NULL,
+  `horario` varchar(100) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `celular` varchar(50) DEFAULT NULL,
+  `estado` int(1) DEFAULT '1',
+  `usuario_created_at` int(11) DEFAULT NULL,
+  `usuario_updated_at` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 -- 2016-09-04
 DELIMITER $$
 USE `colegio`$$

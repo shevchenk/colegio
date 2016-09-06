@@ -302,5 +302,72 @@ class ColegioController extends BaseController
 		}
 	}
 
+	public function postListarseminario()
+	{
+		if ( Request::ajax() ) {
+			$colegio_id = Input::get('colegio_id');
+			$aData = Colegio::getListarSeminario($colegio_id);
+			$aParametro['rst'] = 1;
+			$aParametro['aData'] = $aData;
+			return Response::json($aParametro);
+		}
+	}
+
+	public function postGuardarseminarios()
+	{
+		if ( Request::ajax() ) {
+			$colegio_id=Input::get('colegio_id');
+			$id=Input::get('id');
+			$persona=Input::get('persona');
+			$cargo=Input::get('cargo');
+			$horario=Input::get('horario');
+			$fecha=Input::get('fecha');
+			$celular=Input::get('celular');
+			$usu= Auth::user()->id;
+
+			DB::beginTransaction();
+			DB::table('colegios_seminarios')
+            ->where('colegio_id', $colegio_id)
+            ->update(
+            	array(
+            		'usuario_updated_at' => $usu,
+            		'estado' => 0
+            		)
+            );
+
+			for ($i=0; $i < COUNT($persona); $i++) { 
+				$seminario=array();
+				if( trim($id[$i])=='' ){
+					$seminario=new Seminario;
+					$seminario['usuario_created_at']=$usu;
+				}
+				else{
+					$seminario=Seminario::find($id[$i]);
+					$seminario['usuario_updated_at']=$usu;
+					$seminario['estado']=1;
+				}
+					$seminario['colegio_id']=$colegio_id;
+					$seminario['persona']=$persona[$i];
+					$seminario['cargo']=$cargo[$i];
+					$seminario['horario']=$horario[$i];
+					$seminario['fecha']=$fecha[$i];
+					if( $fecha[$i]=='' ){
+						$seminario['fecha']=NULL;
+					}
+					$seminario['celular']=$celular[$i];
+					$seminario->save();
+			}
+			DB::commit();
+
+			return Response::json(
+				array(
+				'rst'=>1,
+				'msj'=>'Registro actualizado correctamente',
+				)
+			);
+
+		}
+	}
+
 }
 ?>
