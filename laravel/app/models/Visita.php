@@ -69,8 +69,8 @@ EOT;
 				INNER JOIN odes o ON c.ode_id=o.id
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
-				LEFT JOIN personas p ON v.persona_id=p.id
-			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 AND p.estado=1
+				LEFT JOIN personas p ON v.persona_id=p.id AND p.estado=1
+			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 
 		) a
 EOT;
 		$sSql .= $aParametro['where'].$aParametro['limit'];
@@ -101,8 +101,8 @@ EOT;
 				INNER JOIN odes o ON c.ode_id=o.id
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
-				LEFT JOIN personas p ON v.persona_id=p.id
-			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 AND p.estado=1
+				LEFT JOIN personas p ON v.persona_id=p.id AND p.estado=1
+			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 
 		) a
 EOT;
 		$sSql.= $array['where'];
@@ -137,8 +137,8 @@ EOT;
 				INNER JOIN odes o ON c.ode_id=o.id
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
-				LEFT JOIN personas p ON v.persona_id=p.id
-			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 AND p.estado=1
+				LEFT JOIN personas p ON v.persona_id=p.id AND p.estado=1
+			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 
 		) a
 EOT;
 		$sSql .= $aParametro['where'].$aParametro['limit'];
@@ -169,8 +169,8 @@ EOT;
 				INNER JOIN odes o ON c.ode_id=o.id
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
-				LEFT JOIN personas p ON v.persona_id=p.id
-			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 AND p.estado=1
+				LEFT JOIN personas p ON v.persona_id=p.id AND p.estado=1
+			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 
 		) a
 EOT;
 		$sSql.= $array['where'];
@@ -204,16 +204,16 @@ EOT;
 				, v.observacion, CONCAT_WS(' ', p.paterno, p.materno, p.nombre) AS promotor
 				, v.contacto, v.cargo, v.email AS c_email, v.telefono AS c_telefono
 			FROM colegios c 
-				LEFT JOIN visitas v ON c.id = v.colegio_id
-				LEFT JOIN colegios_niveles cn ON c.colegio_nivel_id=cn.id
-				LEFT JOIN odes o ON c.ode_id=o.id
-				LEFT JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
-				LEFT JOIN distritos d ON c.distrito_id=d.id
+				LEFT JOIN visitas v ON c.id = v.colegio_id AND v.estado=1
+				LEFT JOIN colegios_niveles cn ON c.colegio_nivel_id=cn.id AND cn.estado=1
+				LEFT JOIN odes o ON c.ode_id=o.id AND o.estado=1
+				LEFT JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id AND ct.estado=1
+				LEFT JOIN distritos d ON c.distrito_id=d.id AND d.estado=1
 				LEFT JOIN provincias pro ON d.provincia_id=pro.id
 				LEFT JOIN departamentos de ON pro.departamento_id=de.id
-				LEFT JOIN personas p ON v.persona_id=p.id
-				LEFT JOIN personas pte ON v.personat_id=pte.id
-			WHERE c.estado=1 AND v.estado=1 AND cn.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 AND p.estado=1 AND pte.estado=1
+				LEFT JOIN personas p ON v.persona_id=p.id AND p.estado=1
+				LEFT JOIN personas pte ON v.personat_id=pte.id AND pte.estado=1
+			WHERE c.estado=1
 		) a
 EOT;
 		$sSql .= $aParametro['where'].$aParametro['limit'];
@@ -242,16 +242,16 @@ EOT;
 				, v.observacion, CONCAT_WS(' ', p.paterno, p.materno, p.nombre) AS promotor
 				, v.contacto, v.cargo, v.email AS c_email, v.telefono AS c_telefono
 			FROM colegios c 
-				LEFT JOIN visitas v ON c.id = v.colegio_id
-				LEFT JOIN colegios_niveles cn ON c.colegio_nivel_id=cn.id
-				LEFT JOIN odes o ON c.ode_id=o.id
-				LEFT JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
-				LEFT JOIN distritos d ON c.distrito_id=d.id
+				LEFT JOIN visitas v ON c.id = v.colegio_id AND v.estado=1
+				LEFT JOIN colegios_niveles cn ON c.colegio_nivel_id=cn.id AND cn.estado=1
+				LEFT JOIN odes o ON c.ode_id=o.id AND o.estado=1
+				LEFT JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id AND ct.estado=1
+				LEFT JOIN distritos d ON c.distrito_id=d.id AND d.estado=1
 				LEFT JOIN provincias pro ON d.provincia_id=pro.id
 				LEFT JOIN departamentos de ON pro.departamento_id=de.id
-				LEFT JOIN personas p ON v.persona_id=p.id
-				LEFT JOIN personas pte ON v.personat_id=pte.id
-			WHERE c.estado=1 AND v.estado=1 AND cn.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 AND p.estado=1 AND pte.estado=1
+				LEFT JOIN personas p ON v.persona_id=p.id AND p.estado=1
+				LEFT JOIN personas pte ON v.personat_id=pte.id AND pte.estado=1
+			WHERE c.estado=1
 		) a
 EOT;
 		$sSql.= $array['where'];
