@@ -302,5 +302,134 @@ class ColegioController extends BaseController
 		}
 	}
 
+	public function postListarseminario()
+	{
+		if ( Request::ajax() ) {
+			$colegio_id = Input::get('colegio_id');
+			$aData = Colegio::getListarSeminario($colegio_id);
+			$aParametro['rst'] = 1;
+			$aParametro['aData'] = $aData;
+			return Response::json($aParametro);
+		}
+	}
+
+	public function postGuardarseminarios()
+	{
+		if ( Request::ajax() ) {
+			$colegio_id=Input::get('colegio_id');
+			$id=Input::get('id');
+			$persona=Input::get('persona');
+			$cargo=Input::get('cargo');
+			$horario=Input::get('horario');
+			$fecha=Input::get('fecha');
+			$celular=Input::get('celular');
+			$usu= Auth::user()->id;
+
+			DB::beginTransaction();
+			DB::table('colegios_seminarios')
+            ->where('colegio_id', $colegio_id)
+            ->update(
+            	array(
+            		'usuario_updated_at' => $usu,
+            		'estado' => 0
+            		)
+            );
+
+			for ($i=0; $i < COUNT($persona); $i++) { 
+				$seminario=array();
+				if( trim($id[$i])=='' ){
+					$seminario=new Seminario;
+					$seminario['usuario_created_at']=$usu;
+				}
+				else{
+					$seminario=Seminario::find($id[$i]);
+					$seminario['usuario_updated_at']=$usu;
+					$seminario['estado']=1;
+				}
+					$seminario['colegio_id']=$colegio_id;
+					$seminario['persona']=$persona[$i];
+					$seminario['cargo']=$cargo[$i];
+					$seminario['horario']=$horario[$i];
+					$seminario['fecha']=$fecha[$i];
+					if( $fecha[$i]=='' ){
+						$seminario['fecha']=NULL;
+					}
+					$seminario['celular']=$celular[$i];
+					$seminario->save();
+			}
+			DB::commit();
+
+			return Response::json(
+				array(
+				'rst'=>1,
+				'msj'=>'Registro actualizado correctamente',
+				)
+			);
+
+		}
+	}
+
+	public function postListarconvenio()
+	{
+		if ( Request::ajax() ) {
+			$colegio_id = Input::get('colegio_id');
+			$aData = Colegio::getListarConvenio($colegio_id);
+			$aParametro['rst'] = 1;
+			$aParametro['aData'] = $aData;
+			return Response::json($aParametro);
+		}
+	}
+
+	public function postGuardarconvenios()
+	{
+		if ( Request::ajax() ) {
+			$colegio_id=Input::get('colegio_id');
+			$id=Input::get('id');
+			$fecha_inicio=Input::get('fecha_inicio');
+			$fecha_termino=Input::get('fecha_termino');
+			$trabajador_id=Input::get('trabajador_id');
+			$suscribe=Input::get('suscribe');
+			$cargo=Input::get('cargo');
+			$usu= Auth::user()->id;
+
+			$convenio=array();
+			if( trim($id)=='' ){
+				$convenio=new Convenio;
+				$convenio['usuario_created_at']=$usu;
+				$convenio['colegio_id']=$colegio_id;
+			}
+			else{
+				$convenio=Convenio::find($id);
+				$convenio['usuario_updated_at']=$usu;
+			}
+				$convenio['suscribe']=$suscribe;
+				$convenio['cargo']=$cargo;
+
+					$convenio['trabajador_id']=$trabajador_id;
+				if( $trabajador_id=='' ){
+					$convenio['trabajador_id']=NULL;
+				}
+				
+					$convenio['fecha_inicio']=$fecha_inicio;
+				if( $fecha_inicio=='' ){
+					$convenio['fecha_inicio']=NULL;
+				}
+
+					$convenio['fecha_termino']=$fecha_termino;
+				if( $fecha_termino=='' ){
+					$convenio['fecha_termino']=NULL;
+				}
+				$convenio->save();
+
+			return Response::json(
+				array(
+				'rst'=>1,
+				'msj'=>'Registro actualizado correctamente',
+				)
+			);
+
+		}
+	}
+
 }
 ?>

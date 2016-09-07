@@ -9,7 +9,7 @@
         <h4 class="modal-title">New message</h4>
       </div>
       <div class="modal-body">
-        <form id="form_personas" name="form_personas" action="" method="post">
+        <form id="form_convenio" name="form_convenio" action="" method="post">
           <fieldset>
             <legend>Datos personales</legend>
             <div class="row form-group">
@@ -17,12 +17,12 @@
                 <div class="col-sm-4">
                   <label class="control-label">Fecha Inicio
                   </label>
-                  <input type="text" class="form-control" placeholder="Ingrese fecha inicio" name="txt_fecha_inicio" id="txt_fecha_inicio">
+                  <input type="text" class="form-control fechas" placeholder="Ingrese fecha inicio" name="txt_fecha_inicio" id="txt_fecha_inicio">
                 </div>
                 <div class="col-sm-4">
                   <label class="control-label">Fecha Termino
                   </label>
-                  <input type="text" class="form-control" placeholder="Ingrese fecha termino" name="txt_fecha_termino" id="txt_fecha_termino">
+                  <input type="text" class="form-control fechas" placeholder="Ingrese fecha termino" name="txt_fecha_termino" id="txt_fecha_termino">
                 </div>
               </div>
               <div class="col-sm-12">

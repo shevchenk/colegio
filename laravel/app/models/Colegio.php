@@ -131,5 +131,27 @@ EOT;
 		return $bData;
 	}
 
+	public static function getListarSeminario($colegio_id){
+		$sql=" 	SELECT persona,cargo,horario,IFNULL(fecha,'') fecha,celular,id,colegio_id
+				FROM colegios_seminarios
+				WHERE estado=1
+				AND colegio_id='".$colegio_id."'";
+		$r=DB::select($sql); 
+
+		return $r;
+	}
+
+	public static function getListarConvenio($colegio_id){
+		$sql=" 	SELECT cc.fecha_inicio,cc.fecha_termino,cc.suscribe,cc.cargo,cc.trabajador_id,cc.id,
+				cc.colegio_id,CONCAT(p.paterno,' ',p.materno,', ',p.nombre,' | DNI:',p.dni) trabajador
+				FROM colegios_convenio cc
+				LEFT JOIN personas p ON p.id=cc.trabajador_id
+				WHERE cc.estado=1
+				AND cc.colegio_id='".$colegio_id."'";
+		$r=DB::select($sql); 
+
+		return $r;
+	}
+
 }
 ?>
