@@ -61,7 +61,8 @@ EOT;
 				, fn_visita_alumnos(v.id,2) AS dat_2, fn_visita_alumnos(v.id,3) AS dat_3
 				, fn_visita_alumnos(v.id,4) AS dat_4, fn_visita_alumnos(v.id,5) AS dat_5
 				, v.observacion, CONCAT_WS(' ', p.paterno, p.materno, p.nombre) AS promotor
-				, (SELECT SUM(r_vd.alumnos_registrados) FROM visitas_detalle r_vd WHERE r_vd.visita_id=v.id) AS realizada
+				, (SELECT SUM(r_vd.alumnos_registrados) FROM visitas_detalle r_vd 
+					WHERE r_vd.visita_id=v.id AND r_vd.estado=1) AS realizada
 				, '' AS motivo
 			FROM visitas v
 				INNER JOIN colegios c ON v.colegio_id=c.id
@@ -69,6 +70,7 @@ EOT;
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
 				LEFT JOIN personas p ON v.persona_id=p.id
+			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 AND p.estado=1
 		) a
 EOT;
 		$sSql .= $aParametro['where'].$aParametro['limit'];
@@ -91,7 +93,8 @@ EOT;
 				, fn_visita_alumnos(v.id,2) AS dat_2, fn_visita_alumnos(v.id,3) AS dat_3
 				, fn_visita_alumnos(v.id,4) AS dat_4, fn_visita_alumnos(v.id,5) AS dat_5
 				, '' AS observacion, CONCAT_WS(' ', p.paterno, p.materno, p.nombre) AS promotor
-				, (SELECT SUM(r_vd.alumnos_registrados) FROM visitas_detalle r_vd WHERE r_vd.visita_id=v.id) AS realizada
+				, (SELECT SUM(r_vd.alumnos_registrados) FROM visitas_detalle r_vd 
+					WHERE r_vd.visita_id=v.id AND r_vd.estado=1) AS realizada
 				, '' AS motivo
 			FROM visitas v
 				INNER JOIN colegios c ON v.colegio_id=c.id
@@ -99,6 +102,7 @@ EOT;
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
 				LEFT JOIN personas p ON v.persona_id=p.id
+			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 AND p.estado=1
 		) a
 EOT;
 		$sSql.= $array['where'];
@@ -134,6 +138,7 @@ EOT;
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
 				LEFT JOIN personas p ON v.persona_id=p.id
+			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 AND p.estado=1
 		) a
 EOT;
 		$sSql .= $aParametro['where'].$aParametro['limit'];
@@ -165,6 +170,7 @@ EOT;
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
 				LEFT JOIN personas p ON v.persona_id=p.id
+			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 AND p.estado=1
 		) a
 EOT;
 		$sSql.= $array['where'];
@@ -207,6 +213,7 @@ EOT;
 				LEFT JOIN departamentos de ON pro.departamento_id=de.id
 				LEFT JOIN personas p ON v.persona_id=p.id
 				LEFT JOIN personas pte ON v.personat_id=pte.id
+			WHERE c.estado=1 AND v.estado=1 AND cn.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 AND p.estado=1 AND pte.estado=1
 		) a
 EOT;
 		$sSql .= $aParametro['where'].$aParametro['limit'];
@@ -244,6 +251,7 @@ EOT;
 				LEFT JOIN departamentos de ON pro.departamento_id=de.id
 				LEFT JOIN personas p ON v.persona_id=p.id
 				LEFT JOIN personas pte ON v.personat_id=pte.id
+			WHERE c.estado=1 AND v.estado=1 AND cn.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 AND p.estado=1 AND pte.estado=1
 		) a
 EOT;
 		$sSql.= $array['where'];
@@ -276,7 +284,7 @@ EOT;
 				FROM (
 					SELECT o.id, o.nombre AS ode, fn_ode_visita(o.id, 1, '{$sAno}') AS nacional
 						, fn_ode_visita(o.id, 2, '{$sAno}') AS particular
-						, (SELECT COUNT(*) FROM colegios r_c WHERE r_c.ode_id=o.id) AS meta
+						, (SELECT COUNT(*) FROM colegios r_c WHERE r_c.ode_id=o.id AND r_c.estado=1) AS meta
 						, DATE('2016-05-28') AS inicio, DATE(ADDDATE('2016-11-28', INTERVAL 1 DAY)) AS termino
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',0) AS 'd7'
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',1) AS 'd6'
@@ -286,6 +294,7 @@ EOT;
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',5) AS 'd2'
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',6) AS 'd1'
 					FROM odes o
+					WHERE o.estado=1
 				) a
 			) b
 		) c
@@ -315,7 +324,7 @@ EOT;
 				FROM (
 					SELECT o.id, o.nombre AS ode, fn_ode_visita(o.id, 1, '{$sAno}') AS nacional
 						, fn_ode_visita(o.id, 2, '{$sAno}') AS particular
-						, (SELECT COUNT(*) FROM colegios r_c WHERE r_c.ode_id=o.id) AS meta
+						, (SELECT COUNT(*) FROM colegios r_c WHERE r_c.ode_id=o.id AND r_c.estado=1) AS meta
 						, DATE('2016-05-28') AS inicio, DATE(ADDDATE('2016-11-28', INTERVAL 1 DAY)) AS termino
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',0) AS 'd7'
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',1) AS 'd6'
@@ -325,6 +334,7 @@ EOT;
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',5) AS 'd2'
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',6) AS 'd1'
 					FROM odes o
+					WHERE o.estado=1
 				) a
 			) b
 		) c
@@ -365,7 +375,7 @@ EOT;
 						, fn_ode_grado(o.id, 5) AS g5
 						, (SELECT COUNT(*) FROM colegios r_c 
 							INNER JOIN colegios_detalle r_cd ON r_c.id=r_cd.colegio_id 
-							WHERE r_c.ode_id=o.id) AS meta
+							WHERE r_c.ode_id=o.id AND r_c.estado=1 AND r_cd.estado=1) AS meta
 						, DATE('2016-05-28') AS inicio, DATE(ADDDATE('2016-11-28', INTERVAL 1 DAY)) AS termino
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',0) AS 'd7'
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',1) AS 'd6'
@@ -375,6 +385,7 @@ EOT;
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',5) AS 'd2'
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',6) AS 'd1'
 					FROM odes o
+					WHERE o.estado=1
 				) a
 			) b
 		) c
@@ -408,7 +419,7 @@ EOT;
 						, fn_ode_grado(o.id, 5) AS g5
 						, (SELECT COUNT(*) FROM colegios r_c 
 							INNER JOIN colegios_detalle r_cd ON r_c.id=r_cd.colegio_id 
-							WHERE r_c.ode_id=o.id) AS meta
+							WHERE r_c.ode_id=o.id AND r_c.estado=1 AND r_cd.estado=1) AS meta
 						, DATE('2016-05-28') AS inicio, DATE(ADDDATE('2016-11-28', INTERVAL 1 DAY)) AS termino
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',0) AS 'd7'
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',1) AS 'd6'
@@ -418,6 +429,7 @@ EOT;
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',5) AS 'd2'
 						, fn_ode_visita_fecha(o.id, '{$sFechaActual}',6) AS 'd1'
 					FROM odes o
+					WHERE o.estado=1
 				) a
 			) b
 		) c

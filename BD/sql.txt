@@ -1,3 +1,101 @@
+-- Actualizacion de las funciones 2016-09-06
+DELIMITER $$
+USE `colegio`$$
+DROP FUNCTION IF EXISTS `fn_ode_grado`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `fn_ode_grado`(nOdeId INT, nGrado INT) RETURNS INT(11)
+BEGIN
+	DECLARE nColegioGrado INT DEFAULT 0;
+	SELECT COUNT(*)
+		INTO nColegioGrado
+	FROM 
+	(
+		SELECT cd.id  
+		FROM colegios_detalle cd
+			LEFT JOIN colegios c ON cd.colegio_id=c.id
+			LEFT JOIN odes o ON c.ode_id=o.id
+		WHERE o.id=nOdeId AND cd.grado=nGrado
+			AND cd.estado=1 AND c.estado=1 AND o.estado=1
+		GROUP BY c.id
+	) a;
+	RETURN nColegioGrado;
+END$$
+DELIMITER ;
+##############################
+DELIMITER $$
+USE `colegio`$$
+DROP FUNCTION IF EXISTS `fn_ode_visita`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `fn_ode_visita`(nOdeId INT, nColegioTipo INT, sAno VARCHAR(4)) RETURNS INT(11)
+BEGIN
+	DECLARE nColegioVisita INT DEFAULT 0;
+	SELECT COUNT(*)
+		INTO nColegioVisita
+	FROM 
+	(
+		SELECT v.id, v.colegio_id
+		FROM visitas v
+			INNER JOIN colegios c ON v.colegio_id=c.id 
+			INNER JOIN odes o ON c.ode_id=o.id
+		WHERE o.id=nOdeId 
+			AND c.colegio_tipo_id=nColegioTipo 
+			AND DATE_FORMAT(v.fecha_visita,'%Y')=sAno
+			AND v.estado=1 AND c.estado=1 AND o.estado=1
+		GROUP BY v.colegio_id
+	) a;
+	RETURN nColegioVisita;
+END$$
+DELIMITER ;
+##############################
+DELIMITER $$
+USE `colegio`$$
+DROP FUNCTION IF EXISTS `fn_ode_visita_fecha`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `fn_ode_visita_fecha`(nOdeId INT, sFecha DATE,nDia INT) RETURNS INT(11)
+BEGIN
+	DECLARE nColegioVisita INT DEFAULT 0;
+	SELECT COUNT(*) 
+		INTO nColegioVisita
+	FROM visitas v
+		INNER JOIN colegios c ON v.colegio_id=c.id 
+		INNER JOIN odes o ON c.ode_id=o.id
+	WHERE o.id=nOdeId AND DATE(v.fecha_visita)=ADDDATE(sFecha, INTERVAL -nDia DAY)
+		AND v.estado=1 AND c.estado=1 AND o.estado=1;
+	RETURN nColegioVisita;
+END$$
+DELIMITER ;
+##############################
+DELIMITER $$
+USE `colegio`$$
+DROP FUNCTION IF EXISTS `fn_visita_alumnos`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `fn_visita_alumnos`(nVisitaId INT, nGrado INT) RETURNS INT(11)
+BEGIN
+	DECLARE nAlumnoCantidad INT DEFAULT 0;
+	SELECT SUM(vd.alumnos_total)
+		INTO nAlumnoCantidad
+	FROM visitas_detalle vd
+		LEFT JOIN colegios_detalle cd ON vd.colegio_detalle_id=cd.id
+	WHERE vd.visita_id=nVisitaId AND cd.grado=nGrado
+		AND vd.estado=1 AND cd.estado=1
+	GROUP BY cd.grado;
+	RETURN nAlumnoCantidad;
+END$$
+DELIMITER ;
+##############################
+DELIMITER $$
+USE `colegio`$$
+DROP FUNCTION IF EXISTS `fn_visita_grados`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `fn_visita_grados`(nVisitaId INT, nGrado INT) RETURNS INT(11)
+BEGIN
+	DECLARE nGradoCantidad INT DEFAULT 0;
+	SELECT COUNT(cd.grado)
+		INTO nGradoCantidad
+	FROM visitas_detalle vd
+		LEFT JOIN colegios_detalle cd ON vd.colegio_detalle_id=cd.id
+	WHERE vd.visita_id=nVisitaId AND cd.grado=nGrado
+		AND vd.estado=1 AND cd.estado=1
+	GROUP BY cd.grado;
+	RETURN nGradoCantidad;
+END$$
+DELIMITER ;
+##############################
 -- 2016-09-04
 DELIMITER $$
 USE `colegio`$$
