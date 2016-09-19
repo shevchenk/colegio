@@ -142,6 +142,145 @@ class ReporteController extends BaseController
 
     }
 
+    public function postSeminario()
+    {
+
+        $az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
+        $azcount=array(15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15);
+        // aqui s el tamaña de las celdas
+        $styleThinBlackBorderAllborders = array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN,
+                    'color' => array('argb' => 'FF000000'),
+                ),
+            ),
+        );
+        $styleAlignmentBold= array(
+            'font'    => array(
+                'bold'      => true
+            ),
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+            ),
+        );
+        $styleAlignment= array(
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+            ),
+        );
+
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->getProperties()->setCreator("Jorge Salcedo")
+                                     ->setLastModifiedBy("Jorge Salcedo")
+                                     ->setTitle("Office 2007 XLSX Test Document")
+                                     ->setSubject("Office 2007 XLSX Test Document")
+                                     ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+                                     ->setKeywords("office 2007 openxml php")
+                                     ->setCategory("Test result file");
+
+        $objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
+        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+
+        $objPHPExcel->getActiveSheet()->setCellValue("A2","Listado de Seminarios");
+        $objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setSize(20);
+
+        $cabecera=array('Ode','Tipo','Nombre Colegio','Telefono','Direccion','Distrito','Persona','Telefono','Cargo','Horario');
+
+        $objPHPExcel->getActiveSheet()->mergeCells('A2:'.$az[(count($cabecera)-1)].'2');
+        $objPHPExcel->getActiveSheet()->getStyle('A2:'.$az[(count($cabecera)-1)].'2')->applyFromArray($styleAlignmentBold);
+
+        $objPHPExcel->getActiveSheet()->setCellValue("A3",'Datos Colegio');
+        $objPHPExcel->getActiveSheet()->setCellValue($az[6]."3",'Datos Del Participante');
+        $objPHPExcel->getActiveSheet()->mergeCells('A3:'.$az[5].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[6].'3:'.$az[9].'3');
+        $objPHPExcel->getActiveSheet()->getStyle('A3:'.$az[(count($cabecera)-1)].'3')->applyFromArray($styleAlignmentBold);
+
+            for($i=0;$i<count($cabecera);$i++){
+            $objPHPExcel->getActiveSheet()->setCellValue($az[$i]."4",$cabecera[$i]);
+            $objPHPExcel->getActiveSheet()->getStyle($az[$i]."4")->getAlignment()->setWrapText(true);
+            $objPHPExcel->getActiveSheet()->getColumnDimension($az[$i])->setWidth($azcount[$i]);
+            }
+        $objPHPExcel->getActiveSheet()->getStyle('A3:'.$az[($i-1)].'4')->applyFromArray($styleAlignmentBold);
+        $objPHPExcel->getActiveSheet()->getStyle("A3:".$az[($i-1)]."4")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('FFCCCCCC');
+            /****   Filtro ***************************************************/
+
+            $array=array();
+            $array['where']=' WHERE 1=1 ';
+            $array['usuario']=Auth::user()->id;
+            $array['limit']='';
+            $array['order']='';
+
+            if( Input::get("slct_todo")=='0' ){
+                if( Input::has("ode") ){
+                    $array['where'].=" AND a.ode LIKE '%".Input::get("ode")."%' ";
+                }
+                if( Input::has("tipo_colegio") ){
+                    $array['where'].=" AND ct.nombre LIKE '%".Input::get("tipo_colegio")."%' ";
+                }
+                if( Input::has("colegio") ){
+                    $array['where'].=" AND co.nombre LIKE '%".Input::get("colegio")."%' ";
+                }
+                if( Input::has("telefono") ){
+                    $array['where'].=" AND co.telefono LIKE '%".Input::get("telefono")."%' ";
+                }
+                if( Input::has("direccion") ){
+                    $array['where'].=" AND co.direccion LIKE '%".Input::get("direccion")."%' ";
+                }
+                if( Input::has("distrito") ){
+                    $array['where'].=" AND d.nombre LIKE '%".Input::get("distrito")."%' ";
+                }
+                if( Input::has("persona") ){
+                    $array['where'].=" AND cs.persona LIKE '%".Input::get("persona")."' ";
+                }
+                if( Input::has("cargo") ){
+                    $array['where'].=" AND cs.cargo LIKE '%".Input::get("cargo")."' ";
+                }
+                if( Input::has("celular") ){
+                    $array['where'].=" AND cs.celular LIKE '%".Input::get("celular")."' ";
+                }
+                if( Input::has("horario") ){
+                    $array['where'].=" AND cs.horario LIKE '%".Input::get("horario")."' ";
+                }
+            }
+            /***************************************************************/
+        $cont=0;
+        $valorinicial=4;
+        $azcant=0;
+        $aData = Seminario::getCargar( $array );
+
+        foreach($aData as $r){
+        $cont++;
+        $valorinicial++;
+        $azcant=0;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->ode);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->tipo_colegio);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->colegio);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->telefono);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->direccion);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->distrito);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->persona);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->cargo);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->celular);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->horario);
+        }
+        
+        $objPHPExcel->getActiveSheet()->getStyle('A2:'.$az[$azcant].$valorinicial)->applyFromArray($styleThinBlackBorderAllborders);
+
+        $objPHPExcel->getActiveSheet()->setTitle('Listado');
+        $objPHPExcel->setActiveSheetIndex(0);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="Listado_'.date("Y-m-d_H-i-s").'.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save('php://output');
+        exit;
+
+    }
+
 	public function postDistribucion()
 	{
 		$az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
