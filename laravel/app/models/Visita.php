@@ -48,7 +48,7 @@ EOT;
 			, a.sec_1, a.sec_2, a.sec_3, a.sec_4, a.sec_5, (a.sec_1 + a.sec_2 + a.sec_3 + a.sec_4 + a.sec_5) AS total_sec
 			, a.dat_1, a.dat_2, a.dat_3, a.dat_4, a.dat_5, (a.dat_1 + a.dat_2 + a.dat_3 + a.dat_4 + a.dat_5) AS total_dat
 			, a.observacion, a.promotor, a.realizada, ((a.sec_1 + a.sec_2 + a.sec_3 + a.sec_4 + a.sec_5) - a.realizada) AS pendiente
-			, a.motivo, a.direccion, a.referencia
+			, a.motivo, a.direccion, a.referencia, a.fechat, a.personat
 		FROM (
 			SELECT
 				v.id, o.nombre AS ode, ct.nombre AS tipo_colegio, c.nombre AS colegio, c.telefono
@@ -63,13 +63,14 @@ EOT;
 				, v.observacion, CONCAT_WS(' ', p.paterno, p.materno, p.nombre) AS promotor
 				, (SELECT SUM(r_vd.alumnos_registrados) FROM visitas_detalle r_vd 
 					WHERE r_vd.visita_id=v.id AND r_vd.estado=1) AS realizada
-				, '' AS motivo
+				, '' AS motivo, v.fechat fechat, CONCAT_WS(' ', p2.paterno, p2.materno, p2.nombre) AS personat
 			FROM visitas v
 				INNER JOIN colegios c ON v.colegio_id=c.id
 				INNER JOIN odes o ON c.ode_id=o.id
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
 				LEFT JOIN personas p ON v.persona_id=p.id AND p.estado=1
+				LEFT JOIN personas p2 ON v.personat_id=p2.id AND p.estado=1
 			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 
 		) a
 EOT;
