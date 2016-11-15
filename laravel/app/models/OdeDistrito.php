@@ -4,7 +4,8 @@ class OdeDistrito extends Base
 {
     public $table = "odes_distritos";
 
-    public static function Listar(){
+    public static function Listar(){ 
+
         $r = DB::table('odes_distritos as od')
             ->join(
                 'distritos as d',
@@ -13,7 +14,18 @@ class OdeDistrito extends Base
             ->select('d.id', 'd.nombre')
             ->where('d.estado', '=', '1')
             ->where('od.estado', '=', '1')
-            ->where('od.ode_id', '=', Input::get('ode'))
+            ->orWhere(function($query)
+                {
+                    if( Input::has('multiple') ){
+                        $ode=implode( ",",Input::get('ode') );
+                        $query->whereRaw('FIND_IN_SET(od.ode_id,"'.$ode.'")') ;
+                    }
+                    else{
+                        $ode=Input::get('ode');
+                        $query->where('od.ode_id', '=', $ode);
+                    }
+                }
+            )
             ->orderBy('d.nombre')
             ->get();
 

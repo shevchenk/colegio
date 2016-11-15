@@ -94,3 +94,4 @@ Route::controller('visita', 'VisitaController');
 Route::controller('alumno', 'AlumnoController');
 Route::controller('reporte', 'ReporteController');
 Route::controller('seminario', 'SeminarioController');
+Route::controller('produccion', 'ProduccionController');

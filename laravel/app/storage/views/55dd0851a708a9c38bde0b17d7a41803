@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+
+<?php $__env->startSection('includes'); ?>
+    @parent
+    <?php echo HTML::style('lib/daterangepicker/css/daterangepicker-bs3.css'); ?>
+
+    <?php echo HTML::style('lib/bootstrap-multiselect/dist/css/bootstrap-multiselect.css'); ?>
+
+    <?php echo HTML::script('lib/daterangepicker/js/daterangepicker.js'); ?>
+
+    <?php echo HTML::script('lib/bootstrap-multiselect/dist/js/bootstrap-multiselect.js'); ?>
+
+    <?php echo HTML::script('//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js'); ?>
+
+    <?php echo HTML::script('lib/daterangepicker/js/daterangepicker_single.js'); ?>
+
+
+    <?php echo $__env->make('admin.js.slct_global_ajax', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make('admin.js.slct_global', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make('admin.reporte.js.produccion_ajax', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make('admin.reporte.js.produccion', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
+<!-- Right side column. Contains the navbar and content of the page -->
+<?php $__env->startSection('contenido'); ?>
+
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>Producción<small> </small></h1>
+    </section>
+
+    <!-- Main content -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="box row">
+            <div class="col-sm-12">
+                <form name="form_filtros" id="form_filtros" method="POST" action="reporte/produccion">
+                    <div class="col-sm-12 form-group">
+                        <div class="col-sm-4">
+                            <label>Año de Producción</label>
+                            <select id="slct_año" name="slct_año" onchange="MostrarAjax('produccion');">
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Mes de Producción</label>
+                            <select id="slct_mes" name="slct_mes" onchange="MostrarAjax('produccion');">
+                            </select>
+                        </div>
+                    </div>
+                    <select name='slct_todo'>
+                        <option value="">Seleccione</option>
+                        <option value="0">Solo Filtros de la tabla</option>
+                        <option value="1">.::Todo::.</option>
+                    </select>
+                    <div class="table-responsive">
+                        <table id="t_produccion" class="table table-mailbox">
+                            <thead>
+                                <tr>
+                                    <th colspan='10' style='text-align:center'><h2>Producción</h2></th>
+                                </tr>
+                                <tr></tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot><tr></tr></tfoot>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section><!-- /.content -->
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('formulario'); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

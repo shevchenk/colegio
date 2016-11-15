@@ -28,5 +28,14 @@ EOT;
         $oData = DB::select($sSql);
         return $oData;
     }
+
+    public static function DataAlumno( $array )
+    {
+        $sSql="";
+
+        $sSql.= $array['where'];
+        $oData = DB::select($sSql);
+        return $oData;
+    }
 }
 ?>
