@@ -47,15 +47,25 @@ class ReporteController extends BaseController
         $objPHPExcel->getActiveSheet()->setCellValue("A2","Alumno");
         $objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setSize(20);
 
-        $cabecera=array('Paterno','Materno','Nombre');
+        $cabecera=array('Nº','ODE','DISTRITO','PROVINCIA','DEPARTAMENTO','AP_PATERNO','AP_MATERNO','NOMBRES','SEXO','EDAD','GRADO','SECCION','TURNO','TELEFONO FIJO','CELULAR 1','CORREO ELEC.','DIRECCION','REFERENCIA','DISTRITO','PROVINCIA','DEPARTAMENTO','COLEGIO','TIPO (PQ,N,P)','DIRECCION','REFERENCIA','DISTRITO','PROVINCIA','DEPARTAMENTO','PENSION','CARRERA PROFESIONAL (5 AÑOS)','PRECIO','CARRERA PROFESIONAL (3 AÑOS)','PRECIO','CARRERA PROFESIONAL (1 AÑO)','PRECIO','APELLIDOS Y NOMBRES','FECHA','APELLIDOS Y NOMBRES','FECHA');
 
         $objPHPExcel->getActiveSheet()->mergeCells('A2:'.$az[(count($cabecera)-1)].'2');
         $objPHPExcel->getActiveSheet()->getStyle('A2:'.$az[(count($cabecera)-1)].'2')->applyFromArray($styleAlignmentBold);
 
-        $objPHPExcel->getActiveSheet()->setCellValue("A3",'Datos Alumno');
-        $objPHPExcel->getActiveSheet()->setCellValue($az[6]."3",'Datos Del Participante');
-        $objPHPExcel->getActiveSheet()->mergeCells('A3:'.$az[5].'3');
-        $objPHPExcel->getActiveSheet()->mergeCells($az[6].'3:'.$az[9].'3');
+        $objPHPExcel->getActiveSheet()->setCellValue("B3",'I DATOS ODE');
+        $objPHPExcel->getActiveSheet()->setCellValue($az[5]."3",'II DATOS DEL ALUMNO');
+        $objPHPExcel->getActiveSheet()->setCellValue($az[21]."3",'III DATOS DEL COLEGIO');
+        $objPHPExcel->getActiveSheet()->setCellValue($az[29]."3",'IV DATOS EDUCATIVOS');
+        $objPHPExcel->getActiveSheet()->setCellValue($az[35]."3",'V DIGITACION');
+        $objPHPExcel->getActiveSheet()->setCellValue($az[37]."3",'VI VISITA');
+
+        $objPHPExcel->getActiveSheet()->mergeCells('B3:'.$az[4].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[5].'3:'.$az[20].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[21].'3:'.$az[28].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[29].'3:'.$az[34].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[35].'3:'.$az[36].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[37].'3:'.$az[38].'3');
+
         $objPHPExcel->getActiveSheet()->getStyle('A3:'.$az[(count($cabecera)-1)].'3')->applyFromArray($styleAlignmentBold);
 
             for($i=0;$i<count($cabecera);$i++){
@@ -72,8 +82,19 @@ class ReporteController extends BaseController
             $array['limit']='';
             $array['order']='';
 
+            
 
-            /***************************************************************/
+                if( Input::has("slct_ode") ){
+                    $ode_id=implode(',',Input::get('slct_ode'));
+                    $array['where'].=" AND o.id IN (".$ode_id.")";
+                }
+
+                if( Input::has("slct_distrito") ){
+                    $distrito_id=implode(',',Input::get('slct_distrito'));
+                    $array['where'].=" AND d.id IN (".$distrito_id.")";
+                }
+
+        /***************************************************************/
         $cont=0;
         $valorinicial=4;
         $azcant=0;
@@ -83,12 +104,88 @@ class ReporteController extends BaseController
         $cont++;
         $valorinicial++;
         $azcant=0;
-        $cabecera=array('Paterno','Materno','Nombre','Horario','Código','Fecha Ingreso','Fecha Retiro','Fecha Campaña','Data','Seminario','Colegio Visitado','Padrinazgo','Data','Seminario','Colegio Visitado','Padrinazgo','Data','Seminario','Colegio Visitado','Padrinazgo','Total','5TO','4TO','3RO','2DO','1RO','Total','Nacional','Particular','Total','Mañana','Tarde','Citas','Convenio','Padrinazgo');
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$cont);$azcant++;
+
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->ode);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->distrito_ode);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->provincia_ode);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->departamento_ode);$azcant++;
+
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->paterno);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->materno);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->nombre);$azcant++;
-        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->horario);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->sexo);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->edad);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->grado);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->seccion);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->turno);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->telefono);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->celular);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->email);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->direccion);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->referencia);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->distrito_alu);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->provincia_alu);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->departamento_alu);$azcant++;
+
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->colegio);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->colegio_tipo);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->direccion1);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->referencia1);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->distrito_cole);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->provincia_cole);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->departamento_cole);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->pension);$azcant++;
+
+        $cd=array(array(),array(),array());
+        $md=array(array(),array(),array());
         
+        $c3=explode("||",$r->carrera3);
+        $m3=explode("||",$r->monto3);
+        for ($i=0; $i < count($c3); $i++) { 
+            $cd3=explode("|",$c3[$i]);
+            $md3=explode("|",$m3[$i]);
+            if( count($cd3)==2 ){
+            array_push($cd[0],$cd3[1]);
+            array_push($md[0], $md3[1]);
+            }
+        }
+
+        $c2=explode("||",$r->carrera2);
+        $m2=explode("||",$r->monto2);
+        for ($i=0; $i < count($c2); $i++) { 
+            $cd2=explode("|",$c2[$i]);
+            $md2=explode("|",$m2[$i]);
+            if( count($cd2)==2 ){
+            array_push($cd[1],$cd2[1]);
+            array_push($md[1], $md2[1]);
+            }
+        }
+
+        $c1=explode("||",$r->carrera1);
+        $m1=explode("||",$r->monto1);
+        for ($i=0; $i < count($c1); $i++) { 
+            $cd1=explode("|",$c1[$i]);
+            $md1=explode("|",$m1[$i]);
+            if( count($cd1)==2 ){
+            array_push($cd[2],$cd1[1]);
+            array_push($md[2], $md1[1]);
+            }
+        }
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$cd[0]) );$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$md[0]));$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$cd[1]));$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$md[1]));$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$cd[2]));$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$md[2]));$azcant++;
+
+        $objPHPExcel->getActiveSheet()->getStyle($az[$azcant-6].$valorinicial.":".$az[$azcant-1].$valorinicial)->getAlignment()->setWrapText(true);// Ajustar formato indicado
+
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->digitador);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->fecha_digitador);$azcant++;
+
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->visitador);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->fecha_visita);$azcant++;
         }
         
         $objPHPExcel->getActiveSheet()->getStyle('A2:'.$az[$azcant].$valorinicial)->applyFromArray($styleThinBlackBorderAllborders);

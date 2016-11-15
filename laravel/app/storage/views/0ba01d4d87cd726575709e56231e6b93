@@ -15,7 +15,7 @@
 		<?php echo $__env->yieldSection(); ?>
 		<title>
 			<?php $__env->startSection('titulo'); ?>
-				M. Independencia
+				ColegioJS
 			<?php echo $__env->yieldSection(); ?>
 		</title>
 

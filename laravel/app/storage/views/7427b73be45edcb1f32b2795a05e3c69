@@ -3,8 +3,23 @@
 
 <?php $__env->startSection('includes'); ?>
 	@parent
+	<?php echo HTML::style('lib/daterangepicker/css/daterangepicker-bs3.css'); ?>
+
+    <?php echo HTML::style('lib/bootstrap-multiselect/dist/css/bootstrap-multiselect.css'); ?>
+
+    <?php echo HTML::script('lib/daterangepicker/js/daterangepicker.js'); ?>
+
+    <?php echo HTML::script('lib/bootstrap-multiselect/dist/js/bootstrap-multiselect.js'); ?>
+
+    <?php echo HTML::script('//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js'); ?>
+
+    <?php echo HTML::script('lib/daterangepicker/js/daterangepicker_single.js'); ?>
+
+    
 	<?php echo $__env->make( 'admin.mantenimiento.js.colegio_ajax' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 	<?php echo $__env->make( 'admin.mantenimiento.js.colegio' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo $__env->make( 'admin.mantenimiento.js.convenio' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo $__env->make( 'admin.mantenimiento.js.seminario' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $__env->stopSection(); ?>
 <!-- Right side column. Contains the navbar and content of the page -->
 <?php $__env->startSection('contenido'); ?>
@@ -95,6 +110,7 @@
 	<?php echo $__env->make( 'admin.mantenimiento.form.colegio' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 	<?php echo $__env->make( 'admin.mantenimiento.form.colegio_detalle' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 	<?php echo $__env->make( 'admin.mantenimiento.form.convenio' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo $__env->make( 'admin.mantenimiento.form.seminario' , array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

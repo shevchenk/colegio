@@ -39,14 +39,14 @@
                     <div class="col-sm-12">
                         <div class="col-sm-4">
                             <label class="control-label">Ode:</label>
-                            <select class="form-control" name="slct_ode" id="slct_ode" onChange="Cargar();" multiple>
+                            <select class="form-control" name="slct_ode[]" id="slct_ode" onChange="Cargar();" multiple>
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="col-sm-4">
                             <label class="control-label">Distrito:</label>
-                            <select class="form-control" name="slct_distrito" id="slct_distrito" multiple>
+                            <select class="form-control" name="slct_distrito[]" id="slct_distrito" multiple>
                                 <option>.::Seleccione::.</option>
                             </select>
                         </div>
@@ -54,7 +54,7 @@
                     <div class="col-sm-12">
                         <div class="col-sm-1">
                             <label class="control-label"></label>
-                            <a type="submit" class="btn btn-primary form-control" href="" target="_blank" name="btn_reporte" id="btn_reporte">
+                            <a type="submit" class="btn btn-primary form-control" name="btn_reporte" id="btn_reporte">
                                 <i class="fa fa-lg fa-file-excel-o"></i>
                             </a>
                         </div>
