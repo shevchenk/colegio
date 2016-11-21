@@ -26,15 +26,16 @@ EOT;
         $fini3=$array['fini3'];
         $ffin3=$array['ffin3'];
         $sSql = "
-            SELECT p.id, p.paterno, p.materno, p.nombre, p.horario, p.codigo, 
-            p.fecha_ingreso, p.fecha_retiro, '' fecha_campaña, COUNT(DISTINCT(v.colegio_id)) colegios,
-            COUNT(DISTINCT(IF( c.colegio_tipo_id=1,v.colegio_id,NULL ))) particular,COUNT(DISTINCT(IF( c.colegio_tipo_id=2,v.colegio_id,NULL ))) nacional,
+            SELECT p.paterno, p.materno, p.nombre, p.horario, p.codigo,
+            p.fecha_ingreso, p.fecha_retiro, '' fecha_campaña,
+            t.datast, t.colegiost ,t.seminariost conveniost, '' matriculadost,
+            t1.datast1, t1.colegiost1 ,t1.seminariost1 conveniost1, '' matriculadost1,
+            t2.datast2, t2.colegiost2 ,t2.seminariost2 conveniost2, '' matriculadost2,
             COUNT(DISTINCT(a.id)) datacole, COUNT(DISTINCT(IF(cd.id IS NULL,NULL,a.id))) c5, COUNT(DISTINCT(IF(cd2.id IS NULL,NULL,a.id))) c4, 
             COUNT(DISTINCT(IF(cd3.id IS NULL,NULL,a.id))) c3, COUNT(DISTINCT(IF(cd4.id IS NULL,NULL,a.id))) c2, COUNT(DISTINCT(IF(cd5.id IS NULL,NULL,a.id))) c1,
-            COUNT(DISTINCT(cs.id)) seminarios, '' mañana, '' tarde,COUNT(DISTINCT(cc.id)) convenios, COUNT(DISTINCT(v.id)) citas
-            ,t.colegiost ,t.seminariost, t.datast
-            ,t1.colegiost1 ,t1.seminariost1, t1.datast1
-            ,t2.colegiost2 ,t2.seminariost2, t2.datast2
+            COUNT(DISTINCT(v.colegio_id)) colegios,
+            COUNT(DISTINCT(IF( c.colegio_tipo_id=1,v.colegio_id,NULL ))) particular, COUNT(DISTINCT(IF( c.colegio_tipo_id=2,v.colegio_id,NULL ))) nacional,
+            '' citas, COUNT(DISTINCT(cs.id)) convenios, '' matriculas
             FROM personas p
             INNER JOIN cargo_persona cp ON p.id=cp.persona_id AND cp.cargo_id=4 AND cp.estado=1
             /********************************************************************/
@@ -79,7 +80,6 @@ EOT;
             LEFT JOIN visitas v ON v.persona_id=p.id AND v.estado=1 AND DATE(v.fecha_visita) BETWEEN '$fini1' AND '$ffin1'
             LEFT JOIN colegios c ON c.id=v.colegio_id AND c.estado=1
             LEFT JOIN colegios_seminarios cs ON cs.colegio_id=c.id AND cs.estado=1
-            LEFT JOIN colegios_convenio cc ON cc.colegio_id=c.id AND cc.estado=1
             LEFT JOIN visitas_detalle vd ON vd.visita_id=v.id AND vd.estado=1
             LEFT JOIN alumnos a ON a.visita_detalle_id=vd.id AND a.estado=1
             LEFT JOIN colegios_detalle cd ON cd.id=vd.colegio_detalle_id AND cd.grado=5
