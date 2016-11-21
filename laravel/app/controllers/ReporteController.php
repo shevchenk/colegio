@@ -6,7 +6,7 @@ class ReporteController extends BaseController
     {
 
         $az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
-        $azcount=array(15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15);
+        $azcount=array(5,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15);
         // aqui s el tamaña de las celdas
         $styleThinBlackBorderAllborders = array(
             'borders' => array(
@@ -49,9 +49,11 @@ class ReporteController extends BaseController
 
         $cabecera=array('Nº','ODE','DISTRITO','PROVINCIA','DEPARTAMENTO','AP_PATERNO','AP_MATERNO','NOMBRES','SEXO','EDAD','GRADO','SECCION','TURNO','TELEFONO FIJO','CELULAR 1','CORREO ELEC.','DIRECCION','REFERENCIA','DISTRITO','PROVINCIA','DEPARTAMENTO','COLEGIO','TIPO (PQ,N,P)','DIRECCION','REFERENCIA','DISTRITO','PROVINCIA','DEPARTAMENTO','PENSION','CARRERA PROFESIONAL (5 AÑOS)','PRECIO','CARRERA PROFESIONAL (3 AÑOS)','PRECIO','CARRERA PROFESIONAL (1 AÑO)','PRECIO','APELLIDOS Y NOMBRES','FECHA','APELLIDOS Y NOMBRES','FECHA');
 
+        $objPHPExcel->getActiveSheet()->mergeCells('A3:A4');
         $objPHPExcel->getActiveSheet()->mergeCells('A2:'.$az[(count($cabecera)-1)].'2');
         $objPHPExcel->getActiveSheet()->getStyle('A2:'.$az[(count($cabecera)-1)].'2')->applyFromArray($styleAlignmentBold);
 
+         $objPHPExcel->getActiveSheet()->setCellValue("A3",'Nº');
         $objPHPExcel->getActiveSheet()->setCellValue("B3",'I DATOS ODE');
         $objPHPExcel->getActiveSheet()->setCellValue($az[5]."3",'II DATOS DEL ALUMNO');
         $objPHPExcel->getActiveSheet()->setCellValue($az[21]."3",'III DATOS DEL COLEGIO');
@@ -71,10 +73,26 @@ class ReporteController extends BaseController
             for($i=0;$i<count($cabecera);$i++){
             $objPHPExcel->getActiveSheet()->setCellValue($az[$i]."4",$cabecera[$i]);
             $objPHPExcel->getActiveSheet()->getStyle($az[$i]."4")->getAlignment()->setWrapText(true);
-            //$objPHPExcel->getActiveSheet()->getColumnDimension($az[$i])->setWidth($azcount[$i]);
+            //Para darle tamaño a las columnas
+            $objPHPExcel->getActiveSheet()->getColumnDimension($az[$i])->setWidth($azcount[$i]);
             }
         $objPHPExcel->getActiveSheet()->getStyle('A3:'.$az[($i-1)].'4')->applyFromArray($styleAlignmentBold);
-        $objPHPExcel->getActiveSheet()->getStyle("A3:".$az[($i-1)]."4")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('FFCCCCCC');
+        //$objPHPExcel->getActiveSheet()->getStyle("A3:".$az[($i-1)]."4")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('FFCCCCCC');
+
+        $objPHPExcel->getActiveSheet()->getStyle('A3')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('ffff00');
+
+        $objPHPExcel->getActiveSheet()->getStyle('B3:'.$az[4].'3')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('ffff00');
+        $objPHPExcel->getActiveSheet()->getStyle('B4:'.$az[4].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('ffff00');
+        $objPHPExcel->getActiveSheet()->getStyle($az[5]."3")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('fce4d6');
+        $objPHPExcel->getActiveSheet()->getStyle($az[5].'4:'.$az[20].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('fce4d6');
+        $objPHPExcel->getActiveSheet()->getStyle($az[21]."3")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('e2efda');
+        $objPHPExcel->getActiveSheet()->getStyle($az[21].'4:'.$az[28].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('e2efda');
+        $objPHPExcel->getActiveSheet()->getStyle($az[29]."3")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('d9e1f2');
+        $objPHPExcel->getActiveSheet()->getStyle($az[29].'4:'.$az[34].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('d9e1f2');
+        $objPHPExcel->getActiveSheet()->getStyle($az[35]."3")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('f8cbad');
+        $objPHPExcel->getActiveSheet()->getStyle($az[35].'4:'.$az[36].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('f8cbad');
+        $objPHPExcel->getActiveSheet()->getStyle($az[37]."3")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('f8cbad');
+        $objPHPExcel->getActiveSheet()->getStyle($az[37].'4:'.$az[38].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('f8cbad');
             /****   Filtro ***************************************************/
 
             $array=array();
@@ -188,7 +206,7 @@ class ReporteController extends BaseController
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->fecha_visita);$azcant++;
         }
         
-        $objPHPExcel->getActiveSheet()->getStyle('A2:'.$az[$azcant].$valorinicial)->applyFromArray($styleThinBlackBorderAllborders);
+        $objPHPExcel->getActiveSheet()->getStyle('A2:'.$az[$azcant-1].$valorinicial)->applyFromArray($styleThinBlackBorderAllborders);
 
         $objPHPExcel->getActiveSheet()->setTitle('Listado');
         $objPHPExcel->setActiveSheetIndex(0);
