@@ -58,12 +58,7 @@ $(document).ready(function() {
                     'nombre':'Colegios',
                     'evento':'',
                 },
-                {
-                    'id'    :'seminariost',
-                    'idide' :'th_datast',
-                    'nombre':'Seminarios',
-                    'evento':'',
-                }
+              
                 ];
 
         for(i=0; i<cabeceraVP.length; i++)
