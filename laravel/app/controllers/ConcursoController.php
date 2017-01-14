@@ -34,7 +34,9 @@ class ConcursoController extends \BaseController
                 FROM concurso_cursos cc 
                 INNER JOIN concurso_cursos_carreras ccc ON ccc.curso_id=cc.id
                 INNER JOIN concurso_carreras cca ON cca.id=ccc.carrera_id
-                WHERE ccc.carrera_id IN (".$carreras.")
+                INNER JOIN concurso_sedes_carreras csc ON csc.carrera_id=cca.id
+                WHERE csc.id IN (".$carreras.")
+                GROUP BY grupo,cc.nombre
                 ORDER BY grupo,cc.nombre";
         $r=DB::select($sql);
         $rst['cursos']=$r;
