@@ -14,7 +14,7 @@ class ConcursoController extends \BaseController
 
     public function getCarreras()
     {
-        $sedes=Input::get('sedes');
+        $sedes=implode(",",Input::get('sedes'));
         $sql="  SELECT csc.id,cc.id carrera_id,cc.nombre,cs.nombre area
                 FROM concurso_carreras cc 
                 INNER JOIN concurso_sedes_carreras csc ON csc.carrera_id=cc.id
@@ -29,7 +29,7 @@ class ConcursoController extends \BaseController
 
     public function getCursos()
     {
-        $carreras=Input::get('carreras');
+        $carreras=implode(",",Input::get('carreras'));
         $sql="  SELECT ccc.id,cc.id curso_id,cc.nombre,cca.nombre carrera
                 FROM concurso_cursos cc 
                 INNER JOIN concurso_cursos_carreras ccc ON ccc.curso_id=cc.id
