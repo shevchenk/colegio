@@ -15,12 +15,12 @@ class ConcursoController extends \BaseController
     public function getCarreras()
     {
         $sedes=implode(",",Input::get('sedes'));
-        $sql="  SELECT csc.id,cc.id carrera_id,cc.nombre,cs.nombre area
+        $sql="  SELECT csc.id,cc.id grupo_id,cc.nombre,cs.nombre grupo
                 FROM concurso_carreras cc 
                 INNER JOIN concurso_sedes_carreras csc ON csc.carrera_id=cc.id
                 INNER JOIN concurso_sedes cs ON cs.id=csc.sede_id
                 WHERE csc.sede_id IN (".$sedes.")
-                ORDER BY area,cc.nombre";
+                ORDER BY grupo,cc.nombre";
         $r=DB::select($sql);
         $rst['carreras']=$r;
         $rst['msj']='Listado correctamente';
@@ -30,12 +30,12 @@ class ConcursoController extends \BaseController
     public function getCursos()
     {
         $carreras=implode(",",Input::get('carreras'));
-        $sql="  SELECT ccc.id,cc.id curso_id,cc.nombre,cca.nombre carrera
+        $sql="  SELECT ccc.id,cc.id grupo_id,cc.nombre,cca.nombre grupo
                 FROM concurso_cursos cc 
                 INNER JOIN concurso_cursos_carreras ccc ON ccc.curso_id=cc.id
                 INNER JOIN concurso_carreras cca ON cca.id=ccc.carrera_id
                 WHERE ccc.carrera_id IN (".$carreras.")
-                ORDER BY carrera,cc.nombre";
+                ORDER BY grupo,cc.nombre";
         $r=DB::select($sql);
         $rst['cursos']=$r;
         $rst['msj']='Listado correctamente';
