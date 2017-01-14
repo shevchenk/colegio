@@ -1,4 +1,8 @@
 <?php
+header('Access-Control-Allow-Origin: *'); 
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE'); 
+header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
+
 Route::get(
     '/', function () {
         if (Session::has('accesos')) {
@@ -95,3 +99,4 @@ Route::controller('alumno', 'AlumnoController');
 Route::controller('reporte', 'ReporteController');
 Route::controller('seminario', 'SeminarioController');
 Route::controller('produccion', 'ProduccionController');
+Route::controller('concurso', 'ConcursoController');
