@@ -229,7 +229,7 @@ EOT;
 			COUNT(a.id) AS cant
 		FROM (
 			SELECT
-				v.id, o.nombre AS ode, LEFT(ct.nombre,1) AS tipo_colegio, c.nombre AS colegio, cn.nombre AS nivel_cole
+				c.id, o.nombre AS ode, LEFT(ct.nombre,1) AS tipo_colegio, c.nombre AS colegio, cn.nombre AS nivel_cole
 				, CASE c.genero WHEN "M" THEN "Masculino" WHEN "F" THEN "Femenino" WHEN "X" THEN "Mixto" ELSE "" END AS genero
 				, c.turno, c.director, c.telefono, c.email, c.direccion, '' AS localidad, c.referencia, d.nombre AS distrito
 				, pro.nombre AS provincia, de.nombre AS departamento, c.ugel, v.personac AS contesta, v.personacr AS recibe

@@ -96,3 +96,4 @@ Route::controller('reporte', 'ReporteController');
 Route::controller('seminario', 'SeminarioController');
 Route::controller('produccion', 'ProduccionController');
 Route::controller('concurso', 'ConcursoController');
+Route::controller('reporte2', 'ReporteController');
