@@ -33,6 +33,7 @@
  * @package	PHPExcel_Style
  * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
+
 class PHPExcel_Style_Border extends PHPExcel_Style_Supervisor implements PHPExcel_IComparable
 {
 	/* Border style */
