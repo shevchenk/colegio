@@ -3,11 +3,22 @@ class ReporteController extends BaseController
 {
     public function postAlumnos()
     {
-        set_time_limit(600);
+        error_reporting(E_ALL);
+        ini_set('display_errors', TRUE);
+        ini_set('display_startup_errors', TRUE);
+
+        set_time_limit(300);
         ini_set('memory_limit','1024M');
+
         $az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
         $azcount=array(5,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15);
         // aqui s el tamaña de las celdas
+
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->getProperties()->setCreator("Jorge Salcedo");
+        $objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
+        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+
         $styleThinBlackBorderAllborders = array(
             'borders' => array(
                 'allborders' => array(
@@ -32,22 +43,10 @@ class ReporteController extends BaseController
             ),
         );
 
-        $objPHPExcel = new PHPExcel();
-        $objPHPExcel->getProperties()->setCreator("Jorge Salcedo")
-                                     ->setLastModifiedBy("Jorge Salcedo")
-                                     ->setTitle("Office 2007 XLSX Test Document")
-                                     ->setSubject("Office 2007 XLSX Test Document")
-                                     ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
-                                     ->setKeywords("office 2007 openxml php")
-                                     ->setCategory("Test result file");
-
-        $objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
-        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
-
         $objPHPExcel->getActiveSheet()->setCellValue("A2","Alumno");
         $objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setSize(20);
 
-        $cabecera=array('Nº','ODE','DISTRITO','PROVINCIA','DEPARTAMENTO','AP_PATERNO','AP_MATERNO','NOMBRES','SEXO','EDAD','GRADO','SECCION','TURNO','TELEFONO FIJO','CELULAR 1','CORREO ELEC.','DIRECCION','REFERENCIA','DISTRITO','PROVINCIA','DEPARTAMENTO','COLEGIO','TIPO (PQ,N,P)','DIRECCION','REFERENCIA','DISTRITO','PROVINCIA','DEPARTAMENTO','PENSION','CARRERA PROFESIONAL (5 AÑOS)','PRECIO','CARRERA PROFESIONAL (3 AÑOS)','PRECIO','CARRERA PROFESIONAL (1 AÑO)','PRECIO','APELLIDOS Y NOMBRES','FECHA','APELLIDOS Y NOMBRES','FECHA');
+        $cabecera=array('Nº','ODE','DISTRITO','PROVINCIA','DEPARTAMENTO','AP_PATERNO','AP_MATERNO','NOMBRES','SEXO','EDAD','GRADO','SECCION','TURNO','TELEFONO FIJO','CELULAR 1','CORREO ELEC.','DIRECCION','REFERENCIA','DISTRITO','PROVINCIA','DEPARTAMENTO','COLEGIO','TIPO (PQ,N,P)','DIRECCION','REFERENCIA','CONO','DISTRITO','PROVINCIA','DEPARTAMENTO','PENSION','CARRERA PROFESIONAL (5 AÑOS)','PRECIO','CARRERA PROFESIONAL (3 AÑOS)','PRECIO','CARRERA PROFESIONAL (1 AÑO)','PRECIO','APELLIDOS Y NOMBRES','FECHA','APELLIDOS Y NOMBRES','FECHA');
 
         $objPHPExcel->getActiveSheet()->mergeCells('A3:A4');
         $objPHPExcel->getActiveSheet()->mergeCells('A2:'.$az[(count($cabecera)-1)].'2');
@@ -117,10 +116,9 @@ class ReporteController extends BaseController
         $valorinicial=4;
         $azcant=1;
         $aData = Alumno::DataAlumno( $array );
-
         //$objPHPExcel->getActiveSheet()->setCellValue("A1",$aData[1]);
 
-        foreach($aData[0] as $r){
+        foreach($aData as $key => $r){
         $cont++;
         $valorinicial++;
         $azcant=0;
@@ -152,6 +150,7 @@ class ReporteController extends BaseController
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->colegio_tipo);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->direccion1);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->referencia1);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->zona_cole);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->distrito_cole);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->provincia_cole);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->departamento_cole);$azcant++;
@@ -212,9 +211,16 @@ class ReporteController extends BaseController
 
         $objPHPExcel->getActiveSheet()->setTitle('Listado');
         $objPHPExcel->setActiveSheetIndex(0);
+        // Redirect output to a client’s web browser (Excel2007)
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="Listado_'.date("Y-m-d_H-i-s").'.xlsx"');
+        header('Content-Disposition: attachment;filename="datacole_'.date('Y_m_d_H_i_s').'.xlsx"');
         header('Cache-Control: max-age=0');
+        header('Cache-Control: max-age=1');
+
+        header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+        header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header ('Pragma: public'); // HTTP/1.0
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $objWriter->save('php://output');
@@ -227,6 +233,12 @@ class ReporteController extends BaseController
         $az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
         $azcount=array(5,40,15,15,15,15,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15);
         // aqui s el tamaña de las celdas
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->getProperties()->setCreator("Jorge Salcedo");
+
+        $objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
+        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+
         $styleThinBlackBorderAllborders = array(
             'borders' => array(
                 'allborders' => array(
@@ -251,17 +263,6 @@ class ReporteController extends BaseController
             ),
         );
 
-        $objPHPExcel = new PHPExcel();
-        $objPHPExcel->getProperties()->setCreator("Jorge Salcedo")
-                                     ->setLastModifiedBy("Jorge Salcedo")
-                                     ->setTitle("Office 2007 XLSX Test Document")
-                                     ->setSubject("Office 2007 XLSX Test Document")
-                                     ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
-                                     ->setKeywords("office 2007 openxml php")
-                                     ->setCategory("Test result file");
-
-        $objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
-        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
 
         $objPHPExcel->getActiveSheet()->setCellValue("A2","Producción");
         $objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setSize(20);
@@ -431,6 +432,12 @@ class ReporteController extends BaseController
         $az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
         $azcount=array(5,17,17,25,25,25,15,12,12,15,17,18,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15);
         // aqui s el tamaña de las celdas
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->getProperties()->setCreator("Jorge Salcedo");
+
+        $objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
+        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+
         $styleThinBlackBorderAllborders = array(
             'borders' => array(
                 'allborders' => array(
@@ -455,17 +462,6 @@ class ReporteController extends BaseController
             ),
         );
 
-        $objPHPExcel = new PHPExcel();
-        $objPHPExcel->getProperties()->setCreator("Jorge Salcedo")
-                                     ->setLastModifiedBy("Jorge Salcedo")
-                                     ->setTitle("Office 2007 XLSX Test Document")
-                                     ->setSubject("Office 2007 XLSX Test Document")
-                                     ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
-                                     ->setKeywords("office 2007 openxml php")
-                                     ->setCategory("Test result file");
-
-        $objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
-        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
 
         $objPHPExcel->getActiveSheet()->setCellValue("A2","Listado de Visitas Programdas");
         $objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setSize(20);
@@ -571,6 +567,12 @@ class ReporteController extends BaseController
         $az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
         $azcount=array(15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15);
         // aqui s el tamaña de las celdas
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->getProperties()->setCreator("Jorge Salcedo");
+
+        $objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
+        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+
         $styleThinBlackBorderAllborders = array(
             'borders' => array(
                 'allborders' => array(
@@ -595,17 +597,6 @@ class ReporteController extends BaseController
             ),
         );
 
-        $objPHPExcel = new PHPExcel();
-        $objPHPExcel->getProperties()->setCreator("Jorge Salcedo")
-                                     ->setLastModifiedBy("Jorge Salcedo")
-                                     ->setTitle("Office 2007 XLSX Test Document")
-                                     ->setSubject("Office 2007 XLSX Test Document")
-                                     ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
-                                     ->setKeywords("office 2007 openxml php")
-                                     ->setCategory("Test result file");
-
-        $objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
-        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
 
         $objPHPExcel->getActiveSheet()->setCellValue("A2","Listado de Seminarios");
         $objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setSize(20);
@@ -707,6 +698,12 @@ class ReporteController extends BaseController
 	public function postDistribucion()
 	{
 		$az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
+
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->getProperties()->setCreator("Vic Omar");
+        $objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
+        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+
 		$styleThinBlackBorderAllborders = array(
 			'borders' => array(
 				'allborders' => array(
@@ -730,11 +727,6 @@ class ReporteController extends BaseController
 				'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
 			),
 		);
-
-		$objPHPExcel = new PHPExcel();
-		$objPHPExcel->getProperties()->setCreator("Vic Omar");
-		$objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
-		$objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
 
 		$aHeadColegio[] = "N°";
 		$aHeadColegio[] = "Ode";
@@ -1029,34 +1021,35 @@ class ReporteController extends BaseController
 	public function postVisita()
 	{
 		$az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
-		$styleThinBlackBorderAllborders = array(
-			'borders' => array(
-				'allborders' => array(
-					'style' => PHPExcel_Style_Border::BORDER_THIN,
-					'color' => array('argb' => 'FF000000'),
-				),
-			),
-		);
-		$styleAlignmentBold= array(
-			'font'    => array(
-				'bold'      => true
-			),
-			'alignment' => array(
-				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-				'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-			),
-		);
-		$styleAlignment= array(
-			'alignment' => array(
-				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-				'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-			),
-		);
-
 		$objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()->setCreator("Vic Omar");
 		$objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
 		$objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+
+        $styleThinBlackBorderAllborders = array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN,
+                    'color' => array('argb' => 'FF000000'),
+                ),
+            ),
+        );
+        $styleAlignmentBold= array(
+            'font'    => array(
+                'bold'      => true
+            ),
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+            ),
+        );
+        $styleAlignment= array(
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+            ),
+        );
+
 
 		$aHeadColegio[] = "N°";
 		$aHeadColegio[] = "Ode";
@@ -1373,34 +1366,35 @@ class ReporteController extends BaseController
         set_time_limit(300);
         ini_set('memory_limit','1024M');
 		$az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
-		$styleThinBlackBorderAllborders = array(
-			'borders' => array(
-				'allborders' => array(
-					'style' => PHPExcel_Style_Border::BORDER_THIN,
-					'color' => array('argb' => 'FF000000'),
-				),
-			),
-		);
-		$styleAlignmentBold= array(
-			'font'    => array(
-				'bold'      => true
-			),
-			'alignment' => array(
-				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-				'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-			),
-		);
-		$styleAlignment= array(
-			'alignment' => array(
-				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-				'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-			),
-		);
-
 		$objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()->setCreator("Vic Omar");
 		$objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
 		$objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+
+        $styleThinBlackBorderAllborders = array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN,
+                    'color' => array('argb' => 'FF000000'),
+                ),
+            ),
+        );
+        $styleAlignmentBold= array(
+            'font'    => array(
+                'bold'      => true
+            ),
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+            ),
+        );
+        $styleAlignment= array(
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+            ),
+        );
+
 
 		$aHeadColegio[] = "N°";
 		$aHeadColegio[] = "Ode";
@@ -1904,39 +1898,41 @@ class ReporteController extends BaseController
 		$objWriter->save('php://output');
 		exit;
 
-	}
+    }
 
-	public function postIndice()
-	{
-		$az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
-		$styleThinBlackBorderAllborders = array(
-			'borders' => array(
-				'allborders' => array(
-					'style' => PHPExcel_Style_Border::BORDER_THIN,
-					'color' => array('argb' => 'FF000000'),
-				),
-			),
-		);
-		$styleAlignmentBold= array(
-			'font'    => array(
-				'bold'      => true
-			),
-			'alignment' => array(
-				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-				'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-			),
-		);
-		$styleAlignment= array(
-			'alignment' => array(
-				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-				'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-			),
-		);
-
-		$objPHPExcel = new PHPExcel();
+    public function postIndice()
+    {
+        $az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
+		
+        $objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()->setCreator("Vic Omar");
 		$objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
 		$objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+        
+        $styleThinBlackBorderAllborders = array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN,
+                    'color' => array('argb' => 'FF000000'),
+                ),
+            ),
+        );
+        $styleAlignmentBold= array(
+            'font'    => array(
+                'bold'      => true
+            ),
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+            ),
+        );
+        $styleAlignment= array(
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+            ),
+        );
+
 
 		$sCadenaFecha = DateTime::createFromFormat('Y-m-d', Input::get("txt_fecha_actual"));
 		$sD6 = date_create(Input::get("txt_fecha_actual"));
@@ -2220,6 +2216,12 @@ class ReporteController extends BaseController
 	public function postIndicedata()
 	{
 		$az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
+
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->getProperties()->setCreator("Vic Omar");
+        $objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
+        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+
 		$styleThinBlackBorderAllborders = array(
 			'borders' => array(
 				'allborders' => array(
@@ -2243,11 +2245,6 @@ class ReporteController extends BaseController
 				'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
 			),
 		);
-
-		$objPHPExcel = new PHPExcel();
-		$objPHPExcel->getProperties()->setCreator("Vic Omar");
-		$objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
-		$objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
 
 		$sCadenaFecha = DateTime::createFromFormat('Y-m-d', Input::get("txt_fecha_actual"));
 		$sD6 = date_create(Input::get("txt_fecha_actual"));
@@ -3062,6 +3059,9 @@ class ReporteController extends BaseController
 
         // Create new PHPExcel object
         $objPHPExcel = new PHPExcel();
+        $objPHPExcel->getProperties()->setCreator("Jorge Salcedo");
+        $objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
+        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
         //$styleThinBlackBorderAllborders = new PHPExcel_Style();
 
         $styleThinBlackBorderAllborders=array(
@@ -3089,16 +3089,6 @@ class ReporteController extends BaseController
                 'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
             ),
         );
-        // Set document properties
-        $objPHPExcel->getProperties()->setCreator("Jorge Salcedo")
-                             ->setLastModifiedBy("Jorge Salcedo")
-                             ->setTitle("Office 2007 XLSX Test Document")
-                             ->setSubject("Office 2007 XLSX Test Document")
-                             ->setDescription("jorgeshevchenk@gmail.com")
-                             ->setKeywords("office 2007 openxml php")
-                             ->setCategory("Reportes");
-        $objPHPExcel->getDefaultStyle()->getFont()->setName('Bookman Old Style');
-        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
         // Add some data
         $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('A1', 'Hello')

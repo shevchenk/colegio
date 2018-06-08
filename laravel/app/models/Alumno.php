@@ -41,6 +41,7 @@ dalu.nombre distrito_alu ,proalu.nombre provincia_alu, dealu.nombre departamento
 /**********Colegio**********/
 c.nombre colegio, ct.nombre colegio_tipo, c.direccion as direccion1, c.referencia as referencia1, 
 d.nombre distrito_cole, pro.nombre provincia_cole, de.nombre departamento_cole, '' pension,
+z.zona zona_cole,
 /**********Educativo**********/
 GROUP_CONCAT( IF(cat3.id IS NOT NULL,CONCAT(ca.id,'|',ca.nombre),NULL ) ORDER BY ca.id SEPARATOR '||') carrera3,
 GROUP_CONCAT( IF(cat3.id IS NOT NULL,CONCAT(ca.id,'|',ad.monto),NULL ) ORDER BY ca.id SEPARATOR '||') monto3,
@@ -59,6 +60,7 @@ INNER JOIN visitas v ON v.id=vd.visita_id
 INNER JOIN colegios_detalle cd ON cd.id=vd.colegio_detalle_id
 INNER JOIN colegios c ON c.id=cd.colegio_id
 INNER JOIN distritos d ON d.id=c.distrito_id
+INNER JOIN zonas z ON z.id=c.zona_id
 INNER JOIN odes_distritos od ON od.distrito_id=d.id AND od.estado=1
 INNER JOIN odes o ON o.id=od.ode_id AND o.estado=1
 INNER JOIN provincias pro ON pro.id=d.provincia_id
