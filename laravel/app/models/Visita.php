@@ -44,7 +44,7 @@ EOT;
 	{
 		$sSql = <<<EOT
 		SELECT
-			a.id, a.ode, a.tipo_colegio, a.colegio, a.telefono, a.distrito, a.fecha_visita, a.hora, a.tiempo
+			a.id, a.ode, a.tipo_colegio, a.colegio, a.telefono, a.zona, a.distrito, a.fecha_visita, a.hora, a.tiempo
 			, a.sec_1, a.sec_2, a.sec_3, a.sec_4, a.sec_5, (a.sec_1 + a.sec_2 + a.sec_3 + a.sec_4 + a.sec_5) AS total_sec
 			, a.dat_1, a.dat_2, a.dat_3, a.dat_4, a.dat_5, (a.dat_1 + a.dat_2 + a.dat_3 + a.dat_4 + a.dat_5) AS total_dat
 			, a.observacion, a.promotor, a.realizada, ((a.sec_1 + a.sec_2 + a.sec_3 + a.sec_4 + a.sec_5) - a.realizada) AS pendiente
@@ -52,7 +52,7 @@ EOT;
 		FROM (
 			SELECT
 				v.id, o.nombre AS ode, ct.nombre AS tipo_colegio, c.nombre AS colegio, c.telefono
-                , c.direccion, c.referencia
+                , c.direccion, c.referencia, z.zona
 				, d.nombre AS distrito, DATE(v.fecha_visita) AS fecha_visita
 				, TIME(v.fecha_visita) AS hora, tiempo_programado AS tiempo
                 , fn_visita_grados(v.id,1) AS sec_1, fn_visita_grados(v.id,2) AS sec_2
@@ -69,6 +69,7 @@ EOT;
 				INNER JOIN odes o ON c.ode_id=o.id
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
+				INNER JOIN zonas z ON z.id=d.zona_id
 				LEFT JOIN personas p ON v.persona_id=p.id AND p.estado=1
 				LEFT JOIN personas p2 ON v.personat_id=p2.id AND p.estado=1
 			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 
@@ -116,7 +117,7 @@ EOT;
 		$sSql = <<<EOT
 		SELECT
 			a.id, a.ode, a.tipo_colegio, a.colegio, a.telefono, a.contesta, a.recibe, a.direccion
-			, a.localidad, a.referencia, a.distrito, a.ugel, a.fecha_visita, a.hora, a.tiempo
+			, a.localidad, a.referencia, a.zona, a.distrito, a.ugel, a.fecha_visita, a.hora, a.tiempo
 			, a.sec_1, a.sec_2, a.sec_3, a.sec_4, a.sec_5, (a.sec_1 + a.sec_2 + a.sec_3 + a.sec_4 + a.sec_5) AS total_sec
 			, a.dat_1, a.dat_2, a.dat_3, a.dat_4, a.dat_5, (a.dat_1 + a.dat_2 + a.dat_3 + a.dat_4 + a.dat_5) AS total_dat
 			, a.observacion, a.promotor, a.convenio
@@ -124,7 +125,7 @@ EOT;
 			SELECT
 				v.id, o.nombre AS ode, LEFT(ct.nombre,1) AS tipo_colegio, c.nombre AS colegio, c.telefono
 				, v.personac AS contesta, v.personacr AS recibe, c.direccion, '' AS localidad, c.referencia
-				, d.nombre AS distrito, c.ugel, DATE(v.fecha_visita) AS fecha_visita
+				, z.zona, d.nombre AS distrito, c.ugel, DATE(v.fecha_visita) AS fecha_visita
 				, TIME(v.fecha_visita) AS hora, tiempo_programado AS tiempo
 				, fn_visita_grados(v.id,1) AS sec_1, fn_visita_grados(v.id,2) AS sec_2
 				, fn_visita_grados(v.id,3) AS sec_3, fn_visita_grados(v.id,4) AS sec_4
@@ -138,6 +139,7 @@ EOT;
 				INNER JOIN odes o ON c.ode_id=o.id
 				INNER JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id
 				INNER JOIN distritos d ON c.distrito_id=d.id
+				INNER JOIN zonas z ON z.id=d.zona_id
 				LEFT JOIN personas p ON v.persona_id=p.id AND p.estado=1
 			WHERE v.estado=1 AND c.estado=1 AND o.estado=1 AND ct.estado=1 AND d.estado=1 
 		) a
@@ -184,7 +186,7 @@ EOT;
 		$sSql = <<<EOT
 		SELECT
 			a.id, a.ode, a.tipo_colegio, a.colegio, a.nivel_cole, a.genero, a.turno, a.director, a.telefono, a.email
-			, a.direccion, a.localidad, a.referencia, a.distrito, a.provincia, a.departamento, a.ugel, a.contesta, a.recibe
+			, a.direccion, a.localidad, a.referencia, a.zona, a.distrito, a.provincia, a.departamento, a.ugel, a.contesta, a.recibe
 			, a.tele_nombre, a.tele_fecha, a.fecha_visita, a.hora, a.tiempo
 			, a.sec_1, a.sec_2, a.sec_3, a.sec_4, a.sec_5, (a.sec_1 + a.sec_2 + a.sec_3 + a.sec_4 + a.sec_5) AS total_sec
 			, a.dat_1, a.dat_2, a.dat_3, a.dat_4, a.dat_5, (a.dat_1 + a.dat_2 + a.dat_3 + a.dat_4 + a.dat_5) AS total_dat
@@ -193,7 +195,7 @@ EOT;
 			SELECT
 				v.id, o.nombre AS ode, LEFT(ct.nombre,1) AS tipo_colegio, c.nombre AS colegio, cn.nombre AS nivel_cole
 				, CASE c.genero WHEN "M" THEN "Masculino" WHEN "F" THEN "Femenino" WHEN "X" THEN "Mixto" ELSE "" END AS genero
-				, c.turno, c.director, c.telefono, c.email, c.direccion, '' AS localidad, c.referencia, d.nombre AS distrito
+				, c.turno, c.director, c.telefono, c.email, c.direccion, '' AS localidad, c.referencia, z.zona, d.nombre AS distrito
 				, pro.nombre AS provincia, de.nombre AS departamento, c.ugel, v.personac AS contesta, v.personacr AS recibe
 				, CONCAT_WS(' ', pte.paterno, pte.materno, pte.nombre) AS tele_nombre, v.fechat AS tele_fecha
 				, DATE(v.fecha_visita) AS fecha_visita, TIME(v.fecha_visita) AS hora, tiempo_programado AS tiempo
@@ -210,6 +212,7 @@ EOT;
 				LEFT JOIN odes o ON c.ode_id=o.id AND o.estado=1
 				LEFT JOIN colegios_tipos ct ON c.colegio_tipo_id=ct.id AND ct.estado=1
 				LEFT JOIN distritos d ON c.distrito_id=d.id AND d.estado=1
+				LEFT JOIN zonas z ON z.id=d.zona_id
 				LEFT JOIN provincias pro ON d.provincia_id=pro.id
 				LEFT JOIN departamentos de ON pro.departamento_id=de.id
 				LEFT JOIN personas p ON v.persona_id=p.id AND p.estado=1

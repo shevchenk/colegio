@@ -124,8 +124,10 @@ class PersonaController extends BaseController
                 'password'=> 'required',
             );
 
-            if( !Input::has('visita_detalle_id') ){
+            if( Input::has('email') AND  trim(Input::get('email'))!='' ){
                 array_push($reglas, array('email' => 'email|unique:personas,email') );
+            }
+            if( Input::has('dni') AND  trim(Input::get('dni'))!='' ){
                 array_push($reglas, array('dni'   => 'required|min:8|unique:personas,dni') );
             }
 
@@ -174,6 +176,10 @@ class PersonaController extends BaseController
                 $persona['telefono'] = Input::get('telefono');
             if ( trim(Input::get('celular') )<>'') 
                 $persona['celular'] = Input::get('celular');
+            if ( trim(Input::get('facebook') )<>'') 
+                $persona['facebook'] = Input::get('facebook');
+            if ( trim(Input::get('instagram') )<>'') 
+                $persona['instagram'] = Input::get('instagram');
             if ( trim(Input::get('departamento_id') )<>'') 
                 $persona['departamento_id'] = Input::get('departamento_id');
             if ( trim(Input::get('provincia_id') )<>'') 

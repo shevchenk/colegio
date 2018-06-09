@@ -60,7 +60,7 @@ INNER JOIN visitas v ON v.id=vd.visita_id
 INNER JOIN colegios_detalle cd ON cd.id=vd.colegio_detalle_id
 INNER JOIN colegios c ON c.id=cd.colegio_id
 INNER JOIN distritos d ON d.id=c.distrito_id
-INNER JOIN zonas z ON z.id=c.zona_id
+INNER JOIN zonas z ON z.id=d.zona_id
 INNER JOIN odes_distritos od ON od.distrito_id=d.id AND od.estado=1
 INNER JOIN odes o ON o.id=od.ode_id AND o.estado=1
 INNER JOIN provincias pro ON pro.id=d.provincia_id

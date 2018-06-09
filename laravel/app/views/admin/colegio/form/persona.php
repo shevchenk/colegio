@@ -97,6 +97,16 @@
                 </div>
               </div>
               <div class="col-sm-12">
+                <div class="col-sm-6">
+                  <label class="control-label">Como te encuentro en Facebook:</label>
+                  <input type="text" class="form-control" placeholder="Ingrese Facebook" name="txt_facebook" id="txt_facebook">
+                </div>
+                <div class="col-sm-6">
+                  <label class="control-label">Como te encuentro en Instagram:</label>
+                  <input type="text" class="form-control" placeholder="Ingrese Instagram" name="txt_instagram" id="txt_instagram">
+                </div>
+              </div>
+              <div class="col-sm-12">
                 <div class="col-sm-4">
                   <label class="control-label">Departamento:</label>
                   <select class="form-control" name="slct_departamento_id" id="slct_departamento_id"></select>
