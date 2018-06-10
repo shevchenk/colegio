@@ -518,6 +518,9 @@ CargarAlumnosDetalleHTML=function(datos){
         html+="<tr>";
         html+="<td>"+data.carrera+"</td>";
         html+="<td>"+data.monto+"</td>";
+        html+="<td>"+data.año+"</td>";
+        html+="<td>"+data.tipo_universidad+"</td>";
+        html+="<td>"+data.test+"</td>";
         html+=  "<td>"+
                     "<a class='form-control btn btn-danger' onClick='EliminarAlumnoDetalle(this,"+data.id+")'>"+
                         "<i class='fa fa-lg fa-minus'></i>"+
@@ -561,6 +564,18 @@ ValidarAlumnoDetalle=function(){
     }
     else if( $.trim( $("#form_alumnos_detalle #txt_monto").val() )=='' ){
         alert('Ingrese Monto ');
+        rpta=false;
+    }
+    else if( $.trim( $("#form_alumnos_detalle #slct_año").val() )=='' ){
+        alert('Seleccione año que postula');
+        rpta=false;
+    }
+    else if( $.trim( $("#form_alumnos_detalle #slct_tipo_universidad").val() )=='' ){
+        alert('Seleccione tipo de Universidad');
+        rpta=false;
+    }
+    else if( $.trim( $("#form_alumnos_detalle #slct_test").val() )=='' ){
+        alert('Seleccione resultado del TEST');
         rpta=false;
     }
     return rpta;

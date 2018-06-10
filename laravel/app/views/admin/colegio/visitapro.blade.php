@@ -209,11 +209,14 @@
                 <table id="t_alumno_detalle" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th colspan='3' style='text-align:center; background-color:#A7C0DC;'><h2>CARRERA DEL ALUMNO</h2></th>
+                        <th colspan='6' style='text-align:center; background-color:#A7C0DC;'><h2>CARRERA DEL ALUMNO</h2></th>
                     </tr>
                     <tr>
                     <th style="background-color:#DCE6F1;">Carrera</th>
                     <th style="background-color:#DCE6F1;">Monto</th>
+                    <th style="background-color:#DCE6F1;">Año Postula</th>
+                    <th style="background-color:#DCE6F1;">Tipo Universidad</th>
+                    <th style="background-color:#DCE6F1;">Resutlado TEST</th>
                     <th style="background-color:#DCE6F1;">Agregar Carrera Alumno
                         <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoDetalleModal" data-trid="t_alumno_detalle" data-titulo="Buscar" >
                             <i class='fa fa-lg fa-plus'></i>
@@ -225,6 +228,9 @@
                     <tr>
                     <th style="background-color:#DCE6F1;">Carrera</th>
                     <th style="background-color:#DCE6F1;">Monto</th>
+                    <th style="background-color:#DCE6F1;">Año Postula</th>
+                    <th style="background-color:#DCE6F1;">Tipo Universidad</th>
+                    <th style="background-color:#DCE6F1;">Resutlado TEST</th>
                     <th style="background-color:#DCE6F1;">Agregar Carrera Alumno
                         <a class='form-control btn btn-primary' data-toggle="modal" data-target="#alumnoDetalleModal" data-trid="t_alumno_detalle" data-titulo="Buscar" >
                             <i class='fa fa-lg fa-plus'></i>

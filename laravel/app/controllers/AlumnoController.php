@@ -33,6 +33,9 @@ class AlumnoController extends \BaseController
             $alumnoDetalle->alumno_id=Input::get('alumno_id');
             $alumnoDetalle->carrera_id=Input::get('carrera');
             $alumnoDetalle->monto=Input::get('monto');
+            $alumnoDetalle->año=Input::get('año');
+            $alumnoDetalle->tipo_universidad=Input::get('tipo_universidad');
+            $alumnoDetalle->test_id=Input::get('test');
             $alumnoDetalle->usuario_created_at=Auth::user()->id;
             $alumnoDetalle->save();
 

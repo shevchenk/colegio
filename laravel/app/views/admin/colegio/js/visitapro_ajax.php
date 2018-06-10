@@ -474,6 +474,9 @@ var VisitaPro={
                         html+="<tr>";
                         html+="<td>"+$("#form_alumnos_detalle #slct_carrera>option:selected").text()+"</td>";
                         html+="<td>"+$("#form_alumnos_detalle #txt_monto").val()+"</td>";
+                        html+="<td>"+$("#form_alumnos_detalle #slct_año>option:selected").text()+"</td>";
+                        html+="<td>"+$("#form_alumnos_detalle #slct_tipo_universidad>option:selected").text()+"</td>";
+                        html+="<td>"+$("#form_alumnos_detalle #slct_test>option:selected").text()+"</td>";
                         html+=  "<td>"+
                                     "<a class='form-control btn btn-danger' onClick='EliminarAlumnoDetalle(this,"+obj.id+")'>"+
                                         "<i class='fa fa-lg fa-minus'></i>"+

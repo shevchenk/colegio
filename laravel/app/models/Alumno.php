@@ -19,9 +19,12 @@ EOT;
     public static function CargarDetalle( $array )
     {
         $sSql = <<<EOT
-            SELECT ad.id, c.nombre carrera, ad.monto
+            SELECT ad.id, c.nombre carrera, ad.monto, ad.año, 
+            IF(ad.tipo_universidad=1,'Privada','Pública') tipo_universidad,
+            t.test
             FROM alumnos_detalle ad
             INNER JOIN carreras c ON c.id=ad.carrera_id
+            INNER JOIN test t ON t.id=ad.test_id
             WHERE ad.estado=1
 EOT;
         $sSql.= $array['where'];

@@ -14,27 +14,59 @@
             <legend>Seleccione e ingrese su datos</legend>
             <div class="row form-group">
 
-            <div class="col-sm-12">
-                <div class="col-sm-4">
-                  <label class="control-label">Tipo Carrera</label>
-                  <select class="form-control" name='slct_tipo_carrera' id='slct_tipo_carrera' onChange='CargarCarreras(this.value);'>
-                      <option value=''>.::Seleccione::.</option>
-                  </select>
-                </div>
+            <div class="col-sm-6">
+              <div class="col-sm-12">
+                    <label class="control-label">Tipo Carrera</label>
+                    <select class="form-control" name='slct_tipo_carrera' id='slct_tipo_carrera' onChange='CargarCarreras(this.value);'>
+                        <option value=''>.::Seleccione::.</option>
+                    </select>
+              </div>
+              <div class="col-sm-12">
+                    <label class="control-label">Carrera</label>
+                    <select class="form-control" name='slct_carrera' id='slct_carrera'>
+                        <option value=''>.::Seleccione::.</option>
+                    </select>
+              </div>
+              <div class="col-sm-12">
+                    <label class="control-label">Monto</label>
+                    <input type="text" class="form-control" placeholder="Ingrese Monto" name="txt_monto" id="txt_monto">
+              </div>
             </div>
-            <div class="col-sm-12">
-                <div class="col-sm-4">
-                  <label class="control-label">Carrera</label>
-                  <select class="form-control" name='slct_carrera' id='slct_carrera'>
-                      <option value=''>.::Seleccione::.</option>
-                  </select>
-                </div>
-            </div>
-            <div class="col-sm-12">
-                <div class="col-sm-4">
-                  <label class="control-label">Monto</label>
-                  <input type="text" class="form-control" placeholder="Ingrese Monto" name="txt_monto" id="txt_monto">
-                </div>
+            <div class="col-sm-6">
+              <div class="col-sm-12">
+                    <label class="control-label">Año que postula?</label>
+                    <select class="form-control" name='slct_año' id='slct_año'>
+                        <option value=''>.::Seleccione::.</option>
+                        <?php 
+                          for ($i=0; $i < 5; $i++) { 
+                            $año=date('Y');
+                            echo "<option value='".($año+$i)."'>".($año+$i)."</option>";
+                          }
+                        ?>
+                    </select>
+              </div>
+              <div class="col-sm-12">
+                    <label class="control-label">Tipo Universidad</label>
+                    <select class="form-control" name='slct_tipo_universidad' id='slct_tipo_universidad'>
+                        <option value=''>.::Seleccione::.</option>
+                        <option value='1'>Privada</option>
+                        <option value='2'>Pública</option>
+                    </select>
+              </div>
+              <div class="col-sm-12">
+                    <label class="control-label">Resultado del TEST</label>
+                    <select class="form-control" name='slct_test' id='slct_test'>
+                        <option value=''>.::Seleccione::.</option>
+                        <option value='1'>A</option>
+                        <option value='2'>B</option>
+                        <option value='3'>C</option>
+                        <option value='4'>D</option>
+                        <option value='5'>E</option>
+                        <option value='6'>F</option>
+                        <option value='7'>G</option>
+                        <option value='8'>H</option>
+                    </select>
+              </div>
             </div>
           </fieldset>
         </form>
