@@ -1080,8 +1080,8 @@ class ReporteController extends BaseController
 
 		$objPHPExcel->getActiveSheet()->setCellValue("A2","VISITAS DE COLEGIOS");
 		$objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setSize(20);
-		$objPHPExcel->getActiveSheet()->mergeCells('A2:AE2');
-		$objPHPExcel->getActiveSheet()->getStyle('A2:AE2')->applyFromArray($styleAlignmentBold);
+		$objPHPExcel->getActiveSheet()->mergeCells('A2:AG2');
+		$objPHPExcel->getActiveSheet()->getStyle('A2:AG2')->applyFromArray($styleAlignmentBold);
 
 		$objPHPExcel->getActiveSheet()->setCellValue("A3","DATOS DEL COLEGIO");
 		$objPHPExcel->getActiveSheet()->getStyle('A3:M4')
@@ -1096,6 +1096,13 @@ class ReporteController extends BaseController
 			->applyFromArray($styleAlignmentBold)->getFill()
 			->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
 			->getStartColor()->setARGB('64b5f6');
+
+        $objPHPExcel->getActiveSheet()->setCellValue("AF3","TELECITA");
+        $objPHPExcel->getActiveSheet()->mergeCells('AF3:AG3');
+        $objPHPExcel->getActiveSheet()->getStyle('AF3:AG3')
+            ->applyFromArray($styleAlignmentBold)->getFill()
+            ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('64b5f6');
 
 		for($i=0;$i<count($aHeadColegio);$i++)
 		{
@@ -1166,6 +1173,14 @@ class ReporteController extends BaseController
 
 		$objPHPExcel->getActiveSheet()->setCellValue("AE5","Fecha");
 		$objPHPExcel->getActiveSheet()->getStyle('AE5')->applyFromArray($styleAlignmentBold);
+
+        $objPHPExcel->getActiveSheet()->setCellValue("AF4","Persona");
+        $objPHPExcel->getActiveSheet()->mergeCells('AF4:AF5');
+        $objPHPExcel->getActiveSheet()->getStyle('AF4:AF5')->applyFromArray($styleAlignmentBold);
+
+        $objPHPExcel->getActiveSheet()->setCellValue("AG4","Fecha");
+        $objPHPExcel->getActiveSheet()->mergeCells('AG4:AG5');
+        $objPHPExcel->getActiveSheet()->getStyle('AG4:AG5')->applyFromArray($styleAlignmentBold);
 
 		$array=array();
 		$array['where']=' WHERE 1=1 ';
@@ -1347,6 +1362,10 @@ class ReporteController extends BaseController
 			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->promotor);
 				$azcant++;
 			$objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->convenio);
+                $azcant++;
+            $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->personat);
+                $azcant++;
+            $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->fechat);
 		}
 		$objPHPExcel->getActiveSheet()->getStyle('A2:'.$az[$azcant].$valorinicial)->applyFromArray($styleThinBlackBorderAllborders);
 		$objPHPExcel->getActiveSheet()->setTitle('Visitas');
