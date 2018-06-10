@@ -13,9 +13,11 @@ class VisitaDetalle extends Base
                     cd.nivel=3,'Secundaria',''
                     )
                 )
-            ) nivel
+            ) nivel,
+            CONCAT(p.paterno, ' ', p.materno, ', ', p.nombre, ' | ', p.dni) AS promotor
             FROM visitas_detalle vd
             INNER JOIN colegios_detalle cd ON cd.id=vd.colegio_detalle_id
+            LEFT JOIN personas p ON p.id=vd.persona_id
             WHERE vd.estado=1
 EOT;
         $sSql.= $array['where'];

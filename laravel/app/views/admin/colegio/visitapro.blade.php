@@ -124,6 +124,16 @@
                     <input class="form-control" onblur="ActualizarContactoP(this);" type="text" name="txt_telefono" id="txt_telefono">
                 </div>
             </div>
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                  <label class="control-label">Como te encuentro en Facebook:</label>
+                  <input type="text" class="form-control" onblur="ActualizarContactoP(this);" placeholder="Ingrese Facebook" name="txt_facebook" id="txt_facebook">
+                </div>
+                <div class="col-sm-6">
+                  <label class="control-label">Como te encuentro en Instagram:</label>
+                  <input type="text" class="form-control" onblur="ActualizarContactoP(this);" placeholder="Ingrese Instagram" name="txt_instagram" id="txt_instagram">
+                </div>
+              </div>
             <form name="form_filtros" id="form_filtros" method="POST" action="">
             <div class="col-sm-12">
                 <hr>
@@ -131,7 +141,7 @@
                 <table id="t_visita_detalle" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th colspan='7' style='text-align:center; background-color:#A7C0DC;'><h2>GRADO Y SECCIONES DEL COLEGIO</h2></th>
+                        <th colspan='8' style='text-align:center; background-color:#A7C0DC;'><h2>GRADO Y SECCIONES DEL COLEGIO</h2></th>
                     </tr>
                     <tr>
                     <th style="background-color:#DCE6F1;">Nivel</th>
@@ -140,6 +150,7 @@
                     <th style="background-color:#DCE6F1;">Turno</th>
                     <th style="background-color:#DCE6F1;">Total Alumnos</th>
                     <th style="background-color:#DCE6F1;">Total Alumnos Registrados</th>
+                    <th style="background-color:#DCE6F1;width: 350px;">Promotor</th>
                     <th style="background-color:#DCE6F1;">Ver Alumnos</th>
                     </tr>
                     </thead>
@@ -152,6 +163,7 @@
                     <th style="background-color:#DCE6F1;">Turno</th>
                     <th style="background-color:#DCE6F1;">Total Alumnos</th>
                     <th style="background-color:#DCE6F1;">Total Alumnos Registrados</th>
+                    <th style="background-color:#DCE6F1;width: 350px;">Promotor</th>
                     <th style="background-color:#DCE6F1;">Ver Alumnos</th>
                     </tr>
                     </tfoot>
@@ -230,4 +242,5 @@
      @include( 'admin.colegio.form.alumno' )
      @include( 'admin.colegio.form.alumnoDetalle' )
      @include( 'admin.colegio.form.persona' )
+     @include( 'admin.colegio.form.promotor' )
 @stop

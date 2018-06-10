@@ -8,7 +8,9 @@ var columnDefsA=[];
 var targetsA=-1;
 var VisitaDetalleIdG=0;
 var AlumnoIdG=0;
+var PromotorG=0;
 $(document).ready(function() {
+    $("#t_promotor").dataTable();
     cabeceraVP=[{
                 'id'    :'fecha_visita',
                 'idide' :'th_fv',
@@ -153,6 +155,18 @@ $(document).ready(function() {
         }
     );
     MostrarAjax('visita');
+
+    $('#promotorModal').on('show.bs.modal', function (event) {
+        var modal = $(this);
+        var button = $(event.relatedTarget); // captura al boton
+        var trid = button.data('trid'); //extrae el id del atributo data
+        var id = button.data('id'); //extrae el id del atributo data
+        modal.find('.modal-title').text('Promotor');
+        $("#form_promotor input[type='hidden']").remove();
+        PromotorG=id;
+        data={cargo_id:4};
+        VisitaPro.ColegioPersona(ColegioPromotorHTML,data);
+    });
 
     $('#alumnoModal').on('show.bs.modal', function (event) {
         var modal = $(this);
@@ -303,6 +317,8 @@ CargarContactosHTML=function(obj){
     $("#txt_cargo").val(obj.cargo);
     $("#txt_email").val(obj.email);
     $("#txt_telefono").val(obj.telefono);
+    $("#txt_facebook").val(obj.facebook);
+    $("#txt_instagram").val(obj.instagram);
 }
 
 CargarDetalleHTML=function(datos){
@@ -317,6 +333,11 @@ CargarDetalleHTML=function(datos){
         html+="<td>"+data.turno+"</td>";
         html+="<td>"+data.alumnos_total+"</td>";
         html+="<td><input type='text' data-id='"+data.id+"' onBlur='ActualizarAlumnoR(this);' value='"+data.alumnos_registrados+"' id='txt_alumnos_registrados_"+data.id+"' name='txt_alumnos_registrados' </td>";
+        html+="<td> <input class='col-sm-10' type='text' id='txt_persona_"+data.id+"' value='"+$.trim(data.promotor)+"' readonly>'"+
+                    "<a class='form-control btn btn-primary' data-toggle='modal' data-target='#promotorModal' data-trid='t_promotor' data-titulo='Buscar' data-id='"+data.id+"' >"+
+                            "<i class='fa fa-lg fa-search'></i>"+
+                    "</a>"+
+                "</td>";
         html+=  "<td>"+
                 "<input type='hidden' value='"+data.id+"' name='txt_visita_detalle_id[]'>"+
                     "<a class='form-control btn btn-primary' onClick='CargarAlumnos(this,"+data.id+")'>"+
@@ -412,6 +433,32 @@ Mostrar=function(evento){
         VisitaPro.ColegioPersona(ColegioPersonaHTML,data);
     }
 }
+
+ColegioPromotorHTML=function(datos){
+    var html='';
+    $('#t_promotor').dataTable().fnDestroy();
+    $.each(datos,function(index,data){
+        html+="<tr>"+
+            "<td>"+data.paterno+"</td>"+
+            "<td>"+data.materno+"</td>"+
+            "<td>"+data.nombre+"</td>"+
+            "<td>"+data.dni+"</td>"+
+            '<td><a class="btn btn-primary btn-sm" id="persona" data-id="'+data.id+'" data-nombre="'+data.paterno+' '+data.materno+', '+data.nombre+' | DNI:'+data.dni+'" onClick="PintarPromotor(this)">'+
+                '<i class="fa fa-check fa-lg"></i> </a></td>';
+        html+="</tr>";
+    });
+
+    $("#t_promotor>tbody").html(html); 
+    $("#t_promotor").dataTable();
+}
+
+PintarPromotor=function(t){
+    $("#txt_persona_"+PromotorG).val($(t).attr('data-nombre'));
+    $('#promotorModal [data-dismiss]').click();
+    data={campo:'persona_id',valor:$(t).attr('data-id'),id:PromotorG};
+    VisitaPro.ActualizarAlumnoR(data);
+}
+
 
 ColegioPersonaHTML=function(datos){
     var html='';

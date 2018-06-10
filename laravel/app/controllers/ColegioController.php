@@ -122,7 +122,7 @@ class ColegioController extends BaseController
 	public function postCrear()
 	{
 		if ( Request::ajax() ) {
-			$regex='regex:/^([a-zA-Z .,ñÑÁÉÍÓÚáéíóú]{2,60})$/i';
+			$regex='regex:/^([a-zA-Z1-9 .,ñÑÁÉÍÓÚáéíóú]{2,60})$/i';
 			$required='required';
 			$reglas = array(
 				'nombre' => $required.'|'.$regex,
@@ -181,7 +181,7 @@ class ColegioController extends BaseController
 	public function postEditar()
 	{
 		if ( Request::ajax() ) {
-			$regex='regex:/^([a-zA-Z .,ñÑÁÉÍÓÚáéíóú]{2,60})$/i';
+			$regex='regex:/^([a-zA-Z1-9 .,ñÑÁÉÍÓÚáéíóú]{2,60})$/i';
 			$required='required';
 			$reglas = array(
 				'nombre' => $required.'|'.$regex,
@@ -195,7 +195,7 @@ class ColegioController extends BaseController
 
 			$mensaje= array(
 				'required' => ':attribute Es requerido',
-				'regex' => ':attribute Solo debe ser Texto',
+				'regex' => ':attribute Solo debe ser Texto o Número',
 			);
 
 			$validator = Validator::make(Input::all(), $reglas, $mensaje);
