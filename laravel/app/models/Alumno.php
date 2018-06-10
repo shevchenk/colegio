@@ -40,7 +40,7 @@ SELECT o.nombre ode,dode.nombre distrito_ode ,proode.nombre provincia_ode, deode
 /**********Alumno***********/
 p.paterno, p.materno, p.nombre, p.sexo, IF(p.fecha_nacimiento IS NULL,'0',FLOOR(DATEDIFF(CURDATE(),p.fecha_nacimiento)/360)) edad,
 cd.grado, cd.seccion, cd.turno, cn.nombre nivel, p.telefono, p.celular, p.email, p.tel_pradre, p.direccion, p.referencia, 
-dalu.nombre distrito_alu ,proalu.nombre provincia_alu, dealu.nombre departamento_alu,
+dalu.nombre distrito_alu ,proalu.nombre provincia_alu, dealu.nombre departamento_alu, p.facebook, p.instagram,
 /**********Colegio**********/
 c.nombre colegio, ct.nombre colegio_tipo, c.direccion as direccion1, c.referencia as referencia1, 
 d.nombre distrito_cole, pro.nombre provincia_cole, de.nombre departamento_cole, '' pension,
@@ -48,10 +48,21 @@ z.zona zona_cole,
 /**********Educativo**********/
 GROUP_CONCAT( IF(cat3.id IS NOT NULL,CONCAT(ca.id,'|',ca.nombre),NULL ) ORDER BY ca.id SEPARATOR '||') carrera3,
 GROUP_CONCAT( IF(cat3.id IS NOT NULL,CONCAT(ca.id,'|',ad.monto),NULL ) ORDER BY ca.id SEPARATOR '||') monto3,
+GROUP_CONCAT( IF(cat3.id IS NOT NULL,CONCAT(ca.id,'|',ad.año),NULL ) ORDER BY ca.id SEPARATOR '||') año3,
+GROUP_CONCAT( IF(cat3.id IS NOT NULL,CONCAT(ca.id,'|',IF(ad.tipo_universidad=1,'Privada','Pública') ),NULL ) ORDER BY ca.id SEPARATOR '||') tipo_universidad3,
+GROUP_CONCAT( IF(cat3.id IS NOT NULL,CONCAT(ca.id,'|',t.test),NULL ) ORDER BY ca.id SEPARATOR '||') test3,
+
 GROUP_CONCAT( IF(cat2.id IS NOT NULL,CONCAT(ca.id,'|',ca.nombre),NULL ) ORDER BY ca.id SEPARATOR '||') carrera2,
 GROUP_CONCAT( IF(cat2.id IS NOT NULL,CONCAT(ca.id,'|',ad.monto),NULL ) ORDER BY ca.id SEPARATOR '||') monto2,
+GROUP_CONCAT( IF(cat2.id IS NOT NULL,CONCAT(ca.id,'|',ad.año),NULL ) ORDER BY ca.id SEPARATOR '||') año2,
+GROUP_CONCAT( IF(cat2.id IS NOT NULL,CONCAT(ca.id,'|',IF(ad.tipo_universidad=1,'Privada','Pública') ),NULL ) ORDER BY ca.id SEPARATOR '||') tipo_universidad2,
+GROUP_CONCAT( IF(cat2.id IS NOT NULL,CONCAT(ca.id,'|',t.test),NULL ) ORDER BY ca.id SEPARATOR '||') test2,
+
 GROUP_CONCAT( IF(cat1.id IS NOT NULL,CONCAT(ca.id,'|',ca.nombre),NULL ) ORDER BY ca.id SEPARATOR '||') carrera1,
 GROUP_CONCAT( IF(cat1.id IS NOT NULL,CONCAT(ca.id,'|',ad.monto),NULL ) ORDER BY ca.id SEPARATOR '||') monto1,
+GROUP_CONCAT( IF(cat1.id IS NOT NULL,CONCAT(ca.id,'|',ad.año),NULL ) ORDER BY ca.id SEPARATOR '||') año1,
+GROUP_CONCAT( IF(cat1.id IS NOT NULL,CONCAT(ca.id,'|',IF(ad.tipo_universidad=1,'Privada','Pública') ),NULL ) ORDER BY ca.id SEPARATOR '||') tipo_universidad1,
+GROUP_CONCAT( IF(cat1.id IS NOT NULL,CONCAT(ca.id,'|',t.test),NULL ) ORDER BY ca.id SEPARATOR '||') test1,
 /**********Digitador y Visita**********/
 CONCAT(pd.paterno,' ', pd.materno,', ', pd.nombre) digitador, a.created_at fecha_digitador,
 CONCAT(pv.paterno,' ', pv.materno,', ', pv.nombre) visitador, v.fecha_visita
@@ -79,6 +90,7 @@ LEFT JOIN personas pv ON pv.id=v.persona_id
 LEFT JOIN colegios_niveles cn ON cn.id=cd.nivel
 LEFT JOIN colegios_tipos ct ON ct.id=c.colegio_tipo_id
 LEFT JOIN alumnos_detalle ad ON ad.alumno_id=a.id AND ad.estado=1
+LEFT JOIN test t ON t.id=ad.test_id
 LEFT JOIN carreras ca ON ca.id=ad.carrera_id
 LEFT JOIN carreras_tipo cat ON cat.id=ca.carrera_tipo_id
 LEFT JOIN carreras_tipo cat1 ON cat1.id=ca.carrera_tipo_id AND cat1.id=1

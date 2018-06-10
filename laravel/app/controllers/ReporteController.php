@@ -46,7 +46,11 @@ class ReporteController extends BaseController
         $objPHPExcel->getActiveSheet()->setCellValue("A2","Alumno");
         $objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setSize(20);
 
-        $cabecera=array('Nº','ODE','DISTRITO','PROVINCIA','DEPARTAMENTO','AP_PATERNO','AP_MATERNO','NOMBRES','SEXO','EDAD','GRADO','SECCION','TURNO','TELEFONO FIJO','CELULAR 1','CORREO ELEC.','FACEBOOK','INSTAGAM','DIRECCION','REFERENCIA','DISTRITO','PROVINCIA','DEPARTAMENTO','COLEGIO','TIPO (PQ,N,P)','DIRECCION','REFERENCIA','CONO','DISTRITO','PROVINCIA','DEPARTAMENTO','PENSION','CARRERA PROFESIONAL (5 AÑOS)','PRECIO','CARRERA PROFESIONAL (3 AÑOS)','PRECIO','CARRERA PROFESIONAL (1 AÑO)','PRECIO','APELLIDOS Y NOMBRES','FECHA','APELLIDOS Y NOMBRES','FECHA');
+        $cabecera=array('Nº','ODE','DISTRITO','PROVINCIA','DEPARTAMENTO','AP_PATERNO','AP_MATERNO','NOMBRES','SEXO','EDAD','GRADO','SECCION','TURNO','TELEFONO FIJO','CELULAR 1','CORREO ELEC.','FACEBOOK','INSTAGAM','DIRECCION','REFERENCIA','DISTRITO','PROVINCIA','DEPARTAMENTO','COLEGIO','TIPO (PQ,N,P)','DIRECCION','REFERENCIA','CONO','DISTRITO','PROVINCIA','DEPARTAMENTO','PENSION',
+            'CARRERA PROFESIONAL (5 AÑOS)','PRECIO','Año Postula','Tipo Universidad','Resultado TEST',
+            'CARRERA PROFESIONAL (3 AÑOS)','PRECIO','Año Postula','Tipo Universidad','Resultado TEST',
+            'CARRERA PROFESIONAL (1 AÑO)','PRECIO','Año Postula','Tipo Universidad','Resultado TEST',
+            'APELLIDOS Y NOMBRES','FECHA','APELLIDOS Y NOMBRES','FECHA');
 
         $objPHPExcel->getActiveSheet()->mergeCells('A3:A4');
         $objPHPExcel->getActiveSheet()->mergeCells('A2:'.$az[(count($cabecera)-1)].'2');
@@ -56,16 +60,20 @@ class ReporteController extends BaseController
         $objPHPExcel->getActiveSheet()->setCellValue("B3",'I DATOS ODE');
         $objPHPExcel->getActiveSheet()->setCellValue($az[5]."3",'II DATOS DEL ALUMNO');
         $objPHPExcel->getActiveSheet()->setCellValue($az[21+2]."3",'III DATOS DEL COLEGIO');
-        $objPHPExcel->getActiveSheet()->setCellValue($az[29+3]."3",'IV DATOS EDUCATIVOS');
-        $objPHPExcel->getActiveSheet()->setCellValue($az[35+3]."3",'V DIGITACION');
-        $objPHPExcel->getActiveSheet()->setCellValue($az[37+3]."3",'VI VISITA');
+        $objPHPExcel->getActiveSheet()->setCellValue($az[29+3]."3",'IV DATOS EDUCATIVOS 5 AÑOS');
+        $objPHPExcel->getActiveSheet()->setCellValue($az[34+3]."3",'IV DATOS EDUCATIVOS 3 AÑOS');
+        $objPHPExcel->getActiveSheet()->setCellValue($az[39+3]."3",'IV DATOS EDUCATIVOS 1 AÑO');
+        $objPHPExcel->getActiveSheet()->setCellValue($az[44+3]."3",'V DIGITACION');
+        $objPHPExcel->getActiveSheet()->setCellValue($az[46+3]."3",'VI VISITA');
 
         $objPHPExcel->getActiveSheet()->mergeCells('B3:'.$az[4].'3');
-        $objPHPExcel->getActiveSheet()->mergeCells($az[5].'3:'.$az[20].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[5].'3:'.$az[20+2].'3');
         $objPHPExcel->getActiveSheet()->mergeCells($az[21+2].'3:'.$az[28+3].'3');
-        $objPHPExcel->getActiveSheet()->mergeCells($az[29+3].'3:'.$az[34+3].'3');
-        $objPHPExcel->getActiveSheet()->mergeCells($az[35+3].'3:'.$az[36+3].'3');
-        $objPHPExcel->getActiveSheet()->mergeCells($az[37+3].'3:'.$az[38+3].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[29+3].'3:'.$az[33+3].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[34+3].'3:'.$az[38+3].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[39+3].'3:'.$az[43+3].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[44+3].'3:'.$az[45+3].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[46+3].'3:'.$az[47+3].'3');
 
         $objPHPExcel->getActiveSheet()->getStyle('A3:'.$az[(count($cabecera)-1)].'3')->applyFromArray($styleAlignmentBold);
 
@@ -83,15 +91,13 @@ class ReporteController extends BaseController
         $objPHPExcel->getActiveSheet()->getStyle('B3:'.$az[4].'3')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('ffff00');
         $objPHPExcel->getActiveSheet()->getStyle('B4:'.$az[4].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('ffff00');
         $objPHPExcel->getActiveSheet()->getStyle($az[5]."3")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('fce4d6');
-        $objPHPExcel->getActiveSheet()->getStyle($az[5].'4:'.$az[20].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('fce4d6');
+        $objPHPExcel->getActiveSheet()->getStyle($az[5].'4:'.$az[20+2].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('fce4d6');
         $objPHPExcel->getActiveSheet()->getStyle($az[21+2]."3")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('e2efda');
         $objPHPExcel->getActiveSheet()->getStyle($az[21+2].'4:'.$az[28+3].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('e2efda');
-        $objPHPExcel->getActiveSheet()->getStyle($az[29+3]."3")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('d9e1f2');
-        $objPHPExcel->getActiveSheet()->getStyle($az[29+3].'4:'.$az[34+3].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('d9e1f2');
-        $objPHPExcel->getActiveSheet()->getStyle($az[35+3]."3")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('f8cbad');
-        $objPHPExcel->getActiveSheet()->getStyle($az[35+3].'4:'.$az[36+3].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('f8cbad');
-        $objPHPExcel->getActiveSheet()->getStyle($az[37+3]."3")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('f8cbad');
-        $objPHPExcel->getActiveSheet()->getStyle($az[37+3].'4:'.$az[38+3].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('f8cbad');
+        $objPHPExcel->getActiveSheet()->getStyle($az[29+3]."3:".$az[43+3].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('d9e1f2');
+        $objPHPExcel->getActiveSheet()->getStyle($az[29+3].'4:'.$az[43+3].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('d9e1f2');
+        $objPHPExcel->getActiveSheet()->getStyle($az[44+3]."3:".$az[47+3].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('f8cbad');
+        $objPHPExcel->getActiveSheet()->getStyle($az[44+3].'4:'.$az[47+3].'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('f8cbad');
             /****   Filtro ***************************************************/
 
             $array=array();
@@ -139,9 +145,9 @@ class ReporteController extends BaseController
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->turno);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->telefono);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->celular);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->email);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->facebook);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->instagram);$azcant++;
-        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->email);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->direccion);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->referencia);$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->distrito_alu);$azcant++;
@@ -160,45 +166,84 @@ class ReporteController extends BaseController
         
         $cd=array(array(),array(),array());
         $md=array(array(),array(),array());
+        $ad=array(array(),array(),array());
+        $tud=array(array(),array(),array());
+        $td=array(array(),array(),array());
         
         $c3=explode("||",$r->carrera3);
         $m3=explode("||",$r->monto3);
+        $a3=explode("||",$r->año3);
+        $tu3=explode("||",$r->tipo_universidad3);
+        $t3=explode("||",$r->test3);
         for ($i=0; $i < count($c3); $i++) { 
             $cd3=explode("|",$c3[$i]);
             $md3=explode("|",$m3[$i]);
+            $ad3=explode("|",$a3[$i]);
+            $tud3=explode("|",$tu3[$i]);
+            $td3=explode("|",$t3[$i]);
             if( count($cd3)==2 ){
             array_push($cd[0],$cd3[1]);
             array_push($md[0], $md3[1]);
+            array_push($ad[0], $ad3[1]);
+            array_push($tud[0], $tud3[1]);
+            array_push($td[0], $td3[1]);
             }
         }
 
         $c2=explode("||",$r->carrera2);
         $m2=explode("||",$r->monto2);
+        $a2=explode("||",$r->año2);
+        $tu2=explode("||",$r->tipo_universidad2);
+        $t2=explode("||",$r->test2);
         for ($i=0; $i < count($c2); $i++) { 
             $cd2=explode("|",$c2[$i]);
             $md2=explode("|",$m2[$i]);
+            $ad2=explode("|",$a2[$i]);
+            $tud2=explode("|",$tu2[$i]);
+            $td2=explode("|",$t2[$i]);
             if( count($cd2)==2 ){
             array_push($cd[1],$cd2[1]);
             array_push($md[1], $md2[1]);
+            array_push($ad[1], $ad2[1]);
+            array_push($tud[1], $tud2[1]);
+            array_push($td[1], $td2[1]);
             }
         }
 
         $c1=explode("||",$r->carrera1);
         $m1=explode("||",$r->monto1);
+        $a1=explode("||",$r->año1);
+        $tu1=explode("||",$r->tipo_universidad1);
+        $t1=explode("||",$r->test1);
         for ($i=0; $i < count($c1); $i++) { 
             $cd1=explode("|",$c1[$i]);
             $md1=explode("|",$m1[$i]);
+            $ad1=explode("|",$a1[$i]);
+            $tud1=explode("|",$tu1[$i]);
+            $td1=explode("|",$t1[$i]);
             if( count($cd1)==2 ){
             array_push($cd[2],$cd1[1]);
             array_push($md[2], $md1[1]);
+            array_push($ad[2], $ad1[1]);
+            array_push($tud[2], $tud1[1]);
+            array_push($td[2], $td1[1]);
             }
         }
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$cd[0]) );$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$md[0]));$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$ad[0]));$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$tud[0]));$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$td[0]));$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$cd[1]));$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$md[1]));$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$ad[1]));$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$tud[1]));$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$td[1]));$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$cd[2]));$azcant++;
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$md[2]));$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$ad[2]));$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$tud[2]));$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,implode("\n",$td[2]));$azcant++;
 
         //$objPHPExcel->getActiveSheet()->getStyle($az[$azcant-6].$valorinicial.":".$az[$azcant-1].$valorinicial)->getAlignment()->setWrapText(true);// Ajustar formato indicado
 
