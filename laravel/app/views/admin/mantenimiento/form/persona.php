@@ -136,7 +136,7 @@
                     <br>
                     <button type="button" class="btn btn-success" Onclick="AgregarCargo();">
                       <i class="fa fa-plus fa-sm"></i>
-                      &nbsp;Nuevo
+                      &nbsp;Agregar Rol
                     </button>
                 </div>
               </div>
