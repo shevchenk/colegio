@@ -1,13 +1,38 @@
 <script type="text/javascript">
-var cabeceraVP=[];
+/*var cabeceraVP=[];
 var columnDefsVP=[];
 var targetsVP=-1;
-
+*/
 $(document).ready(function() {
+    $(".fecha").datetimepicker({
+        format: "yyyy-mm",
+        language: 'es',
+        showMeridian: true,
+        time:true,
+        minView:3,
+        startView:3,
+        autoclose: true,
+        todayBtn: false
+    });
+
+    $('#spn_fecha_actual').on('click', function(){
+        $('#txt_fecha_actual').focus();
+    });
+
+    $('#txt_fecha_actual').val("<?php  echo date('Y-m');?>");
+
+    $(document).on('click', '#btnexport', function(event) {
+        var data = DataToFilter();
+        if(data.length > 0){
+            $(this).attr('href','reporte/produccion'+'?fecha_actual='+data[0]['fecha_actual']);
+        }else{
+            event.preventDefault();
+        }
+    });
     //ODE TIPO    NOMBRE DEL COLEGIO  TELEFONO    DIRECCION   Distrito    PERSONA TELEFONO    CARGO   HORARIO a
-    meses=['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre'];
-    mesactual=<?php echo date("m");?>;
-    año=<?php echo date("Y");?>;
+/*    meses=['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre'];
+    mesactual=<?php //echo date("m");?>;
+    año=<?php //echo date("Y");?>;
     selected='';
     for (var i = 1; meses.length > i; i++) {
         selected='';
@@ -95,13 +120,24 @@ $(document).ready(function() {
             $("#form_filtros").submit();
         }
     });
-
+*/
 });
 
+function DataToFilter(){
+    var fecha_actual = $('#txt_fecha_actual').val();
+    var data = [];
+    if ( fecha_actual!="") {
+        data.push({fecha_actual:fecha_actual});
+    } else {
+        alert("Seleccione Fechas");
+    }
+    return data;
+}
+/*
 MostrarAjax=function(t){
     if( t=="produccion" )
     {
         oSeminario.Cargar(columnDefsVP);
     }
-}
+}*/
 </script>

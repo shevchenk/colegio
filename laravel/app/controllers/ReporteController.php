@@ -274,7 +274,7 @@ class ReporteController extends BaseController
         exit;
     }
 
-    public function postProduccion()
+    public function getProduccion()
     {
 
         $az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
@@ -404,9 +404,11 @@ class ReporteController extends BaseController
             $array['limit']='';
             $array['order']='';
 
-            if( Input::has("slct_mes") AND Input::has("slct_año") ){
-                $año=Input::get("slct_año");
-                $mes=Input::get("slct_mes");
+            if( Input::has("fecha_actual") ){
+                $fechaactual=Input::get("fecha_actual");
+                $dfa= explode("-",$fechaactual);
+                $año=$dfa[0];
+                $mes=$dfa[1];
                 $array['finit']=date($año."-".str_pad(($mes-2),2,0,0)."-01");
                 $array['ffint']=date($año."-".str_pad($mes,2,0,0)."-t");
                 $array['fini1']=date($año."-".str_pad($mes,2,0,0)."-01");
@@ -1980,8 +1982,9 @@ class ReporteController extends BaseController
 
     }
 
-    public function postIndice()
+    public function getIndice()
     {
+        error_reporting(E_ALL);
         $az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
 		
         $objPHPExcel = new PHPExcel();
@@ -2127,13 +2130,13 @@ class ReporteController extends BaseController
 		$array['limit']='';
 		$array['order']='';
 
-		if( Input::has("txt_fecha_actual") ){
-			$array['fecha_actual']=Input::get("txt_fecha_actual");
+		if( Input::has("fecha_actual") ){
+			$array['fecha_actual']=Input::get("fecha_actual");
 		} else {
 			$array['fecha_actual']=date("Y-m-d");
 		}
 
-		if( Input::get("slct_todo")=='0' )
+		/*if( Input::get("slct_todo")=='0' )
 		{
 			if( Input::has("txt_ode") ){
 				$array['where'].=" AND c.ode LIKE '%".Input::get("txt_ode")."%' ";
@@ -2214,11 +2217,12 @@ class ReporteController extends BaseController
 				$array['limit']=' LIMIT '.Input::get('start').','.Input::get('length');
 				$retorno["draw"]=Input::get('draw');
 			}
-		}
+		}*/
 
 		$aData = Visita::getCargaIndiceColegio($array);
 		$cont=0;
 		$valorinicial=4;
+        $azcant=0;
 
 		foreach($aData as $r)
 		{
@@ -2293,7 +2297,7 @@ class ReporteController extends BaseController
 
 	}
 
-	public function postIndicedata()
+	public function getIndicedata()
 	{
 		$az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
 
@@ -2442,13 +2446,13 @@ class ReporteController extends BaseController
 		$array['limit']='';
 		$array['order']='';
 
-		if( Input::has("txt_fecha_actual") ){
-			$array['fecha_actual']=Input::get("txt_fecha_actual");
+		if( Input::has("fecha_actual") ){
+			$array['fecha_actual']=Input::get("fecha_actual");
 		} else {
 			$array['fecha_actual']=date("Y-m-d");
 		}
 
-		if( Input::get("slct_todo")=='0' )
+		/*if( Input::get("slct_todo")=='0' )
 		{
 			if( Input::has("txt_ode") ){
 				$array['where'].=" AND c.ode LIKE '%".Input::get("txt_ode")."%' ";
@@ -2538,7 +2542,7 @@ class ReporteController extends BaseController
 				$array['limit']=' LIMIT '.Input::get('start').','.Input::get('length');
 				$retorno["draw"]=Input::get('draw');
 			}
-		}
+		}*/
 
 		$aData = Visita::getCargaIndiceData($array);
 		$cont=0;
@@ -2623,10 +2627,10 @@ class ReporteController extends BaseController
 
 	}
 
-    public function postDatacole()
+    public function getDatacole()
     {
         /** Error reporting */
-        error_reporting(E_ALL);
+        //error_reporting(E_ALL);
         ini_set('display_errors', TRUE);
         ini_set('display_startup_errors', TRUE);
 
@@ -2860,7 +2864,13 @@ class ReporteController extends BaseController
         $array['limit']='';
         $array['order']='';
 
-        if( Input::get("slct_todo")=='0' )
+        if( Input::has("fecha_inicio") AND Input::has("fecha_final") ){
+            $array['where'].=" 
+            AND DATE(a.fecha_visita) BETWEEN '".Input::get("fecha_inicio")."' 
+            AND '".Input::get("fecha_final")."' ";
+        }
+
+        /*if( Input::get("slct_todo")=='0' )
         {
             if( Input::has("txt_ode") ){
                 $array['where'].=" AND a.ode LIKE '%".Input::get("txt_ode")."%' ";
@@ -2998,11 +3008,12 @@ class ReporteController extends BaseController
                 $array['limit']=' LIMIT '.Input::get('start').','.Input::get('length');
                 $retorno["draw"]=Input::get('draw');
             }
-        }
+        }*/
 
         $aData = Visita::getCargaDataColegio($array);
         $cont=0;
         $valorinicial=5;
+        $azcant=0;
         //////////////////////////////////////////////////////////////////////////////////////////////
         $buscar = array(chr(13) . chr(10), "\r\n", "\n", "�", "\r", "\n\n", "\xEF", "\xBB", "\xBF");
         $reemplazar = ' | ';
@@ -3130,7 +3141,7 @@ class ReporteController extends BaseController
         exit;
     }
 
-    public function getDatacole()
+    public function getDatacoles()
     {
         /** Error reporting */
         error_reporting(E_ALL);

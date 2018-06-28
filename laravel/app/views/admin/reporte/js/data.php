@@ -1,10 +1,35 @@
 <script type="text/javascript">
-var cabeceraVP=[];
+/*var cabeceraVP=[];
 var columnDefsVP=[];
-var targetsVP=-1;
+var targetsVP=-1;*/
 
 $(document).ready(function() {
-	cabeceraVP=[
+	$(".fecha").datetimepicker({
+        format: "yyyy-mm-dd",
+        language: 'es',
+        showMeridian: true,
+        time:true,
+        minView:2,
+        autoclose: true,
+        todayBtn: false
+    });
+
+    $('#spn_fecha_ini').on('click', function(){
+        $('#txt_fecha_inicio').focus();
+    });
+    $('#spn_fecha_fin').on('click', function(){
+        $('#txt_fecha_final').focus();
+    });
+
+    $(document).on('click', '#btnexport', function(event) {
+        var data = DataToFilter();
+        if(data.length > 0){
+            $(this).attr('href','reporte/datacole'+'?fecha_inicio='+data[0]['fecha_inicio']+'&fecha_final='+data[0]['fecha_final']);
+        }else{
+            event.preventDefault();
+        }
+    });
+	/*cabeceraVP=[
 				{
 					'id'    :'ode',
 					'idide' :'th_ode',
@@ -285,14 +310,26 @@ $(document).ready(function() {
 		{
 			$("#form_filtros").submit();
 		}
-	});
+	});*/
 
 });
-
+function DataToFilter(){
+    var fecha_inicio = $('#txt_fecha_inicio').val();
+    var fecha_final = $('#txt_fecha_final').val();
+    var data = [];
+    if ( fecha_inicio!="" && fecha_final!="") {
+        data.push({fecha_inicio:fecha_inicio,fecha_final:fecha_final});
+       
+    } else {
+        alert("Seleccione Fechas");
+    }
+    return data;
+}
+/*
 MostrarAjax=function(t){
 	if( t=="data" )
 	{
 		oData.Cargar(columnDefsVP);
 	}
-}
+}*/
 </script>

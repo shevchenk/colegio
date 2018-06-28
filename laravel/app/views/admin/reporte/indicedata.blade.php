@@ -3,15 +3,11 @@
 
 @section('includes')
 	@parent
-	{{ HTML::style('lib/daterangepicker/css/daterangepicker-bs3.css') }}
-	{{ HTML::style('lib/bootstrap-multiselect/dist/css/bootstrap-multiselect.css') }}
-	{{ HTML::script('lib/daterangepicker/js/daterangepicker.js') }}
-	{{ HTML::script('lib/bootstrap-multiselect/dist/js/bootstrap-multiselect.js') }}
-	{{ HTML::script('//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js') }}
-	{{ HTML::script('lib/daterangepicker/js/daterangepicker_single.js') }}
 
-	@include('admin.js.slct_global_ajax')
-	@include('admin.js.slct_global')
+	{{ HTML::style('lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}
+    {{ HTML::script('lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}
+    {{ HTML::script('lib/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.es.js') }}
+
 	@include('admin.reporte.js.indicedata_ajax')
 	@include('admin.reporte.js.indicedata')
 @stop
@@ -29,33 +25,34 @@
 		<div class="box row">
 			
 				<form name="form_filtros" id="form_filtros" method="POST" action="reporte/indicedata">
-					<div class="col-sm-6">
-						<select name='slct_todo' class="form-control">
-							<option value="">Seleccione</option>
-							<option value="0">Solo Filtros de la tabla</option>
-							<option value="1">.::Todo::.</option>
-						</select>
-					</div>
-					<div class="col-sm-3 text-right">
-						Fecha de actualizaci&oacute;n:
-					</div>
-					<div class="col-sm-3">
-						<input type="text" name="txt_fecha_actual" value="<?php echo date("Y-m-d")?>" class="form-control" id="txt_fecha_actual" />
-					</div>
-					<div class="col-sm-12">
-						<div class="table-responsive">
-							<table id="t_indicedata" class="table table-mailbox">
-								<thead>
-									<tr>
-										<th colspan='6' style='text-align:center'><h2>Indice de Data</h2></th>
-									</tr>
-									<tr></tr>
-								</thead>
-								<tbody></tbody>
-								<tfoot><tr></tr></tfoot>
-							</table>
-						</div>
-					</div>
+					<!--div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label class="control-label">Fecha Inicio Visita:</label>
+                            <div class="input-group">
+                                <span id="spn_fecha_ini" class="input-group-addon" style="cursor: pointer;"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                <input type="text" class="form-control fecha"  id="txt_fecha_inicio" name="txt_fecha_inicio" readonly/>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="control-label">Fecha Final Visita:</label>
+                            <div class="input-group">
+                                <span id="spn_fecha_fin" class="input-group-addon" style="cursor: pointer;"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                <input type="text" class="form-control fecha"  id="txt_fecha_final" name="txt_fecha_final" readonly/>
+                            </div>
+                        </div>
+                    </div-->
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label class="control-label">Fecha de Actualización:</label>
+                            <div class="input-group">
+                                <span id="spn_fecha_actual_ini" class="input-group-addon" style="cursor: pointer;"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                <input type="text" class="form-control fecha"  id="txt_fecha_actual" name="txt_fecha_actual" readonly/>
+                            </div>
+                        </div>
+                        <div class="col-sm-1" style="padding:24px" >
+                            <a class='btn btn-success btn-md' id="btnexport" name="btnexport" href='' target="_blank"><i class="glyphicon glyphicon-download-alt"></i> Export</i></a>
+                        </div>
+                    </div>
 				</form>
 
 		</div>

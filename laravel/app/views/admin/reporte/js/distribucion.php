@@ -221,11 +221,9 @@ $(document).ready(function() {
 function DataToFilter(){
     var fecha_inicio = $('#txt_fecha_inicio').val();
     var fecha_final = $('#txt_fecha_final').val();
-    var sede_id = $('#slct_sede_id').val();
-    var consorcio_id = $('#slct_consorcio_id').val();
     var data = [];
-    if ( fecha_inicio!=="" && fecha_final!=="") {
-        data.push({fecha_inicio:fecha_inicio,fecha_final:fecha_final,sede_id:sede_id,consorcio_id:consorcio_id});
+    if ( fecha_inicio!="" && fecha_final!="") {
+        data.push({fecha_inicio:fecha_inicio,fecha_final:fecha_final});
        
     } else {
         alert("Seleccione Fechas");

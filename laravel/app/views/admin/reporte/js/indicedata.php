@@ -4,7 +4,31 @@ var columnDefsVP=[];
 var targetsVP=-1;
 
 $(document).ready(function() {
-	cabeceraVP=[
+	$(".fecha").datetimepicker({
+        format: "yyyy-mm-dd",
+        language: 'es',
+        showMeridian: true,
+        time:true,
+        minView:2,
+        autoclose: true,
+        todayBtn: false
+    });
+
+    $('#spn_fecha_actual').on('click', function(){
+        $('#txt_fecha_actual').focus();
+    });
+
+    $('#txt_fecha_actual').val("<?php  echo date('Y-m-d');?>");
+
+    $(document).on('click', '#btnexport', function(event) {
+        var data = DataToFilter();
+        if(data.length > 0){
+            $(this).attr('href','reporte/indicedata'+'?fecha_actual='+data[0]['fecha_actual']);
+        }else{
+            event.preventDefault();
+        }
+    });
+	/*cabeceraVP=[
 				{
 					'id'    :'ode',
 					'idide' :'th_ode',
@@ -193,14 +217,25 @@ $(document).ready(function() {
 
 	$('#txt_fecha_actual').on('hide.daterangepicker', function(ev, picker) {
 		MostrarAjax('indicedata');
-	});
+	});*/
 
 });
 
+function DataToFilter(){
+    var fecha_actual = $('#txt_fecha_actual').val();
+    var data = [];
+    if ( fecha_actual!="") {
+        data.push({fecha_actual:fecha_actual});
+    } else {
+        alert("Seleccione Fechas");
+    }
+    return data;
+}
+/*
 MostrarAjax=function(t){
 	if( t=="indicedata" )
 	{
 		oIndiceData.Cargar(columnDefsVP);
 	}
-}
+}*/
 </script>
