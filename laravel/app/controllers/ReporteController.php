@@ -676,7 +676,17 @@ class ReporteController extends BaseController
             $array['limit']='';
             $array['order']='';
 
-            if( Input::get("slct_todo")=='0' ){
+                if( Input::has("slct_ode") ){
+                    $ode_id=implode(',',Input::get('slct_ode'));
+                    $array['where'].=" AND o.id IN (".$ode_id.")";
+                }
+
+                if( Input::has("slct_distrito") ){
+                    $distrito_id=implode(',',Input::get('slct_distrito'));
+                    $array['where'].=" AND d.id IN (".$distrito_id.")";
+                }
+
+            /*if( Input::get("slct_todo")=='0' ){
                 if( Input::has("ode") ){
                     $array['where'].=" AND a.ode LIKE '%".Input::get("ode")."%' ";
                 }
@@ -707,7 +717,7 @@ class ReporteController extends BaseController
                 if( Input::has("horario") ){
                     $array['where'].=" AND cs.horario LIKE '%".Input::get("horario")."' ";
                 }
-            }
+            }*/
             /***************************************************************/
         $cont=0;
         $valorinicial=4;
@@ -1077,7 +1087,7 @@ class ReporteController extends BaseController
 
 	}
 
-	public function postVisita()
+	public function getVisita()
 	{
 		$az=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG','CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ','DA','DB','DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ');
 		$objPHPExcel = new PHPExcel();
@@ -1241,7 +1251,13 @@ class ReporteController extends BaseController
 		$array['limit']='';
 		$array['order']='';
 
-		if( Input::get("slct_todo")=='0' )
+        if( Input::has("fecha_inicio") AND Input::has("fecha_final") ){
+            $array['where'].=" 
+            AND DATE(a.fecha_visita) BETWEEN '".Input::get("fecha_inicio")."' 
+            AND '".Input::get("fecha_final")."' ";
+        }
+
+		/*if( Input::get("slct_todo")=='0' )
 		{
 			if( Input::has("txt_ode") ){
 				$array['where'].=" AND a.ode LIKE '%".Input::get("txt_ode")."%' ";
@@ -1343,11 +1359,12 @@ class ReporteController extends BaseController
 				$array['limit']=' LIMIT '.Input::get('start').','.Input::get('length');
 				$retorno["draw"]=Input::get('draw');
 			}
-		}
+		}*/
 
 		$aData = Visita::getCargaVisitaColegio($array);
 		$cont=0;
 		$valorinicial=5;
+        $azcant=0;
 
 		foreach($aData as $r)
 		{

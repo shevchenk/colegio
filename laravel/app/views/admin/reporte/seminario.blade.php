@@ -29,22 +29,28 @@
         <div class="box row">
             <div class="col-sm-12">
                 <form name="form_filtros" id="form_filtros" method="POST" action="reporte/seminario">
-                    <select name='slct_todo'>
-                        <option value="">Seleccione</option>
-                        <option value="0">Solo Filtros de la tabla</option>
-                        <option value="1">.::Todo::.</option>
-                    </select>
-                    <div class="table-responsive">
-                        <table id="t_seminario" class="table table-mailbox">
-                            <thead>
-                                <tr>
-                                    <th colspan='10' style='text-align:center'><h2>Seminarios</h2></th>
-                                </tr>
-                                <tr></tr>
-                            </thead>
-                            <tbody></tbody>
-                            <tfoot><tr></tr></tfoot>
-                        </table>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label class="control-label">Ode:</label>
+                            <select class="form-control" name="slct_ode[]" id="slct_ode" onChange="Cargar();" multiple>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label class="control-label">Distrito:</label>
+                            <select class="form-control" name="slct_distrito[]" id="slct_distrito" multiple>
+                                <option>.::Seleccione::.</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-1">
+                            <label class="control-label"></label>
+                            <a type="submit" class="btn btn-primary form-control" name="btn_reporte" id="btn_reporte">
+                                <i class="fa fa-lg fa-file-excel-o"></i>
+                            </a>
+                        </div>
                     </div>
                 </form>
             </div>

@@ -1,11 +1,11 @@
 <script type="text/javascript">
-var cabeceraVP=[];
+/*var cabeceraVP=[];
 var columnDefsVP=[];
 var targetsVP=-1;
-
+*/
 $(document).ready(function() {
     //ODE TIPO    NOMBRE DEL COLEGIO  TELEFONO    DIRECCION   Distrito    PERSONA TELEFONO    CARGO   HORARIO a
-    cabeceraVP=[
+    /*cabeceraVP=[
                 {
                     'id'    :'ode',
                     'idide' :'th_ode',
@@ -96,13 +96,21 @@ $(document).ready(function() {
             $("#form_filtros").submit();
         }
     });
-
+*/
+    slctGlobal.listarSlct('ode','slct_ode','multiple');
+    slctGlobal.listarSlct('distrito','slct_distrito','multiple');
+    //slctGlobalHtml('slct_distrito','multiple');
+    $("#btn_reporte").click(Exportar);
 });
 
+Exportar=function(){
+    $("#form_filtros").submit();
+}
+/*
 MostrarAjax=function(t){
     if( t=="seminario" )
     {
         oSeminario.Cargar(columnDefsVP);
     }
-}
+}*/
 </script>
