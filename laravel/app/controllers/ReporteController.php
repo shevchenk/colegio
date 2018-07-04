@@ -117,6 +117,12 @@ class ReporteController extends BaseController
                     $array['where'].=" AND d.id IN (".$distrito_id.")";
                 }
 
+                if( Input::has("txt_fecha_inicio") AND Input::has("txt_fecha_final") AND Input::get('txt_fecha_inicio')!='' AND Input::get('txt_fecha_final')!='' ){
+                    $array['where'].=" 
+                    AND DATE(v.fecha_visita) BETWEEN '".Input::get("txt_fecha_inicio")."' 
+                    AND '".Input::get("txt_fecha_final")."' ";
+                }
+
         /***************************************************************/
         $cont=0;
         $valorinicial=4;

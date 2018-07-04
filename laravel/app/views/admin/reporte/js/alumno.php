@@ -4,6 +4,16 @@ $(document).ready(function() {
     slctGlobal.listarSlct('distrito','slct_distrito','multiple');
     //slctGlobalHtml('slct_distrito','multiple');
     $("#btn_reporte").click(Exportar);
+
+    $(".fecha").datetimepicker({
+        format: "yyyy-mm-dd",
+        language: 'es',
+        showMeridian: true,
+        time:true,
+        minView:2,
+        autoclose: true,
+        todayBtn: false
+    });
 });
 /*
 Cargar=function(){
