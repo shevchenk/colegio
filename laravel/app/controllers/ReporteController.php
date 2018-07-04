@@ -50,7 +50,7 @@ class ReporteController extends BaseController
             'CARRERA PROFESIONAL (5 AÑOS)','PRECIO','Año Postula','Tipo Universidad','Resultado TEST',
             'CARRERA PROFESIONAL (3 AÑOS)','PRECIO','Año Postula','Tipo Universidad','Resultado TEST',
             'CARRERA PROFESIONAL (1 AÑO)','PRECIO','Año Postula','Tipo Universidad','Resultado TEST',
-            'APELLIDOS Y NOMBRES','FECHA','APELLIDOS Y NOMBRES','FECHA');
+            'APELLIDOS Y NOMBRES','FECHA','HORA','APELLIDOS Y NOMBRES','FECHA','HORA');
 
         $objPHPExcel->getActiveSheet()->mergeCells('A3:A4');
         $objPHPExcel->getActiveSheet()->mergeCells('A2:'.$az[(count($cabecera)-1)].'2');
@@ -64,7 +64,7 @@ class ReporteController extends BaseController
         $objPHPExcel->getActiveSheet()->setCellValue($az[34+3]."3",'IV DATOS EDUCATIVOS 3 AÑOS');
         $objPHPExcel->getActiveSheet()->setCellValue($az[39+3]."3",'IV DATOS EDUCATIVOS 1 AÑO');
         $objPHPExcel->getActiveSheet()->setCellValue($az[44+3]."3",'V DIGITACION');
-        $objPHPExcel->getActiveSheet()->setCellValue($az[46+3]."3",'VI VISITA');
+        $objPHPExcel->getActiveSheet()->setCellValue($az[47+3]."3",'VI VISITA');
 
         $objPHPExcel->getActiveSheet()->mergeCells('B3:'.$az[4].'3');
         $objPHPExcel->getActiveSheet()->mergeCells($az[5].'3:'.$az[20+2].'3');
@@ -72,8 +72,8 @@ class ReporteController extends BaseController
         $objPHPExcel->getActiveSheet()->mergeCells($az[29+3].'3:'.$az[33+3].'3');
         $objPHPExcel->getActiveSheet()->mergeCells($az[34+3].'3:'.$az[38+3].'3');
         $objPHPExcel->getActiveSheet()->mergeCells($az[39+3].'3:'.$az[43+3].'3');
-        $objPHPExcel->getActiveSheet()->mergeCells($az[44+3].'3:'.$az[45+3].'3');
-        $objPHPExcel->getActiveSheet()->mergeCells($az[46+3].'3:'.$az[47+3].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[44+3].'3:'.$az[46+3].'3');
+        $objPHPExcel->getActiveSheet()->mergeCells($az[47+3].'3:'.$az[49+3].'3');
 
         $objPHPExcel->getActiveSheet()->getStyle('A3:'.$az[(count($cabecera)-1)].'3')->applyFromArray($styleAlignmentBold);
 
@@ -254,10 +254,14 @@ class ReporteController extends BaseController
         //$objPHPExcel->getActiveSheet()->getStyle($az[$azcant-6].$valorinicial.":".$az[$azcant-1].$valorinicial)->getAlignment()->setWrapText(true);// Ajustar formato indicado
 
         $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->digitador);$azcant++;
-        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->fecha_digitador);$azcant++;
+        $fyh=explode(" ",$r->fecha_digitador);
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$fyh[0]);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$fyh[1]);$azcant++;
 
-        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->visitador);$azcant++;
-        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->fecha_visita);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$r->visitador);$azcant++;        
+        $fyh=explode(" ",$r->fecha_visita);
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$fyh[0]);$azcant++;
+        $objPHPExcel->getActiveSheet()->setCellValue($az[$azcant].$valorinicial,$fyh[1]);$azcant++;
         }
         
         $objPHPExcel->getActiveSheet()->getStyle('A2:'.$az[$azcant-1].$valorinicial)->applyFromArray($styleThinBlackBorderAllborders);
